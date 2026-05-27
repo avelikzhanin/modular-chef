@@ -14,13 +14,22 @@ logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Создаём LlmClient на старте (если ключ есть)."""
+    """Создаём LlmClient на старте (если ключ есть).
+
+    Любая ошибка инициализации LLM-клиента (например, версионный конфликт
+    openai/httpx) не должна валить весь startup — иначе healthcheck падает
+    и Railway не может определить service как готовый. Логируем и оставляем
+    `llm_client=None`; роут `/menus/generate` сам вернёт 503.
+    """
     logging.basicConfig(level=settings.log_level)
+    app.state.llm_client = None
     if settings.openai_api_key:
-        app.state.llm_client = LlmClient()
-        logger.info("LLM client ready (model=%s)", settings.openai_model)
+        try:
+            app.state.llm_client = LlmClient()
+            logger.info("LLM client ready (model=%s)", settings.openai_model)
+        except Exception as e:  # noqa: BLE001
+            logger.exception("Failed to init LLM client: %s", e)
     else:
-        app.state.llm_client = None
         logger.warning(
             "OPENAI_API_KEY не задан — /menus/generate вернёт 503."
         )
