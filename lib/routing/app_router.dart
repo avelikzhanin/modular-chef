@@ -6,6 +6,7 @@ import 'package:modular_chef/screens/chef/prep_screen.dart';
 import 'package:modular_chef/screens/chef/profile_screen.dart';
 import 'package:modular_chef/screens/chef/shopping_screen.dart';
 import 'package:modular_chef/screens/chef/storage_screen.dart';
+import 'package:modular_chef/screens/chef/two_week_menu_screen.dart';
 import 'package:modular_chef/screens/guest/assemble_dish_screen.dart';
 import 'package:modular_chef/screens/guest/inventory_screen.dart';
 import 'package:modular_chef/screens/guest/today_screen.dart';
@@ -33,7 +34,9 @@ GoRouter buildRouter(RoleProvider role) {
     redirect: (context, state) {
       final path = state.matchedLocation;
       // Push-экраны не редиректим — они доступны в обеих ролях по push().
-      if (path == Routes.chefMyDishes || path == Routes.guestAssembleDish) {
+      if (path == Routes.chefMyDishes ||
+          path == Routes.chefTwoWeekMenu ||
+          path == Routes.guestAssembleDish) {
         return null;
       }
       final inChefBranch = path.startsWith('/chef');
@@ -54,6 +57,11 @@ GoRouter buildRouter(RoleProvider role) {
         path: Routes.chefMyDishes,
         parentNavigatorKey: _rootNavigatorKey,
         builder: (_, __) => const MyDishesScreen(),
+      ),
+      GoRoute(
+        path: Routes.chefTwoWeekMenu,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (_, __) => const TwoWeekMenuScreen(),
       ),
       GoRoute(
         path: Routes.guestAssembleDish,
