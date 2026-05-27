@@ -1,9 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modular_chef/screens/chef/menu_screen.dart';
+import 'package:modular_chef/screens/chef/my_dishes_screen.dart';
 import 'package:modular_chef/screens/chef/prep_screen.dart';
 import 'package:modular_chef/screens/chef/profile_screen.dart';
 import 'package:modular_chef/screens/chef/shopping_screen.dart';
 import 'package:modular_chef/screens/chef/storage_screen.dart';
+import 'package:modular_chef/screens/guest/assemble_dish_screen.dart';
 import 'package:modular_chef/screens/guest/inventory_screen.dart';
 import 'package:modular_chef/screens/guest/today_screen.dart';
 import 'package:modular_chef/screens/guest/week_screen.dart';
@@ -13,17 +16,26 @@ import 'package:modular_chef/shell/role.dart';
 import 'package:modular_chef/shell/role_provider.dart';
 import 'routes.dart';
 
+/// Root navigator key — нужен, чтобы push-экраны рендерились поверх shell
+/// (без bottom-nav и AppBar текущей вкладки).
+final _rootNavigatorKey = GlobalKey<NavigatorState>();
+
 /// Создаёт `GoRouter`, который:
 ///  - слушает `RoleProvider` (refreshListenable)
 ///  - редиректит между Chef-веткой и Guest-веткой при смене роли
 ///  - оборачивает каждую ветку в свой shell (5/3 табов)
 GoRouter buildRouter(RoleProvider role) {
   return GoRouter(
+    navigatorKey: _rootNavigatorKey,
     initialLocation:
         role.role == UserRole.chef ? Routes.chefRoot : Routes.guestRoot,
     refreshListenable: role,
     redirect: (context, state) {
       final path = state.matchedLocation;
+      // Push-экраны не редиректим — они доступны в обеих ролях по push().
+      if (path == Routes.chefMyDishes || path == Routes.guestAssembleDish) {
+        return null;
+      }
       final inChefBranch = path.startsWith('/chef');
       final inGuestBranch = path.startsWith('/guest');
       if (role.role == UserRole.chef && inGuestBranch) {
@@ -37,6 +49,17 @@ GoRouter buildRouter(RoleProvider role) {
     routes: [
       _chefBranch(),
       _guestBranch(),
+      // Push-роуты вне shell — отображаются fullscreen поверх bottom-nav.
+      GoRoute(
+        path: Routes.chefMyDishes,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (_, __) => const MyDishesScreen(),
+      ),
+      GoRoute(
+        path: Routes.guestAssembleDish,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (_, __) => const AssembleDishScreen(),
+      ),
     ],
   );
 }

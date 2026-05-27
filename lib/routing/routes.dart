@@ -8,10 +8,16 @@ abstract final class Routes {
   static const chefStorage = '/chef/storage';
   static const chefProfile = '/chef/profile';
 
+  /// Push-экран Шефа: библиотека «Мои блюда» (открывается из Профиля).
+  static const chefMyDishes = '/chef/my-dishes';
+
   // Guest branch
   static const guestToday = '/guest/today';
   static const guestWeek = '/guest/week';
   static const guestInventory = '/guest/inventory';
+
+  /// Push-экран Гостя: «Собрать блюдо» (открывается из Сегодня / Запасы).
+  static const guestAssembleDish = '/guest/assemble';
 
   /// Default landing для каждой роли.
   static const chefRoot = chefMenu;
