@@ -1,0 +1,36 @@
+# Файлы НЕ загружаемые на Railway. Railway деплоит только backend/ +
+# assets/, остальное Flutter-добро ему не нужно — экономим upload-трафик.
+
+# Flutter build artefacts (2+ GB)
+build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.metadata
+
+# Платформы — backend им не пользуется
+android/
+ios/
+linux/
+macos/
+windows/
+web/
+
+# Flutter code — на бэке не нужен (Dockerfile копирует только backend/ + assets/)
+lib/
+test/
+pubspec.yaml
+pubspec.lock
+analysis_options.yaml
+*.iml
+
+# Dev environments
+.venv/
+.idea/
+.vscode/
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db
