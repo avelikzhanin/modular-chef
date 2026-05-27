@@ -1,0 +1,35 @@
+[
+  {"protein": "chicken_breast", "side": "rice", "sauce": "yogurt_sauce", "tags": ["balanced", "popular"], "name": "Курица гриль + рис + йогуртовый соус"},
+  {"protein": "chicken_breast", "side": "buckwheat", "sauce": "tomato_sauce", "tags": ["russian"], "name": "Курица + гречка + томатный"},
+  {"protein": "chicken_breast", "side": "bulgur", "sauce": "lemon_dressing", "tags": ["mediterranean"], "name": "Курица + булгур + лимон"},
+  {"protein": "chicken_breast", "side": "quinoa", "sauce": "tahini", "tags": ["mediterranean", "lean"]},
+  {"protein": "chicken_breast", "side": "potato", "sauce": "yogurt_sauce", "tags": ["comfort"]},
+
+  {"protein": "salmon", "side": "rice", "sauce": "lemon_dressing", "tags": ["asian", "lean"]},
+  {"protein": "salmon", "side": "bulgur", "sauce": "lemon_dressing", "tags": ["mediterranean"], "name": "Лосось + булгур + лимон"},
+  {"protein": "salmon", "side": "quinoa", "sauce": "pesto", "tags": ["mediterranean", "premium"]},
+  {"protein": "salmon", "side": "spaghetti", "sauce": "pesto", "tags": ["italian"]},
+
+  {"protein": "steak", "side": "potato", "sauce": "yogurt_sauce", "tags": ["classic"]},
+  {"protein": "steak", "side": "spaghetti", "sauce": "tomato_sauce", "tags": ["italian"], "name": "Стейк + спагетти + томатный"},
+  {"protein": "steak", "side": "quinoa", "sauce": "pesto", "tags": ["mediterranean"]},
+
+  {"protein": "turkey", "side": "bulgur", "sauce": "tomato_sauce", "tags": ["balanced"]},
+  {"protein": "turkey", "side": "rice", "sauce": "tahini", "tags": ["mediterranean"]},
+  {"protein": "turkey", "side": "buckwheat", "sauce": "yogurt_sauce", "tags": ["russian"]},
+
+  {"protein": "shrimp", "side": "rice", "sauce": "lemon_dressing", "tags": ["asian", "fast"]},
+  {"protein": "shrimp", "side": "spaghetti", "sauce": "pesto", "tags": ["italian", "fast"]},
+  {"protein": "shrimp", "side": "quinoa", "sauce": "tahini", "tags": ["mediterranean"]},
+
+  {"protein": "cod", "side": "potato", "sauce": "lemon_dressing", "tags": ["classic", "lean"]},
+  {"protein": "cod", "side": "rice", "sauce": "yogurt_sauce", "tags": ["balanced"]},
+
+  {"protein": "meatballs", "side": "spaghetti", "sauce": "tomato_sauce", "tags": ["italian", "comfort"], "name": "Фрикадельки + спагетти + томатный"},
+  {"protein": "meatballs", "side": "buckwheat", "sauce": "bechamel", "tags": ["russian"]},
+  {"protein": "meatballs", "side": "potato", "sauce": "tomato_sauce", "tags": ["comfort"]},
+
+  {"protein": "tofu", "side": "rice", "sauce": "tahini", "tags": ["vegan", "asian"]},
+  {"protein": "tofu", "side": "quinoa", "sauce": "lemon_dressing", "tags": ["vegan", "lean"]},
+  {"protein": "tofu", "side": "bulgur", "sauce": "pesto", "tags": ["vegan", "mediterranean"]}
+]

@@ -1,0 +1,29 @@
+[
+  {"moduleId": "chicken_breast", "zone": "fridge", "days": 3, "when": "пн-ср", "tip": "Контейнеры подписаны №1–3"},
+  {"moduleId": "chicken_breast", "zone": "freezer", "days": 30, "when": "разморозить в ср", "tip": "За 12 часов в холодильник, не СВЧ"},
+  {"moduleId": "salmon", "zone": "vacuum", "days": 5, "when": "до чт-пт", "tip": "Без вакуума пропадёт во вторник"},
+  {"moduleId": "salmon", "zone": "fridge", "days": 2, "when": "пн-вт", "tip": "Самый скоропортящийся — съесть первым"},
+  {"moduleId": "steak", "zone": "vacuum", "days": 4, "when": "до ср", "tip": "Можно после маринования — вкус усиливается"},
+  {"moduleId": "turkey", "zone": "freezer", "days": 30, "when": "разморозить в чт", "tip": "Сразу две порции"},
+  {"moduleId": "shrimp", "zone": "freezer", "days": 60, "when": "по 200 г", "tip": "Размораживать только то, что съедите"},
+  {"moduleId": "cod", "zone": "fridge", "days": 2, "when": "пн-вт", "tip": "Готовь день в день"},
+  {"moduleId": "meatballs", "zone": "freezer", "days": 45, "when": "по 6 шт", "tip": "Замораживай порционно"},
+  {"moduleId": "tofu", "zone": "fridge", "days": 4, "when": "пн-чт", "tip": "В рассоле — до недели"},
+
+  {"moduleId": "rice", "zone": "fridge", "days": 3, "when": "пн-ср", "tip": "Глубокий контейнер, отдельно от соусов"},
+  {"moduleId": "buckwheat", "zone": "fridge", "days": 4, "when": "пн-чт", "tip": "Хорошо разогревается на сковороде"},
+  {"moduleId": "bulgur", "zone": "fridge", "days": 4, "when": "пн-чт", "tip": "Можно с оливковым маслом — дольше свежесть"},
+  {"moduleId": "potato", "zone": "fridge", "days": 4, "when": "пн-чт", "tip": "Запеченный — до 5 дней"},
+
+  {"moduleId": "yogurt_sauce", "zone": "fridge", "days": 3, "when": "пн-ср", "tip": "Стеклянная банка, без чеснока — до 5 дней"},
+  {"moduleId": "tomato_sauce", "zone": "freezer", "days": 90, "when": "кубиками", "tip": "Сделай с запасом — заморозка 3 месяца, а времени столько же"},
+  {"moduleId": "bechamel", "zone": "freezer", "days": 60, "when": "кубиками по 30 г", "tip": "При разогреве — ложку молока"},
+  {"moduleId": "pesto", "zone": "fridge", "days": 5, "when": "пн-пт", "tip": "Сверху слой масла — продлевает срок"},
+
+  {"moduleId": "broccoli", "zone": "fridge", "days": 4, "when": "пн-чт", "tip": "Бланшированная — до 5 дней"},
+  {"moduleId": "spinach", "zone": "fridge", "days": 2, "when": "пн-вт", "tip": "Завернуть в бумажное полотенце"},
+  {"moduleId": "salad_mix", "zone": "fridge", "days": 2, "when": "пн-вт", "tip": "Бумажное полотенце впитывает влагу"},
+
+  {"moduleId": "granola", "zone": "pantry", "days": 21, "when": "3 недели", "tip": "Герметичная банка, тёмное место"},
+  {"moduleId": "oatmeal_jar", "zone": "fridge", "days": 4, "when": "пн-чт", "tip": "Стеклянная банка 300мл, ягоды добавь утром"}
+]

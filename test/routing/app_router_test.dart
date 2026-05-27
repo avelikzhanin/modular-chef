@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:modular_chef/routing/app_router.dart';
 import 'package:modular_chef/routing/routes.dart';
+import 'package:modular_chef/services/catalog_service.dart';
 import 'package:modular_chef/shell/role.dart';
 import 'package:modular_chef/shell/role_provider.dart';
 import 'package:modular_chef/theme/app_theme.dart';
@@ -11,9 +12,17 @@ import 'package:modular_chef/theme/app_typography.dart';
 
 Future<void> _pumpApp(WidgetTester tester, RoleProvider provider) async {
   final router = buildRouter(provider);
+  // Намеренно не вызываем catalog.load() — это держит pumpAndSettle pending.
+  // MenuScreen в loading-режиме показывает CircularProgressIndicator, чья
+  // бесконечная анимация всегда таймаутит pumpAndSettle. Текст «Меню» нужен
+  // только в bottom nav (от каталога не зависит) — обычный pump его покажет.
+  final catalog = CatalogService();
   await tester.pumpWidget(
-    ChangeNotifierProvider.value(
-      value: provider,
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<RoleProvider>.value(value: provider),
+        ChangeNotifierProvider<CatalogService>.value(value: catalog),
+      ],
       child: MaterialApp.router(
         // Инжектим текст-тему без google_fonts, чтобы не дёргать сеть.
         theme: AppTheme.light(
@@ -23,7 +32,8 @@ Future<void> _pumpApp(WidgetTester tester, RoleProvider provider) async {
       ),
     ),
   );
-  await tester.pumpAndSettle();
+  await tester.pump();
+  await tester.pump(const Duration(milliseconds: 100));
 }
 
 void main() {
@@ -52,7 +62,8 @@ void main() {
       expect(find.text('Меню'), findsWidgets);
 
       provider.toggle();
-      await tester.pumpAndSettle();
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 500));
       expect(find.text('Сегодня'), findsWidgets);
       expect(find.text('Меню'), findsNothing);
     });

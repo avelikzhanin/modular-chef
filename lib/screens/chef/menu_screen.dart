@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:modular_chef/models/module.dart';
 import 'package:modular_chef/routing/routes.dart';
+import 'package:modular_chef/services/catalog_service.dart';
 import 'package:modular_chef/shell/role_switcher.dart';
 import 'package:modular_chef/theme/app_colors.dart';
 
-/// Шеф-экран «Собери своё меню» (BuildMenu) — переделанный chef/serene_1.
-/// 5 секций с горизонтальным скроллом карточек + плитка «+ Своё»,
-/// state — Set выбранных названий, sticky CTA «Собрать меню».
+/// Шеф-экран «Собери своё меню» (BuildMenu).
+/// Секции собираются из CatalogService — 4 основные категории каталога
+/// (белки/гарниры/супы/завтраки) + раздел «Мои блюда» (на Stage 4 — из БД).
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
 
@@ -15,134 +18,112 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
-  final Set<String> _picked = {'Курица', 'Лосось', 'Рис', 'Овсянка'};
+  // Заранее «выбраны» популярные id из каталога.
+  final Set<String> _picked = {'chicken_breast', 'salmon', 'rice', 'oatmeal_jar'};
+  // Пользовательские «Мои блюда» — Stage 4 вынесет в БД.
+  final List<String> _myDishes = ['Шакшука'];
 
-  static const _sections = <_Section>[
-    _Section(
-      title: 'Белки',
-      hint: 'Выберите 3–5',
-      items: [
-        _ChoiceItem('Курица', '🍗'),
-        _ChoiceItem('Лосось', '🐟'),
-        _ChoiceItem('Стейк', '🥩'),
-        _ChoiceItem('Индейка', '🦃'),
-        _ChoiceItem('Фрикадельки', '🧆'),
-        _ChoiceItem('Треска', '🐠'),
-        _ChoiceItem('Креветки', '🦐'),
-        _ChoiceItem('Тофу', '🟫'),
-      ],
-    ),
-    _Section(
-      title: 'Гарниры',
-      hint: 'Выберите 2–4',
-      items: [
-        _ChoiceItem('Рис', '🍚'),
-        _ChoiceItem('Гречка', '🟤'),
-        _ChoiceItem('Булгур', '🌾'),
-        _ChoiceItem('Спагетти', '🍝'),
-        _ChoiceItem('Картофель', '🥔'),
-        _ChoiceItem('Кускус', '🌾'),
-      ],
-    ),
-    _Section(
-      title: 'Супы',
-      hint: 'Опционально 0–2',
-      items: [
-        _ChoiceItem('Сырный', '🧀'),
-        _ChoiceItem('Куриный с лапшой', '🍜'),
-        _ChoiceItem('Томатный', '🍅'),
-        _ChoiceItem('Тыквенный', '🎃'),
-        _ChoiceItem('Грибной', '🍄'),
-      ],
-    ),
-    _Section(
-      title: 'Завтраки',
-      hint: 'Выберите 2–3',
-      items: [
-        _ChoiceItem('Овсянка', '🥣'),
-        _ChoiceItem('Сырники', '🧇'),
-        _ChoiceItem('Омлет', '🍳'),
-        _ChoiceItem('Каша', '🌾'),
-        _ChoiceItem('Бутерброды', '🥪'),
-        _ChoiceItem('Гранола', '🥥'),
-      ],
-    ),
-    _Section(
-      title: 'Мои блюда',
-      hint: 'Ваши избранные',
-      items: [
-        _ChoiceItem('Шакшука', '🍳'),
-      ],
-    ),
-  ];
-
-  void _toggle(String name) {
+  void _toggle(String id) {
     setState(() {
-      _picked.contains(name) ? _picked.remove(name) : _picked.add(name);
+      _picked.contains(id) ? _picked.remove(id) : _picked.add(id);
     });
   }
+
+  static const _sectionsOrder = <(ModuleCategory, String)>[
+    (ModuleCategory.protein, 'Выберите 3–5'),
+    (ModuleCategory.side, 'Выберите 2–4'),
+    (ModuleCategory.soup, 'Опционально 0–2'),
+    (ModuleCategory.breakfast, 'Выберите 2–3'),
+  ];
 
   @override
   Widget build(BuildContext context) {
     final tt = Theme.of(context).textTheme;
+    final catalog = context.watch<CatalogService>();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(''),
         actions: const [RoleSwitcher(), SizedBox(width: 8)],
       ),
-      body: ListView(
-        padding: const EdgeInsets.fromLTRB(20, 8, 20, 120),
-        children: [
-          Text(
-            'Собери своё меню',
-            style: tt.headlineMedium?.copyWith(
-              color: AppColors.primary,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            'Выберите ингредиенты на 2 недели — система подберёт сочетания.',
-            style: tt.bodyMedium,
-          ),
-          const SizedBox(height: 28),
-          for (final s in _sections) ...[
-            _SectionBlock(
-              section: s,
-              picked: _picked,
-              onToggle: _toggle,
-              onAddCustom: () => _showAddCustomSheet(s.title),
-            ),
-            const SizedBox(height: 28),
-          ],
-        ],
-      ),
-      bottomSheet: Container(
-        color: AppColors.surface,
-        padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
-        child: SafeArea(
-          top: false,
-          child: SizedBox(
-            width: double.infinity,
-            child: FilledButton.icon(
-              onPressed: _picked.isEmpty
-                  ? null
-                  : () => context.push(Routes.chefTwoWeekMenu),
-              style: FilledButton.styleFrom(
-                backgroundColor: AppColors.primaryContainer,
-                foregroundColor: AppColors.onPrimaryContainer,
-                disabledBackgroundColor: AppColors.surfaceContainerHigh,
-                padding: const EdgeInsets.symmetric(vertical: 18),
-                shape: const StadiumBorder(),
-                textStyle:
-                    tt.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+      body: !catalog.isLoaded
+          ? _LoadingState(error: catalog.loadError)
+          : _buildContent(context, catalog, tt),
+      bottomSheet: !catalog.isLoaded
+          ? null
+          : Container(
+              color: AppColors.surface,
+              padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
+              child: SafeArea(
+                top: false,
+                child: SizedBox(
+                  width: double.infinity,
+                  child: FilledButton.icon(
+                    onPressed: _picked.isEmpty
+                        ? null
+                        : () => context.push(Routes.chefTwoWeekMenu),
+                    style: FilledButton.styleFrom(
+                      backgroundColor: AppColors.primaryContainer,
+                      foregroundColor: AppColors.onPrimaryContainer,
+                      disabledBackgroundColor: AppColors.surfaceContainerHigh,
+                      padding: const EdgeInsets.symmetric(vertical: 18),
+                      shape: const StadiumBorder(),
+                      textStyle:
+                          tt.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+                    ),
+                    icon: const Icon(Icons.auto_awesome),
+                    label: Text('Собрать меню · ${_picked.length}'),
+                  ),
+                ),
               ),
-              icon: const Icon(Icons.auto_awesome),
-              label: Text('Собрать меню · ${_picked.length}'),
             ),
+    );
+  }
+
+  Widget _buildContent(
+      BuildContext context, CatalogService catalog, TextTheme tt) {
+    return ListView(
+      padding: const EdgeInsets.fromLTRB(20, 8, 20, 120),
+      children: [
+        Text(
+          'Собери своё меню',
+          style: tt.headlineMedium?.copyWith(
+            color: AppColors.primary,
+            fontWeight: FontWeight.w800,
           ),
         ),
-      ),
+        const SizedBox(height: 6),
+        Text(
+          'Выберите ингредиенты на 2 недели — система подберёт сочетания.',
+          style: tt.bodyMedium,
+        ),
+        const SizedBox(height: 28),
+        for (final (category, hint) in _sectionsOrder) ...[
+          _SectionBlock(
+            title: category.label,
+            hint: hint,
+            items: catalog
+                .modulesByCategory(category)
+                .map((m) => _ChoiceItem(id: m.id, name: m.name, emoji: m.emoji))
+                .toList(),
+            picked: _picked,
+            onToggle: _toggle,
+            onAddCustom: () => _showAddCustomSheet(category.label),
+          ),
+          const SizedBox(height: 28),
+        ],
+        _SectionBlock(
+          title: 'Мои блюда',
+          hint: 'Ваши избранные',
+          items: _myDishes
+              .map((n) => _ChoiceItem(id: n, name: n, emoji: '⭐'))
+              .toList(),
+          picked: _picked,
+          onToggle: _toggle,
+          onAddCustom: () => _showAddCustomSheet('Мои блюда'),
+        ),
+        const SizedBox(height: 28),
+      ],
     );
   }
 
@@ -207,32 +188,55 @@ class _MenuScreenState extends State<MenuScreen> {
       ),
     );
     if (added != null && added.isNotEmpty && mounted) {
-      setState(() => _picked.add(added));
+      setState(() {
+        _myDishes.add(added);
+        _picked.add(added);
+      });
     }
   }
 }
 
-class _Section {
-  const _Section({required this.title, required this.hint, required this.items});
-  final String title;
-  final String hint;
-  final List<_ChoiceItem> items;
-}
-
 class _ChoiceItem {
-  const _ChoiceItem(this.name, this.emoji);
+  const _ChoiceItem({required this.id, required this.name, required this.emoji});
+  final String id;
   final String name;
   final String emoji;
 }
 
+class _LoadingState extends StatelessWidget {
+  const _LoadingState({this.error});
+  final Object? error;
+
+  @override
+  Widget build(BuildContext context) {
+    if (error != null) {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Text(
+            'Каталог не загрузился: $error',
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+        ),
+      );
+    }
+    return const Center(child: CircularProgressIndicator());
+  }
+}
+
 class _SectionBlock extends StatelessWidget {
   const _SectionBlock({
-    required this.section,
+    required this.title,
+    required this.hint,
+    required this.items,
     required this.picked,
     required this.onToggle,
     required this.onAddCustom,
   });
-  final _Section section;
+  final String title;
+  final String hint;
+  final List<_ChoiceItem> items;
   final Set<String> picked;
   final ValueChanged<String> onToggle;
   final VoidCallback onAddCustom;
@@ -248,14 +252,14 @@ class _SectionBlock extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              section.title,
+              title,
               style: tt.titleLarge?.copyWith(
                 color: AppColors.primary,
                 fontWeight: FontWeight.w700,
               ),
             ),
             Text(
-              section.hint.toUpperCase(),
+              hint.toUpperCase(),
               style: tt.labelSmall?.copyWith(
                 color: AppColors.onSurfaceVariant,
                 fontWeight: FontWeight.w600,
@@ -269,17 +273,17 @@ class _SectionBlock extends StatelessWidget {
           height: 132,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
-            itemCount: section.items.length + 1,
+            itemCount: items.length + 1,
             separatorBuilder: (_, __) => const SizedBox(width: 10),
             itemBuilder: (_, i) {
-              if (i == section.items.length) {
+              if (i == items.length) {
                 return _AddTile(onTap: onAddCustom);
               }
-              final item = section.items[i];
+              final item = items[i];
               return _ChoiceTile(
                 item: item,
-                selected: picked.contains(item.name),
-                onTap: () => onToggle(item.name),
+                selected: picked.contains(item.id),
+                onTap: () => onToggle(item.id),
               );
             },
           ),
