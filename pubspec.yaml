@@ -14,6 +14,9 @@ dependencies:
   # Navigation
   go_router: ^14.0.0
 
+  # HTTP client (Stage 5: HttpMenuGenerator → Railway backend)
+  dio: ^5.7.0
+
   # State management
   provider: ^6.1.0
 

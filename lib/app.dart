@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'config/api_config.dart';
 import 'routing/app_router.dart';
 import 'services/active_menu.dart';
 import 'services/catalog_service.dart';
+import 'services/http_menu_generator.dart';
 import 'services/menu_generator.dart';
 import 'shell/role_provider.dart';
 import 'theme/app_theme.dart';
@@ -18,7 +20,13 @@ class _ModularChefAppState extends State<ModularChefApp> {
   late final RoleProvider _role = RoleProvider();
   late final CatalogService _catalog = CatalogService()..load();
   late final ActiveMenu _activeMenu = ActiveMenu();
-  static const MenuGenerator _generator = StubMenuGenerator();
+
+  /// Выбор генератора решается на старте по `--dart-define=API_BASE_URL`.
+  /// Без флага — оффлайн stub; с флагом — сетевой через FastAPI на Railway.
+  late final MenuGenerator _generator = ApiConfig.isBackendConfigured
+      ? HttpMenuGenerator(baseUrl: ApiConfig.baseUrl)
+      : const StubMenuGenerator();
+
   late final _router = buildRouter(_role);
 
   @override
