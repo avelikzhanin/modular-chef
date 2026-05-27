@@ -6,7 +6,6 @@ alembic==1.13.3
 pydantic==2.9.2
 pydantic-settings==2.6.0
 python-dotenv==1.0.1
-openai==1.55.0
-# Pin httpx чтобы избежать `TypeError: ...unexpected keyword argument 'proxies'`
-# (httpx 0.28+ убрала параметр, openai 1.55 ещё передаёт его).
-httpx==0.27.2
+# openai 1.59+ совместим с httpx 0.28+ (фикс известного proxies-kwarg бага)
+openai>=1.59.0,<2.0.0
+httpx>=0.28.0,<0.29.0
