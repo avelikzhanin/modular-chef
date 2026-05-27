@@ -8,7 +8,7 @@ FastAPI + PostgreSQL backend for the Modular Chef app.
 - **FastAPI** + **uvicorn**
 - **SQLAlchemy 2.0** (async) + **asyncpg**
 - **Alembic** migrations
-- **Claude API** (Anthropic SDK)
+- **OpenAI** (chat.completions + JSON mode)
 - **PostgreSQL 16**
 
 ## Перед началом — инструменты
@@ -51,7 +51,7 @@ pip install -r requirements-dev.txt
 
 ```powershell
 Copy-Item .env.example .env
-# Открой .env, при необходимости добавь ANTHROPIC_API_KEY (для Stage 5)
+# Открой .env, добавь OPENAI_API_KEY (для Stage 5 — иначе /menus/generate отдаст 503)
 ```
 
 ### 4. Миграции
@@ -112,8 +112,28 @@ backend/
     └── test_seed.py
 ```
 
-## Что дальше — Stage 5
+## Stage 5 — что готово
 
-- Endpoints: `POST /menus/generate` (вызов Claude через `assets/prompts/menu_generator.md`), `GET /menus/active`, `POST /menus/:id/approve`, CRUD для `user_dishes` и `storage_items`
-- Replace Flutter `StubMenuGenerator` → `HttpMenuGenerator` (вызывает `POST /menus/generate`)
-- Deploy на Railway: `railway up` + Postgres плагин + переменные `DATABASE_URL` (авто) и `ANTHROPIC_API_KEY` (вручную)
+- `POST /menus/generate` — принимает выбор пользователя, вызывает OpenAI (JSON mode), возвращает `WeeklyMenu`
+- `GET /catalog/modules` — выдаёт каталог (для refresh клиента без пересборки APK)
+- `GET /health` — healthcheck для Railway
+- `Dockerfile` + `railway.toml` — деплой одной командой `railway up`
+- Flutter `HttpMenuGenerator` (`lib/services/http_menu_generator.dart`) активируется через `--dart-define=API_BASE_URL=https://...`
+
+### Deploy на Railway
+
+```powershell
+cd D:\Desktop\modular_chef\backend
+railway link                                        # привязать к проекту в web UI
+railway add --plugin postgresql                     # авто-проставит DATABASE_URL
+railway variables --set OPENAI_API_KEY=sk-...       # ключ остаётся только на Railway
+railway up                                          # сборка Docker + миграции + seed + uvicorn
+railway domain                                      # выдаст https://...railway.app
+```
+
+Затем пересобрать APK с прод-эндпоинтом:
+
+```powershell
+cd D:\Desktop\modular_chef
+flutter build apk --debug --dart-define=API_BASE_URL=https://...railway.app
+```

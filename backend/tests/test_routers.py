@@ -1,6 +1,6 @@
 """Endpoint smoke-tests через FastAPI TestClient.
 
-Подменяем `ClaudeClient.generate` mock'ом — без сетевых вызовов и без ключа.
+Подменяем `LlmClient.generate` mock'ом — без сетевых вызовов и без ключа.
 БД для роутов всё ещё нужна (поэтому override и для `get_session`).
 """
 from collections.abc import AsyncGenerator
@@ -18,7 +18,7 @@ from sqlalchemy.ext.asyncio import (
 from app.db import get_session
 from app.main import app
 from app.models import Base, Module
-from app.routers.menus import get_claude_client
+from app.routers.menus import get_llm_client
 from app.schemas import (
     DayPlanSchema,
     GenerationRequestSchema,
@@ -59,7 +59,7 @@ async def seeded_session(engine: AsyncEngine) -> AsyncGenerator[AsyncSession, No
         yield s
 
 
-class _FakeClaudeClient:
+class _FakeLlmClient:
     """Возвращает фиксированный WeeklyMenu — никаких сетевых вызовов."""
 
     async def generate(self, request, session) -> WeeklyMenuSchema:  # noqa: ARG002
@@ -80,13 +80,13 @@ class _FakeClaudeClient:
 
 @pytest.fixture
 def client(seeded_session: AsyncSession) -> TestClient:
-    """TestClient с DI override: фейковый Claude + наша сессия."""
+    """TestClient с DI override: фейковый LLM + наша сессия."""
 
     async def _override_session():
         yield seeded_session
 
     app.dependency_overrides[get_session] = _override_session
-    app.dependency_overrides[get_claude_client] = lambda: _FakeClaudeClient()
+    app.dependency_overrides[get_llm_client] = lambda: _FakeLlmClient()
     try:
         yield TestClient(app)
     finally:
