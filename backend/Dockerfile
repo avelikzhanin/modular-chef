@@ -7,30 +7,31 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 
-# Установка системных зависимостей для asyncpg (libpq)
+# Системные зависимости для asyncpg
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq-dev gcc \
     && rm -rf /var/lib/apt/lists/*
 
-# Сначала только requirements — кэш слоя при изменении кода
-COPY backend/requirements.txt ./
-RUN pip install -r requirements.txt
+# CACHEBUST — меняйте значение чтобы принудительно пересобрать pip слой.
+# Railway BuildKit иногда не детектит изменения в requirements.txt по контенту.
+ARG CACHEBUST=2026-05-28-3
 
-# Копируем сам бэк
+COPY backend/requirements.txt ./
+RUN pip install --upgrade pip && \
+    pip install --upgrade --force-reinstall --no-cache-dir -r requirements.txt
+
+# Копируем бэк и assets
 COPY backend/ ./backend/
-# И assets/prompts — нужен ClaudeClient'у (читает promp template из ../assets/prompts/)
 COPY assets/ ./assets/
 
 WORKDIR /app/backend
 
-# Non-root user — Railway-best-practice
+# Non-root user
 RUN useradd --create-home --shell /bin/bash chef && \
     chown -R chef:chef /app
 USER chef
 
-# Railway передаёт $PORT через env. Default 8000 для локального теста.
 ENV PORT=8000
 EXPOSE 8000
 
-# Перед стартом — миграции. Falsly, если БД ещё не готова — пробует пока есть retries.
 CMD ["sh", "-c", "alembic upgrade head && python -m app.seed.seed_modules && uvicorn app.main:app --host 0.0.0.0 --port ${PORT}"]
