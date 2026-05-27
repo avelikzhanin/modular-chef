@@ -1,17 +1,41 @@
-# modular_chef
+# Modular Chef
 
-A new Flutter project.
+Мил-преп с двумя ролями (Шеф/Гость).
+Спека: `D:\Desktop\bloom_ai_app\docs\superpowers\specs\2026-05-27-modular-chef-design.md`.
 
-## Getting Started
+## Stage 1a (готово)
 
-This project is a starting point for a Flutter application.
+- Тема **Clinical Ethereal** (мягкий пистачо + пудровая база, Inter, no-line, xl радиусы)
+- `RoleProvider` + `RoleSwitcher` (`Icons.swap_horiz` в AppBar)
+- Bottom nav: Шеф (5 табов), Гость (3 таба) — через `go_router`
+- 8 placeholder экранов (реальное содержимое — Этапы 1b/1c)
 
-A few resources to get you started if this is your first Flutter project:
+## Как запустить
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+В PowerShell:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```powershell
+$env:Path += ';C:\Program Files\Flutter SDK\flutter\bin'
+flutter pub get
+flutter run -d windows   # или -d chrome / -d <emulator-id>
+```
+
+## Тесты
+
+```powershell
+flutter test
+```
+
+## Структура
+
+```
+lib/
+  main.dart           # entry
+  app.dart            # MaterialApp.router + theme + provider
+  theme/              # AppColors, AppTypography, AppTheme
+  shell/              # role, role_provider, role_switcher, chef_shell, guest_shell
+  routing/            # routes constants + GoRouter builder
+  screens/chef/       # placeholder экраны Шефа
+  screens/guest/      # placeholder экраны Гостя
+test/                 # mirror lib/
+```

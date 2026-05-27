@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modular_chef/screens/chef/menu_screen.dart';
 import 'package:modular_chef/screens/chef/prep_screen.dart';
