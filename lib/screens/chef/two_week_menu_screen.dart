@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:modular_chef/models/weekly_menu.dart';
+import 'package:modular_chef/services/active_menu.dart';
 import 'package:modular_chef/theme/app_colors.dart';
 
-/// Push-экран Шефа «Меню на 2 недели» — критический для флоу.
-/// Открывается после нажатия «Собрать меню» на BuildMenuScreen.
-/// Сетка 7 дней × 3 приёма × 2 недели, замена блюд по long-press, кнопка «Утвердить».
+/// Push-экран Шефа «Меню на 2 недели» — читает реальное сгенерированное
+/// меню из ActiveMenu. Замена блюда обновляет провайдер, «Утвердить» —
+/// SnackBar и возврат (persistence — Stage 4 / БД).
 class TwoWeekMenuScreen extends StatefulWidget {
   const TwoWeekMenuScreen({super.key});
 
@@ -14,62 +17,22 @@ class TwoWeekMenuScreen extends StatefulWidget {
 class _TwoWeekMenuScreenState extends State<TwoWeekMenuScreen> {
   int _weekIndex = 0;
 
-  // Мок: 2 недели × 7 дней × 3 приёма. Stage 3 заменит на результат генерации.
-  static const _weeks = <List<_DayPlan>>[
-    [
-      _DayPlan('Пн', [_M('🌅', 'Овсянка'), _M('🌞', 'Курица+рис'), _M('🌙', 'Лосось+булгур')]),
-      _DayPlan('Вт', [_M('🌅', 'Сырники'), _M('🌞', 'Суп куриный'), _M('🌙', 'Стейк+спагетти')]),
-      _DayPlan('Ср', [_M('🌅', 'Гранола'), _M('🌞', 'Треска+киноа'), _M('🌙', 'Плов')]),
-      _DayPlan('Чт', [_M('🌅', 'Омлет'), _M('🌞', 'Борщ'), _M('🌙', 'Тунец салат')]),
-      _DayPlan('Пт', [_M('🌅', 'Тост авокадо'), _M('🌞', 'Паста песто'), _M('🌙', 'Курица гриль')]),
-      _DayPlan('Сб', [_M('🌅', 'Блины'), _M('🌞', 'Лазанья'), _M('🌙', 'Стейк')]),
-      _DayPlan('Вс', [_M('🌅', 'Фриттата'), _M('🌞', 'Ростбиф'), _M('🌙', 'Греческий салат')]),
-    ],
-    [
-      _DayPlan('Пн', [_M('🌅', 'Йогурт+мюсли'), _M('🌞', 'Курица+гречка'), _M('🌙', 'Лосось+рис')]),
-      _DayPlan('Вт', [_M('🌅', 'Сырники'), _M('🌞', 'Суп грибной'), _M('🌙', 'Индейка+булгур')]),
-      _DayPlan('Ср', [_M('🌅', 'Овсянка'), _M('🌞', 'Креветки+киноа'), _M('🌙', 'Стейк')]),
-      _DayPlan('Чт', [_M('🌅', 'Омлет'), _M('🌞', 'Минестроне'), _M('🌙', 'Тунец+спагетти')]),
-      _DayPlan('Пт', [_M('🌅', 'Гранола'), _M('🌞', 'Куриные котлеты'), _M('🌙', 'Лосось')]),
-      _DayPlan('Сб', [_M('🌅', 'Панкейки'), _M('🌞', 'Паста карбонара'), _M('🌙', 'Жаркое')]),
-      _DayPlan('Вс', [_M('🌅', 'Шакшука'), _M('🌞', 'Куриный суп'), _M('🌙', 'Запеканка')]),
-    ],
-  ];
-
-  // Альтернативы для замены блюда (Stage 3 это вернёт умный generator).
   static const _alternatives = <String>[
-    'Курица+рис', 'Лосось+булгур', 'Стейк+спагетти', 'Треска+киноа',
-    'Креветки гриль', 'Индейка+гречка', 'Тунец салат',
+    'Курица гриль + рис',
+    'Лосось + булгур + лимон',
+    'Стейк + спагетти',
+    'Треска + киноа',
+    'Креветки + рис',
+    'Индейка + гречка',
+    'Тунец + салат',
   ];
-
-  late final List<List<_DayPlan>> _state =
-      _weeks.map((w) => w.map((d) => d.copy()).toList()).toList();
-
-  void _replaceMeal(int dayIdx, int mealIdx) async {
-    final picked = await showModalBottomSheet<String>(
-      context: context,
-      backgroundColor: AppColors.surfaceContainerLowest,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-      ),
-      builder: (_) => const _ReplaceSheet(alternatives: _alternatives),
-    );
-    if (picked != null && mounted) {
-      setState(() {
-        final day = _state[_weekIndex][dayIdx];
-        final newMeals = [...day.meals];
-        newMeals[mealIdx] = _M(newMeals[mealIdx].emoji, picked);
-        _state[_weekIndex][dayIdx] = _DayPlan(day.name, newMeals);
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     final tt = Theme.of(context).textTheme;
-    final days = _state[_weekIndex];
-    final allMeals = _state.expand((w) => w).expand((d) => d.meals).length;
-    final unique = _state.expand((w) => w).expand((d) => d.meals).map((m) => m.title).toSet().length;
+    final active = context.watch<ActiveMenu>();
+    final menu = active.menu;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Меню на 2 недели'),
@@ -78,73 +41,133 @@ class _TwoWeekMenuScreenState extends State<TwoWeekMenuScreen> {
           onPressed: () => Navigator.maybePop(context),
         ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.fromLTRB(20, 8, 20, 120),
-        children: [
-          _WeekTabs(
-            index: _weekIndex,
-            onChanged: (i) => setState(() => _weekIndex = i),
-          ),
-          const SizedBox(height: 16),
-          _Badge(unique: unique, total: allMeals),
-          const SizedBox(height: 20),
-          for (int i = 0; i < days.length; i++) ...[
-            _DayBlock(
-              day: days[i],
-              onReplace: (mealIdx) => _replaceMeal(i, mealIdx),
-            ),
-            const SizedBox(height: 12),
-          ],
-        ],
-      ),
-      bottomSheet: Container(
-        color: AppColors.surface,
-        padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
-        child: SafeArea(
-          top: false,
-          child: SizedBox(
-            width: double.infinity,
-            child: FilledButton(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      'Меню утверждено — следующий шаг: «Список покупок»',
-                      style: tt.bodyMedium?.copyWith(color: AppColors.onPrimary),
+      body: menu == null
+          ? _EmptyState(status: active.status, error: active.error)
+          : _buildContent(context, tt, menu),
+      bottomSheet: menu == null
+          ? null
+          : Container(
+              color: AppColors.surface,
+              padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
+              child: SafeArea(
+                top: false,
+                child: SizedBox(
+                  width: double.infinity,
+                  child: FilledButton(
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'Меню утверждено — следующий шаг: «Список покупок»',
+                            style: tt.bodyMedium?.copyWith(color: AppColors.onPrimary),
+                          ),
+                          backgroundColor: AppColors.primary,
+                          behavior: SnackBarBehavior.floating,
+                        ),
+                      );
+                      Navigator.maybePop(context);
+                    },
+                    style: FilledButton.styleFrom(
+                      backgroundColor: AppColors.primary,
+                      foregroundColor: AppColors.onPrimary,
+                      padding: const EdgeInsets.symmetric(vertical: 18),
+                      shape: const StadiumBorder(),
+                      textStyle: tt.titleMedium?.copyWith(fontWeight: FontWeight.w700),
                     ),
-                    backgroundColor: AppColors.primary,
-                    behavior: SnackBarBehavior.floating,
+                    child: const Text('Утвердить'),
                   ),
-                );
-                Navigator.maybePop(context);
-              },
-              style: FilledButton.styleFrom(
-                backgroundColor: AppColors.primary,
-                foregroundColor: AppColors.onPrimary,
-                padding: const EdgeInsets.symmetric(vertical: 18),
-                shape: const StadiumBorder(),
-                textStyle: tt.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+                ),
               ),
-              child: const Text('Утвердить'),
             ),
-          ),
+    );
+  }
+
+  Widget _buildContent(BuildContext context, TextTheme tt, WeeklyMenu menu) {
+    final week = menu.weeks[_weekIndex];
+    return ListView(
+      padding: const EdgeInsets.fromLTRB(20, 8, 20, 120),
+      children: [
+        _WeekTabs(
+          index: _weekIndex,
+          onChanged: (i) => setState(() => _weekIndex = i),
         ),
+        const SizedBox(height: 16),
+        _Badge(summary: menu.summary),
+        const SizedBox(height: 20),
+        for (int i = 0; i < week.days.length; i++) ...[
+          _DayBlock(
+            day: week.days[i],
+            onReplace: (slot) => _replaceMeal(context, i, slot),
+          ),
+          const SizedBox(height: 12),
+        ],
+      ],
+    );
+  }
+
+  Future<void> _replaceMeal(
+      BuildContext context, int dayIdx, MealSlot slot) async {
+    final picked = await showModalBottomSheet<String>(
+      context: context,
+      backgroundColor: AppColors.surfaceContainerLowest,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (_) => const _ReplaceSheet(alternatives: _alternatives),
+    );
+    if (picked == null || !context.mounted) return;
+    final active = context.read<ActiveMenu>();
+    final current = active.menu!.weeks[_weekIndex].days[dayIdx].mealAt(slot);
+    active.replaceMeal(
+      weekIndex: _weekIndex,
+      dayIndex: dayIdx,
+      slot: slot,
+      replacement: PlannedMeal(
+        title: picked,
+        moduleIds: current.moduleIds,
+        reheatMinutes: current.reheatMinutes,
+        fromContainer: current.fromContainer,
       ),
     );
   }
 }
 
-class _DayPlan {
-  const _DayPlan(this.name, this.meals);
-  final String name;
-  final List<_M> meals;
-  _DayPlan copy() => _DayPlan(name, [...meals]);
-}
+class _EmptyState extends StatelessWidget {
+  const _EmptyState({required this.status, this.error});
+  final MenuStatus status;
+  final Object? error;
 
-class _M {
-  const _M(this.emoji, this.title);
-  final String emoji;
-  final String title;
+  @override
+  Widget build(BuildContext context) {
+    final tt = Theme.of(context).textTheme;
+    final text = switch (status) {
+      MenuStatus.generating => 'Собираем меню…',
+      MenuStatus.error => 'Не удалось собрать меню: $error',
+      _ => 'Сначала выберите ингредиенты на экране «Меню» и нажмите «Собрать меню»',
+    };
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(28),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (status == MenuStatus.generating)
+              const CircularProgressIndicator()
+            else
+              Icon(
+                status == MenuStatus.error
+                    ? Icons.error_outline
+                    : Icons.restaurant_menu_outlined,
+                size: 48,
+                color: AppColors.onSurfaceVariant,
+              ),
+            const SizedBox(height: 16),
+            Text(text, textAlign: TextAlign.center, style: tt.bodyLarge),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 class _WeekTabs extends StatelessWidget {
@@ -173,9 +196,7 @@ class _WeekTabs extends StatelessWidget {
             child: Text(
               label,
               style: tt.labelLarge?.copyWith(
-                color: selected
-                    ? AppColors.primary
-                    : AppColors.onSurfaceVariant,
+                color: selected ? AppColors.primary : AppColors.onSurfaceVariant,
                 fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
               ),
             ),
@@ -196,9 +217,8 @@ class _WeekTabs extends StatelessWidget {
 }
 
 class _Badge extends StatelessWidget {
-  const _Badge({required this.unique, required this.total});
-  final int unique;
-  final int total;
+  const _Badge({required this.summary});
+  final MenuSummary summary;
 
   @override
   Widget build(BuildContext context) {
@@ -222,11 +242,12 @@ class _Badge extends StatelessWidget {
                 ),
                 children: [
                   TextSpan(
-                    text: '$unique уникальных блюд',
+                    text: '${summary.uniqueDishes} уникальных блюд',
                     style: const TextStyle(fontWeight: FontWeight.w700),
                   ),
                   TextSpan(
-                    text: ' из 6 модулей · $total приёмов суммарно',
+                    text:
+                        ' из ${summary.modulesUsed} модулей · ${summary.totalMeals} приёмов',
                     style: TextStyle(
                       color: AppColors.onPrimaryContainer.withValues(alpha: 0.7),
                     ),
@@ -243,8 +264,8 @@ class _Badge extends StatelessWidget {
 
 class _DayBlock extends StatelessWidget {
   const _DayBlock({required this.day, required this.onReplace});
-  final _DayPlan day;
-  final ValueChanged<int> onReplace;
+  final DayPlan day;
+  final ValueChanged<MealSlot> onReplace;
 
   @override
   Widget build(BuildContext context) {
@@ -259,7 +280,7 @@ class _DayBlock extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            day.name.toUpperCase(),
+            day.shortName.toUpperCase(),
             style: tt.labelMedium?.copyWith(
               color: AppColors.primary,
               fontWeight: FontWeight.w700,
@@ -267,10 +288,23 @@ class _DayBlock extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10),
-          for (int i = 0; i < day.meals.length; i++) ...[
-            _MealRow(meal: day.meals[i], onReplace: () => onReplace(i)),
-            if (i < day.meals.length - 1) const SizedBox(height: 6),
-          ],
+          _MealRow(
+            slot: MealSlot.breakfast,
+            meal: day.breakfast,
+            onReplace: () => onReplace(MealSlot.breakfast),
+          ),
+          const SizedBox(height: 6),
+          _MealRow(
+            slot: MealSlot.lunch,
+            meal: day.lunch,
+            onReplace: () => onReplace(MealSlot.lunch),
+          ),
+          const SizedBox(height: 6),
+          _MealRow(
+            slot: MealSlot.dinner,
+            meal: day.dinner,
+            onReplace: () => onReplace(MealSlot.dinner),
+          ),
         ],
       ),
     );
@@ -278,8 +312,13 @@ class _DayBlock extends StatelessWidget {
 }
 
 class _MealRow extends StatelessWidget {
-  const _MealRow({required this.meal, required this.onReplace});
-  final _M meal;
+  const _MealRow({
+    required this.slot,
+    required this.meal,
+    required this.onReplace,
+  });
+  final MealSlot slot;
+  final PlannedMeal meal;
   final VoidCallback onReplace;
 
   @override
@@ -292,7 +331,7 @@ class _MealRow extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 6),
         child: Row(
           children: [
-            Text(meal.emoji, style: const TextStyle(fontSize: 18)),
+            Text(slot.emoji, style: const TextStyle(fontSize: 18)),
             const SizedBox(width: 10),
             Expanded(
               child: Text(
@@ -304,7 +343,8 @@ class _MealRow extends StatelessWidget {
               ),
             ),
             Icon(Icons.swap_horiz,
-                size: 18, color: AppColors.onSurfaceVariant.withValues(alpha: 0.6)),
+                size: 18,
+                color: AppColors.onSurfaceVariant.withValues(alpha: 0.6)),
           ],
         ),
       ),

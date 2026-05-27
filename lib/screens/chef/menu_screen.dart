@@ -3,7 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:modular_chef/models/module.dart';
 import 'package:modular_chef/routing/routes.dart';
+import 'package:modular_chef/services/active_menu.dart';
 import 'package:modular_chef/services/catalog_service.dart';
+import 'package:modular_chef/services/menu_generator.dart';
+import 'package:modular_chef/services/prompt_builder.dart';
 import 'package:modular_chef/shell/role_switcher.dart';
 import 'package:modular_chef/theme/app_colors.dart';
 
@@ -61,7 +64,7 @@ class _MenuScreenState extends State<MenuScreen> {
                   child: FilledButton.icon(
                     onPressed: _picked.isEmpty
                         ? null
-                        : () => context.push(Routes.chefTwoWeekMenu),
+                        : () => _generateAndOpen(context, catalog),
                     style: FilledButton.styleFrom(
                       backgroundColor: AppColors.primaryContainer,
                       foregroundColor: AppColors.onPrimaryContainer,
@@ -125,6 +128,45 @@ class _MenuScreenState extends State<MenuScreen> {
         const SizedBox(height: 28),
       ],
     );
+  }
+
+  /// Делит набор пиков на 4 категории (по тому, что есть в каталоге),
+  /// зовёт генератор, кладёт результат в ActiveMenu и открывает TwoWeekMenu.
+  Future<void> _generateAndOpen(
+      BuildContext context, CatalogService catalog) async {
+    final activeMenu = context.read<ActiveMenu>();
+    final generator = context.read<MenuGenerator>();
+    final byCategory = <ModuleCategory, List<String>>{
+      for (final c in ModuleCategory.values) c: <String>[],
+    };
+    for (final id in _picked) {
+      final m = catalog.moduleById(id);
+      if (m != null) byCategory[m.category]!.add(id);
+    }
+    final request = GenerationRequest(
+      proteinIds: byCategory[ModuleCategory.protein]!,
+      sideIds: byCategory[ModuleCategory.side]!,
+      soupIds: byCategory[ModuleCategory.soup]!,
+      breakfastIds: byCategory[ModuleCategory.breakfast]!,
+      customDishes: _picked
+          .where((id) => catalog.moduleById(id) == null)
+          .toList(growable: false),
+    );
+
+    activeMenu.beginGenerating();
+    // Открываем экран сразу — он покажет loader, а когда генератор завершится,
+    // перерисуется с готовым меню.
+    if (context.mounted) context.push(Routes.chefTwoWeekMenu);
+    try {
+      final menu = await generator.generate(
+        request,
+        modules: catalog.allModules,
+        pairings: catalog.allPairings,
+      );
+      activeMenu.set(menu);
+    } catch (e) {
+      activeMenu.fail(e);
+    }
   }
 
   Future<void> _showAddCustomSheet(String sectionTitle) async {
