@@ -31,5 +31,24 @@
 
   {"protein": "tofu", "side": "rice", "sauce": "tahini", "tags": ["vegan", "asian"]},
   {"protein": "tofu", "side": "quinoa", "sauce": "lemon_dressing", "tags": ["vegan", "lean"]},
-  {"protein": "tofu", "side": "bulgur", "sauce": "pesto", "tags": ["vegan", "mediterranean"]}
+  {"protein": "tofu", "side": "bulgur", "sauce": "pesto", "tags": ["vegan", "mediterranean"]},
+
+  {"protein": "chicken_breast", "side": "couscous", "sauce": "tahini", "tags": ["mediterranean"]},
+  {"protein": "chicken_breast", "side": "spaghetti", "sauce": "pesto", "tags": ["italian"]},
+  {"protein": "salmon", "side": "couscous", "sauce": "lemon_dressing", "tags": ["mediterranean"]},
+  {"protein": "salmon", "side": "potato", "sauce": "yogurt_sauce", "tags": ["classic"]},
+  {"protein": "steak", "side": "buckwheat", "sauce": "tomato_sauce", "tags": ["russian"]},
+  {"protein": "steak", "side": "rice", "sauce": "tahini", "tags": ["asian"]},
+  {"protein": "turkey", "side": "spaghetti", "sauce": "tomato_sauce", "tags": ["italian"]},
+  {"protein": "turkey", "side": "quinoa", "sauce": "pesto", "tags": ["mediterranean"]},
+  {"protein": "turkey", "side": "potato", "sauce": "yogurt_sauce", "tags": ["comfort"]},
+  {"protein": "shrimp", "side": "couscous", "sauce": "lemon_dressing", "tags": ["mediterranean", "fast"]},
+  {"protein": "shrimp", "side": "bulgur", "sauce": "pesto", "tags": ["mediterranean"]},
+  {"protein": "cod", "side": "bulgur", "sauce": "lemon_dressing", "tags": ["mediterranean", "lean"]},
+  {"protein": "cod", "side": "couscous", "sauce": "tahini", "tags": ["mediterranean"]},
+  {"protein": "meatballs", "side": "rice", "sauce": "tomato_sauce", "tags": ["comfort"]},
+  {"protein": "meatballs", "side": "couscous", "sauce": "yogurt_sauce", "tags": ["mediterranean"]},
+  {"protein": "tofu", "side": "spaghetti", "sauce": "tomato_sauce", "tags": ["vegan", "italian"]},
+  {"protein": "tofu", "side": "couscous", "sauce": "tahini", "tags": ["vegan", "mediterranean"]},
+  {"protein": "chicken_breast", "side": "potato", "sauce": "tomato_sauce", "tags": ["comfort", "russian"]}
 ]

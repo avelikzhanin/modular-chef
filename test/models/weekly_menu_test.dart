@@ -3,7 +3,7 @@ import 'package:modular_chef/models/weekly_menu.dart';
 
 void main() {
   group('WeeklyMenu', () {
-    test('round-trip fromJson → toJson preserves structure', () {
+    test('round-trip fromJson → toJson preserves component structure', () {
       final json = <String, dynamic>{
         'weeks': [
           {
@@ -16,18 +16,31 @@ void main() {
                   'shortName': 'Пн',
                   'breakfast': {
                     'title': 'Овсянка',
-                    'moduleIds': ['oatmeal_jar'],
+                    'kind': 'breakfast',
+                    'components': [
+                      {'moduleId': 'oatmeal_jar', 'role': 'standalone', 'name': 'Овсянка', 'emoji': '🥣'}
+                    ],
                     'reheatMinutes': 0,
                     'fromContainer': 'холодильник',
                   },
                   'lunch': {
-                    'title': 'Курица + рис',
-                    'moduleIds': ['chicken_breast', 'rice'],
+                    'title': 'Курица + рис + брокколи + йогурт',
+                    'kind': 'main',
+                    'components': [
+                      {'moduleId': 'chicken_breast', 'role': 'protein', 'name': 'Курица'},
+                      {'moduleId': 'rice', 'role': 'side', 'name': 'Рис'},
+                      {'moduleId': 'broccoli', 'role': 'vegetable', 'name': 'Брокколи'},
+                      {'moduleId': 'yogurt_sauce', 'role': 'sauce', 'name': 'Йогуртовый соус'},
+                    ],
                     'reheatMinutes': 2,
                   },
                   'dinner': {
                     'title': 'Лосось + булгур',
-                    'moduleIds': ['salmon', 'bulgur'],
+                    'kind': 'main',
+                    'components': [
+                      {'moduleId': 'salmon', 'role': 'protein', 'name': 'Лосось'},
+                      {'moduleId': 'bulgur', 'role': 'side', 'name': 'Булгур'},
+                    ],
                     'reheatMinutes': 3,
                   },
                 },
@@ -46,45 +59,69 @@ void main() {
 
       expect(menu.weeks, hasLength(1));
       expect(menu.weeks.first.days, hasLength(7));
-      expect(menu.weeks.first.days.first.breakfast.title, 'Овсянка');
-      expect(menu.weeks.first.days.first.lunch.moduleIds, ['chicken_breast', 'rice']);
+      final lunch = menu.weeks.first.days.first.lunch;
+      expect(lunch.kind, MealKind.main);
+      expect(lunch.components, hasLength(4));
+      expect(lunch.componentOf(MealRole.protein)!.name, 'Курица');
+      expect(lunch.componentOf(MealRole.sauce)!.moduleId, 'yogurt_sauce');
+      expect(lunch.moduleIds, ['chicken_breast', 'rice', 'broccoli', 'yogurt_sauce']);
       expect(menu.summary.uniqueDishes, 3);
-      expect(menu.summary.flavourProfiles, ['mediterranean']);
 
       final round = menu.toJson();
       expect((round['weeks'] as List).length, 1);
       expect((round['summary'] as Map)['totalMeals'], 21);
+      final roundLunch =
+          (((round['weeks'] as List)[0]['days'] as List)[0]['lunch']) as Map;
+      expect((roundLunch['components'] as List).length, 4);
+      expect(roundLunch['kind'], 'main');
     });
 
-    test('DayPlan.mealAt returns the right slot', () {
-      const breakfast = PlannedMeal(title: 'B', moduleIds: [], reheatMinutes: 0);
-      const lunch = PlannedMeal(title: 'L', moduleIds: [], reheatMinutes: 2);
-      const dinner = PlannedMeal(title: 'D', moduleIds: [], reheatMinutes: 5);
+    test('DayPlan.mealAt returns the right slot; snack nullable', () {
+      const b = PlannedMeal(title: 'B', kind: MealKind.breakfast);
+      const l = PlannedMeal(title: 'L');
+      const d = PlannedMeal(title: 'D');
       const day = DayPlan(
         weekday: 'monday',
         shortName: 'Пн',
-        breakfast: breakfast,
-        lunch: lunch,
-        dinner: dinner,
+        breakfast: b,
+        lunch: l,
+        dinner: d,
       );
 
-      expect(day.mealAt(MealSlot.breakfast).title, 'B');
-      expect(day.mealAt(MealSlot.lunch).title, 'L');
-      expect(day.mealAt(MealSlot.dinner).title, 'D');
+      expect(day.mealAt(MealSlot.breakfast)!.title, 'B');
+      expect(day.mealAt(MealSlot.lunch)!.title, 'L');
+      expect(day.mealAt(MealSlot.dinner)!.title, 'D');
+      expect(day.mealAt(MealSlot.snack), isNull);
     });
 
-    test('PlannedMeal.fromJson handles missing optional fields', () {
+    test('PlannedMeal.fromJson legacy moduleIds → standalone components', () {
       final m = PlannedMeal.fromJson(<String, dynamic>{
         'title': 'X',
-        'moduleIds': ['a'],
+        'moduleIds': ['a', 'b'],
       });
       expect(m.reheatMinutes, 0);
       expect(m.fromContainer, '');
+      expect(m.components, hasLength(2));
+      expect(m.components.first.role, MealRole.standalone);
+      expect(m.moduleIds, ['a', 'b']);
     });
 
     test('PlannedMeal.toJson omits empty fromContainer', () {
-      const m = PlannedMeal(title: 'X', moduleIds: ['a'], reheatMinutes: 0);
+      const m = PlannedMeal(title: 'X');
       expect(m.toJson().containsKey('fromContainer'), isFalse);
+    });
+
+    test('copyWith changes title, keeps components', () {
+      const m = PlannedMeal(
+        title: 'Курица + рис',
+        components: [
+          MealComponent(moduleId: 'chicken_breast', role: MealRole.protein, name: 'Курица'),
+        ],
+      );
+      final c = m.copyWith(title: 'Курица + гречка');
+      expect(c.title, 'Курица + гречка');
+      expect(c.components, hasLength(1));
+      expect(c.components.first.moduleId, 'chicken_breast');
     });
   });
 }

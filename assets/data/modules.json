@@ -432,5 +432,61 @@
     "prepMinutes": 0,
     "methods": ["Готовое"],
     "storage": {"zone": "pantry", "days": 60, "tip": "После открытия — в холодильник"}
+  },
+
+  {
+    "id": "nuts",
+    "name": "Орехи",
+    "emoji": "🥜",
+    "category": "snack",
+    "tags": ["buy", "long_keep"],
+    "caloriesPer100g": 600,
+    "prepMinutes": 0,
+    "methods": ["Готовое"],
+    "storage": {"zone": "pantry", "days": 30, "tip": "Герметичная банка"}
+  },
+  {
+    "id": "cottage_cheese",
+    "name": "Творог",
+    "emoji": "🥛",
+    "category": "snack",
+    "tags": ["buy", "protein"],
+    "caloriesPer100g": 98,
+    "prepMinutes": 0,
+    "methods": ["Готовое"],
+    "storage": {"zone": "fridge", "days": 4, "tip": "Можно с ягодами"}
+  },
+  {
+    "id": "fruit",
+    "name": "Фрукты",
+    "emoji": "🍎",
+    "category": "snack",
+    "tags": ["buy", "raw_friendly"],
+    "caloriesPer100g": 52,
+    "prepMinutes": 0,
+    "methods": ["Готовое"],
+    "storage": {"zone": "fridge", "days": 6, "tip": "Яблоки/груши — дольше"}
+  },
+  {
+    "id": "protein_bar",
+    "name": "Протеин-бар",
+    "emoji": "🍫",
+    "category": "snack",
+    "tags": ["buy", "long_keep"],
+    "caloriesPer100g": 350,
+    "prepMinutes": 0,
+    "methods": ["Готовое"],
+    "storage": {"zone": "pantry", "days": 60, "tip": ""}
+  },
+  {
+    "id": "energy_balls",
+    "name": "Энергошарики",
+    "emoji": "🟤",
+    "category": "snack",
+    "tags": ["make", "batch"],
+    "caloriesPer100g": 420,
+    "prepMinutes": 20,
+    "methods": ["Без выпечки 15мин"],
+    "storage": {"zone": "fridge", "days": 10, "tip": "Замораживаются — до месяца"}
   }
 ]

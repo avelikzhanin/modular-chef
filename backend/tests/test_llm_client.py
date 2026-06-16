@@ -5,31 +5,45 @@ import pytest
 
 from app.llm_client import parse_llm_response
 
+_LUNCH = (
+    '{"title": "Курица + рис + брокколи + йогурт", "kind": "main", '
+    '"components": ['
+    '{"moduleId": "chicken_breast", "role": "protein", "name": "Курица", "emoji": "🍗"}, '
+    '{"moduleId": "rice", "role": "side", "name": "Рис", "emoji": "🍚"}, '
+    '{"moduleId": "broccoli", "role": "vegetable", "name": "Брокколи", "emoji": "🥦"}, '
+    '{"moduleId": "yogurt_sauce", "role": "sauce", "name": "Йогуртовый соус", "emoji": "🥛"}'
+    '], "reheatMinutes": 2, "fromContainer": "холодильник, №2"}'
+)
+_BREAKFAST = (
+    '{"title": "Овсянка", "kind": "breakfast", '
+    '"components": [{"moduleId": "oatmeal_jar", "role": "standalone", "name": "Овсянка", "emoji": "🥣"}], '
+    '"reheatMinutes": 0, "fromContainer": "холодильник"}'
+)
+_DINNER = (
+    '{"title": "Лосось + булгур", "kind": "main", '
+    '"components": ['
+    '{"moduleId": "salmon", "role": "protein", "name": "Лосось"}, '
+    '{"moduleId": "bulgur", "role": "side", "name": "Булгур"}'
+    '], "reheatMinutes": 3, "fromContainer": "вакуум"}'
+)
 
-_VALID_RESPONSE = """{
-  "weeks": [
-    {
-      "index": 0,
-      "name": "Неделя 1",
-      "days": [
-        {
-          "weekday": "monday",
-          "shortName": "Пн",
-          "breakfast": {"title": "Овсянка", "moduleIds": ["oatmeal_jar"], "reheatMinutes": 0, "fromContainer": "холодильник"},
-          "lunch": {"title": "Курица + рис", "moduleIds": ["chicken_breast", "rice"], "reheatMinutes": 2, "fromContainer": "холодильник, №2"},
-          "dinner": {"title": "Лосось + булгур", "moduleIds": ["salmon", "bulgur"], "reheatMinutes": 3, "fromContainer": "вакуум"}
-        }
-      ]
-    }
-  ],
-  "summary": {"uniqueDishes": 3, "totalMeals": 3, "modulesUsed": 5, "flavourProfiles": ["mediterranean"]}
-}"""
+_VALID_RESPONSE = (
+    '{"weeks": [{"index": 0, "name": "Неделя 1", "days": ['
+    f'{{"weekday": "monday", "shortName": "Пн", '
+    f'"breakfast": {_BREAKFAST}, "lunch": {_LUNCH}, "dinner": {_DINNER}}}'
+    ']}], '
+    '"summary": {"uniqueDishes": 3, "totalMeals": 3, "modulesUsed": 6, "flavourProfiles": ["mediterranean"]}}'
+)
 
 
 def test_parses_clean_json() -> None:
     menu = parse_llm_response(_VALID_RESPONSE)
     assert len(menu.weeks) == 1
-    assert menu.weeks[0].days[0].lunch.title == "Курица + рис"
+    lunch = menu.weeks[0].days[0].lunch
+    assert lunch.title == "Курица + рис + брокколи + йогурт"
+    assert lunch.kind == "main"
+    assert len(lunch.components) == 4
+    assert lunch.components[0].role == "protein"
     assert menu.summary.uniqueDishes == 3
 
 
@@ -44,7 +58,7 @@ def test_parses_json_with_leading_prose() -> None:
     """Если перед JSON есть «Вот меню:» — игнорируем."""
     prefixed = f"Вот ваше меню на 14 дней:\n\n{_VALID_RESPONSE}"
     menu = parse_llm_response(prefixed)
-    assert menu.weeks[0].days[0].breakfast.moduleIds == ["oatmeal_jar"]
+    assert menu.weeks[0].days[0].breakfast.components[0].moduleId == "oatmeal_jar"
 
 
 def test_rejects_invalid_json() -> None:
@@ -55,5 +69,12 @@ def test_rejects_invalid_json() -> None:
 def test_rejects_schema_violation() -> None:
     """Если weekday не из набора, валидация падает."""
     bad = _VALID_RESPONSE.replace('"monday"', '"someday"')
+    with pytest.raises(Exception):
+        parse_llm_response(bad)
+
+
+def test_rejects_unknown_role() -> None:
+    """Роль вне набора — extra/Literal валидация падает."""
+    bad = _VALID_RESPONSE.replace('"role": "protein"', '"role": "dessert"')
     with pytest.raises(Exception):
         parse_llm_response(bad)

@@ -2,6 +2,7 @@
 from app.schemas.menu import (
     DayPlanSchema,
     GenerationRequestSchema,
+    MealComponentSchema,
     MenuSummarySchema,
     MenuWeekSchema,
     PlannedMealSchema,
@@ -12,6 +13,7 @@ from app.schemas.menu import (
 __all__ = [
     "DayPlanSchema",
     "GenerationRequestSchema",
+    "MealComponentSchema",
     "MenuSummarySchema",
     "MenuWeekSchema",
     "PlannedMealSchema",

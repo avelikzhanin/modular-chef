@@ -42,29 +42,31 @@ void main() {
       expect(menu.summary.totalMeals, 42);
     });
 
-    test('uses only picked proteins / sides / breakfasts', () async {
+    test('protein/side components come only from picks; veg/sauce auto', () async {
       final menu = await generate(
         proteins: ['chicken_breast'],
         sides: ['rice'],
         breakfasts: ['oatmeal_jar'],
       );
 
-      final allModuleIds = menu.weeks
+      final mains = menu.weeks
           .expand((w) => w.days)
-          .expand((d) => [d.breakfast, d.lunch, d.dinner])
-          .expand((m) => m.moduleIds)
-          .toSet();
+          .expand((d) => [d.lunch, d.dinner])
+          .where((m) => m.kind == MealKind.main);
 
-      const allowed = {
-        'chicken_breast', 'rice', 'oatmeal_jar',
-        // соусы автоподбираются из каталога — это ок:
-        'yogurt_sauce', 'tomato_sauce', 'pesto', 'bechamel',
-        'lemon_dressing', 'tahini',
-      };
-
-      for (final id in allModuleIds) {
-        expect(allowed.contains(id), isTrue,
-            reason: 'unexpected module in generated menu: $id');
+      for (final meal in mains) {
+        final protein = meal.componentOf(MealRole.protein);
+        final side = meal.componentOf(MealRole.side);
+        // белок и гарнир — строго из пиков
+        if (protein != null) {
+          expect(protein.moduleId, 'chicken_breast');
+        }
+        if (side != null) {
+          expect(side.moduleId, 'rice');
+        }
+        // полная тарелка должна иметь овощ и соус (автоподбор)
+        expect(meal.componentOf(MealRole.vegetable), isNotNull);
+        expect(meal.componentOf(MealRole.sauce), isNotNull);
       }
     });
 

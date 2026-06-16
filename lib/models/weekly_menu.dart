@@ -2,7 +2,8 @@
 enum MealSlot {
   breakfast('breakfast', '🌅', 'Завтрак'),
   lunch('lunch', '🌞', 'Обед'),
-  dinner('dinner', '🌙', 'Ужин');
+  dinner('dinner', '🌙', 'Ужин'),
+  snack('snack', '🥨', 'Перекус');
 
   const MealSlot(this.jsonValue, this.emoji, this.label);
   final String jsonValue;
@@ -10,36 +11,148 @@ enum MealSlot {
   final String label;
 }
 
-/// Запланированное блюдо в одном слоте.
+/// Тип блюда — определяет структуру тарелки.
+enum MealKind {
+  main('main'), // белок + гарнир + овощ + соус
+  breakfast('breakfast'), // самостоятельное [+ топпинг]
+  soup('soup'), // самостоятельное [+ хлеб]
+  snack('snack'); // самостоятельное
+
+  const MealKind(this.jsonValue);
+  final String jsonValue;
+
+  static MealKind fromJson(String? v) =>
+      MealKind.values.firstWhere((k) => k.jsonValue == v,
+          orElse: () => MealKind.main);
+}
+
+/// Роль компонента в тарелке.
+enum MealRole {
+  protein('protein', 'Белок'),
+  side('side', 'Гарнир'),
+  vegetable('vegetable', 'Овощ'),
+  sauce('sauce', 'Соус'),
+  base('base', 'База'),
+  standalone('standalone', 'Блюдо');
+
+  const MealRole(this.jsonValue, this.label);
+  final String jsonValue;
+  final String label;
+
+  static MealRole fromJson(String? v) =>
+      MealRole.values.firstWhere((r) => r.jsonValue == v,
+          orElse: () => MealRole.standalone);
+}
+
+/// Один компонент тарелки: модуль + его роль.
+class MealComponent {
+  const MealComponent({
+    required this.moduleId,
+    required this.role,
+    required this.name,
+    this.emoji = '',
+  });
+
+  final String moduleId;
+  final MealRole role;
+  final String name;
+  final String emoji;
+
+  factory MealComponent.fromJson(Map<String, dynamic> json) => MealComponent(
+        moduleId: json['moduleId'] as String? ?? '',
+        role: MealRole.fromJson(json['role'] as String?),
+        name: json['name'] as String? ?? '',
+        emoji: json['emoji'] as String? ?? '',
+      );
+
+  Map<String, dynamic> toJson() => {
+        'moduleId': moduleId,
+        'role': role.jsonValue,
+        'name': name,
+        if (emoji.isNotEmpty) 'emoji': emoji,
+      };
+
+  MealComponent copyWith({String? moduleId, MealRole? role, String? name, String? emoji}) =>
+      MealComponent(
+        moduleId: moduleId ?? this.moduleId,
+        role: role ?? this.role,
+        name: name ?? this.name,
+        emoji: emoji ?? this.emoji,
+      );
+}
+
+/// Запланированная тарелка в одном слоте.
 class PlannedMeal {
   const PlannedMeal({
     required this.title,
-    required this.moduleIds,
-    required this.reheatMinutes,
+    this.kind = MealKind.main,
+    this.components = const [],
+    this.reheatMinutes = 0,
     this.fromContainer = '',
   });
 
   final String title;
-  final List<String> moduleIds;
+  final MealKind kind;
+  final List<MealComponent> components;
   final int reheatMinutes;
   final String fromContainer;
 
-  factory PlannedMeal.fromJson(Map<String, dynamic> json) => PlannedMeal(
-        title: json['title'] as String,
-        moduleIds: ((json['moduleIds'] as List?) ?? const []).cast<String>(),
-        reheatMinutes: json['reheatMinutes'] as int? ?? 0,
-        fromContainer: (json['fromContainer'] as String?) ?? '',
-      );
+  /// Совместимость со старым кодом: плоский список id модулей.
+  List<String> get moduleIds =>
+      components.map((c) => c.moduleId).where((id) => id.isNotEmpty).toList();
+
+  /// Компонент конкретной роли (первый), если есть.
+  MealComponent? componentOf(MealRole role) {
+    for (final c in components) {
+      if (c.role == role) return c;
+    }
+    return null;
+  }
+
+  factory PlannedMeal.fromJson(Map<String, dynamic> json) {
+    // Новый формат: components[]. Легаси: moduleIds[] → standalone-компоненты.
+    final raw = json['components'] as List?;
+    final components = raw != null
+        ? raw.cast<Map<String, dynamic>>().map(MealComponent.fromJson).toList()
+        : ((json['moduleIds'] as List?) ?? const [])
+            .cast<String>()
+            .map((id) => MealComponent(
+                moduleId: id, role: MealRole.standalone, name: id))
+            .toList();
+    return PlannedMeal(
+      title: json['title'] as String,
+      kind: MealKind.fromJson(json['kind'] as String?),
+      components: components,
+      reheatMinutes: json['reheatMinutes'] as int? ?? 0,
+      fromContainer: (json['fromContainer'] as String?) ?? '',
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         'title': title,
-        'moduleIds': moduleIds,
+        'kind': kind.jsonValue,
+        'components': components.map((c) => c.toJson()).toList(),
         'reheatMinutes': reheatMinutes,
         if (fromContainer.isNotEmpty) 'fromContainer': fromContainer,
       };
+
+  PlannedMeal copyWith({
+    String? title,
+    MealKind? kind,
+    List<MealComponent>? components,
+    int? reheatMinutes,
+    String? fromContainer,
+  }) =>
+      PlannedMeal(
+        title: title ?? this.title,
+        kind: kind ?? this.kind,
+        components: components ?? this.components,
+        reheatMinutes: reheatMinutes ?? this.reheatMinutes,
+        fromContainer: fromContainer ?? this.fromContainer,
+      );
 }
 
-/// План одного дня: завтрак / обед / ужин.
+/// План одного дня: завтрак / обед / ужин (+ опциональный перекус).
 class DayPlan {
   const DayPlan({
     required this.weekday,
@@ -47,6 +160,7 @@ class DayPlan {
     required this.breakfast,
     required this.lunch,
     required this.dinner,
+    this.snack,
   });
 
   final String weekday;
@@ -54,11 +168,13 @@ class DayPlan {
   final PlannedMeal breakfast;
   final PlannedMeal lunch;
   final PlannedMeal dinner;
+  final PlannedMeal? snack;
 
-  PlannedMeal mealAt(MealSlot slot) => switch (slot) {
+  PlannedMeal? mealAt(MealSlot slot) => switch (slot) {
         MealSlot.breakfast => breakfast,
         MealSlot.lunch => lunch,
         MealSlot.dinner => dinner,
+        MealSlot.snack => snack,
       };
 
   factory DayPlan.fromJson(Map<String, dynamic> json) => DayPlan(
@@ -67,6 +183,9 @@ class DayPlan {
         breakfast: PlannedMeal.fromJson(json['breakfast'] as Map<String, dynamic>),
         lunch: PlannedMeal.fromJson(json['lunch'] as Map<String, dynamic>),
         dinner: PlannedMeal.fromJson(json['dinner'] as Map<String, dynamic>),
+        snack: json['snack'] != null
+            ? PlannedMeal.fromJson(json['snack'] as Map<String, dynamic>)
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -75,6 +194,7 @@ class DayPlan {
         'breakfast': breakfast.toJson(),
         'lunch': lunch.toJson(),
         'dinner': dinner.toJson(),
+        if (snack != null) 'snack': snack!.toJson(),
       };
 }
 

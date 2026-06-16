@@ -118,16 +118,13 @@ class _TwoWeekMenuScreenState extends State<TwoWeekMenuScreen> {
     if (picked == null || !context.mounted) return;
     final active = context.read<ActiveMenu>();
     final current = active.menu!.weeks[_weekIndex].days[dayIdx].mealAt(slot);
+    if (current == null) return;
+    // Меняем только заголовок, компоненты/контейнер сохраняем (точечная правка).
     active.replaceMeal(
       weekIndex: _weekIndex,
       dayIndex: dayIdx,
       slot: slot,
-      replacement: PlannedMeal(
-        title: picked,
-        moduleIds: current.moduleIds,
-        reheatMinutes: current.reheatMinutes,
-        fromContainer: current.fromContainer,
-      ),
+      replacement: current.copyWith(title: picked),
     );
   }
 }

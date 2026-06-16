@@ -46,6 +46,7 @@ class ActiveMenu extends ChangeNotifier {
       breakfast: slot == MealSlot.breakfast ? replacement : day.breakfast,
       lunch: slot == MealSlot.lunch ? replacement : day.lunch,
       dinner: slot == MealSlot.dinner ? replacement : day.dinner,
+      snack: slot == MealSlot.snack ? replacement : day.snack,
     );
     final newDays = [...week.days];
     newDays[dayIndex] = newDay;

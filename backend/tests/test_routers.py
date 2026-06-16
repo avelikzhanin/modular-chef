@@ -22,6 +22,7 @@ from app.routers.menus import get_llm_client
 from app.schemas import (
     DayPlanSchema,
     GenerationRequestSchema,
+    MealComponentSchema,
     MenuSummarySchema,
     MenuWeekSchema,
     PlannedMealSchema,
@@ -63,13 +64,33 @@ class _FakeLlmClient:
     """Возвращает фиксированный WeeklyMenu — никаких сетевых вызовов."""
 
     async def generate(self, request, session) -> WeeklyMenuSchema:  # noqa: ARG002
-        meal = PlannedMealSchema(title="Курица + рис", moduleIds=["chicken_breast", "rice"], reheatMinutes=2)
+        meal = PlannedMealSchema(
+            title="Курица + рис",
+            kind="main",
+            components=[
+                MealComponentSchema(moduleId="chicken_breast", role="protein", name="Курица"),
+                MealComponentSchema(moduleId="rice", role="side", name="Рис"),
+            ],
+            reheatMinutes=2,
+        )
         day = DayPlanSchema(
             weekday="monday",
             shortName="Пн",
-            breakfast=PlannedMealSchema(title="Овсянка", moduleIds=["oatmeal_jar"]),
+            breakfast=PlannedMealSchema(
+                title="Овсянка",
+                kind="breakfast",
+                components=[
+                    MealComponentSchema(moduleId="oatmeal_jar", role="standalone", name="Овсянка")
+                ],
+            ),
             lunch=meal,
-            dinner=PlannedMealSchema(title="Лосось", moduleIds=["salmon"]),
+            dinner=PlannedMealSchema(
+                title="Лосось",
+                kind="main",
+                components=[
+                    MealComponentSchema(moduleId="salmon", role="protein", name="Лосось")
+                ],
+            ),
         )
         week = MenuWeekSchema(index=0, name="Неделя 1", days=[day])
         return WeeklyMenuSchema(

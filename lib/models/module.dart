@@ -6,6 +6,7 @@ enum ModuleCategory {
   side('side', 'Гарниры'),
   soup('soup', 'Супы'),
   breakfast('breakfast', 'Завтраки'),
+  snack('snack', 'Перекусы'),
   vegetable('vegetable', 'Овощи'),
   sauce('sauce', 'Соусы');
 

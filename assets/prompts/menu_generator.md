@@ -42,19 +42,34 @@
           "shortName": "Пн",
           "breakfast": {
             "title": "Овсянка с ягодами",
-            "moduleIds": ["oatmeal_jar"],
+            "kind": "breakfast",
+            "components": [
+              {"moduleId": "oatmeal_jar", "role": "standalone", "name": "Овсянка в банке", "emoji": "🥣"}
+            ],
             "reheatMinutes": 0,
             "fromContainer": "холодильник, банка №1"
           },
           "lunch": {
-            "title": "Курица гриль + рис + йогуртовый соус",
-            "moduleIds": ["chicken_breast", "rice", "yogurt_sauce"],
+            "title": "Курица гриль + рис + брокколи + йогуртовый соус",
+            "kind": "main",
+            "components": [
+              {"moduleId": "chicken_breast", "role": "protein", "name": "Курица", "emoji": "🍗"},
+              {"moduleId": "rice", "role": "side", "name": "Рис", "emoji": "🍚"},
+              {"moduleId": "broccoli", "role": "vegetable", "name": "Брокколи", "emoji": "🥦"},
+              {"moduleId": "yogurt_sauce", "role": "sauce", "name": "Йогуртовый соус", "emoji": "🥛"}
+            ],
             "reheatMinutes": 2,
             "fromContainer": "холодильник, контейнер №2"
           },
           "dinner": {
-            "title": "Лосось + булгур + лимонная заправка",
-            "moduleIds": ["salmon", "bulgur", "lemon_dressing"],
+            "title": "Лосось + булгур + салат + лимонная заправка",
+            "kind": "main",
+            "components": [
+              {"moduleId": "salmon", "role": "protein", "name": "Лосось", "emoji": "🐟"},
+              {"moduleId": "bulgur", "role": "side", "name": "Булгур", "emoji": "🌾"},
+              {"moduleId": "salad_mix", "role": "vegetable", "name": "Салат микс", "emoji": "🥗"},
+              {"moduleId": "lemon_dressing", "role": "sauce", "name": "Лимонная заправка", "emoji": "🍋"}
+            ],
             "reheatMinutes": 3,
             "fromContainer": "вакуум, до чт-пт"
           }
@@ -79,7 +94,9 @@
 
 ## Жёсткие правила
 
-1. **Используй только выбранные модули.** Если белка/гарнира нет в `picks`, его нельзя в меню. Овощи и соусы можно подбирать из всего каталога (`catalog.modules` где `category == vegetable | sauce`).
+0. **Тарелка = компоненты с ролями.** Каждый приём — объект с `kind` и массивом `components`, где у каждого `moduleId`, `role`, `name`, `emoji`. Роли: `protein | side | vegetable | sauce | base | standalone`. Структура по `kind`: **main** = protein + side + vegetable + sauce (полная тарелка!); **breakfast** = один standalone [+ топпинг]; **soup** = standalone [+ base: хлеб]; **snack** = один standalone. Овощ и соус в обедах/ужинах ОБЯЗАТЕЛЬНЫ — это и есть «полная тарелка».
+1. **Используй только выбранные модули** для белков/гарниров/завтраков/супов. Если их нет в `picks` — нельзя. Овощи и соусы подбирай сам из всего каталога (`category == vegetable | sauce`), совместимые по кухне.
+1a. **Перекусы (`snack`) — опциональны.** Добавляй слот `snack` только если в `picks.snacks` что-то есть; иначе не включай поле `snack`.
 2. **Без повторов 2 дня подряд** в одном приёме пищи (например, не «курица+рис» на обед в пн и вт).
 3. **Каждый белок используется в 3-4 разных блюдах** на горизонте 14 дней.
 4. **Чередуй вкусовые профили:** azian → mediterranean → russian → ... — не более 2 дней подряд одного профиля. Профили берутся из `pairings[].tags` или `templates[].tags`.
@@ -100,12 +117,15 @@
 | `weeks[].days[].weekday` | string | monday/tuesday/.../sunday |
 | `weeks[].days[].shortName` | string | "Пн", "Вт", ... |
 | `*.title` | string | человеческое название блюда |
-| `*.moduleIds` | string[] | id'шники модулей из каталога |
+| `*.kind` | string | main / breakfast / soup / snack |
+| `*.components[]` | object[] | `{moduleId, role, name, emoji}` — компоненты тарелки |
+| `*.components[].role` | string | protein/side/vegetable/sauce/base/standalone |
 | `*.reheatMinutes` | int | 0-30 |
 | `*.fromContainer` | string | "холодильник, контейнер №2" |
 | `summary.uniqueDishes` | int | сколько разных `title` среди всех 42 приёмов |
 | `summary.totalMeals` | int | всегда 42 |
-| `summary.modulesUsed` | int | сколько уникальных moduleIds задействовано |
+| `summary.modulesUsed` | int | сколько уникальных moduleId задействовано |
+| `weeks[].days[].snack` | object? | опциональный перекус (только если в picks.snacks есть выбор) |
 | `summary.flavourProfiles` | string[] | какие профили использованы |
 
 ## Тон

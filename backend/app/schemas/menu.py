@@ -39,9 +39,17 @@ class GenerationRequestSchema(_ApiModel):
 # ---------- Response ----------
 
 
+class MealComponentSchema(_ApiModel):
+    moduleId: str
+    role: Literal["protein", "side", "vegetable", "sauce", "base", "standalone"]
+    name: str
+    emoji: str = ""
+
+
 class PlannedMealSchema(_ApiModel):
     title: str
-    moduleIds: list[str] = Field(default_factory=list)
+    kind: Literal["main", "breakfast", "soup", "snack"] = "main"
+    components: list[MealComponentSchema] = Field(default_factory=list)
     reheatMinutes: int = 0
     fromContainer: str = ""
 
@@ -54,6 +62,7 @@ class DayPlanSchema(_ApiModel):
     breakfast: PlannedMealSchema
     lunch: PlannedMealSchema
     dinner: PlannedMealSchema
+    snack: PlannedMealSchema | None = None
 
 
 class MenuWeekSchema(_ApiModel):

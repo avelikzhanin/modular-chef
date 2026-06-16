@@ -3,9 +3,8 @@ import 'package:modular_chef/models/pairing.dart';
 import 'package:modular_chef/models/weekly_menu.dart';
 import 'package:modular_chef/services/prompt_builder.dart';
 
-/// Контракт генератора меню. Stage 5 даст `HttpMenuGenerator`,
-/// который POST'ит запрос в FastAPI-бэкенд и возвращает уже
-/// сгенерированный JSON от Claude.
+/// Контракт генератора меню. `HttpMenuGenerator` (Stage 5) POST'ит запрос
+/// в FastAPI-бэкенд и возвращает уже сгенерированный JSON от LLM.
 abstract class MenuGenerator {
   Future<WeeklyMenu> generate(
     GenerationRequest request, {
@@ -14,9 +13,9 @@ abstract class MenuGenerator {
   });
 }
 
-/// Детерминированный stub: использует round-robin по пикам пользователя
-/// и готовые pairings из каталога. Без сети — работает на телефоне
-/// и в тестах. Stage 5 заменит на сетевой генератор.
+/// Детерминированный stub: собирает полные тарелки (белок+гарнир+овощ+соус)
+/// из пиков пользователя + автоподбор овощей/соусов из каталога. Без сети —
+/// работает на телефоне и в тестах. Прод заменяет на сетевой генератор.
 class StubMenuGenerator implements MenuGenerator {
   const StubMenuGenerator();
 
@@ -36,23 +35,21 @@ class StubMenuGenerator implements MenuGenerator {
     required List<Module> modules,
     required List<Pairing> pairings,
   }) async {
-    // Имитация работы — даёт UI шанс показать loader
     await Future.delayed(const Duration(milliseconds: 300));
 
     final byId = <String, Module>{for (final m in modules) m.id: m};
-    final breakfasts = request.breakfastIds
-        .map((id) => byId[id])
-        .whereType<Module>()
-        .toList();
-    final picked = _PickedPool(
-      proteins: request.proteinIds
-          .map((id) => byId[id])
-          .whereType<Module>()
-          .toList(),
-      sides:
-          request.sideIds.map((id) => byId[id]).whereType<Module>().toList(),
-      soups:
-          request.soupIds.map((id) => byId[id]).whereType<Module>().toList(),
+    List<Module> pick(List<String> ids) =>
+        ids.map((id) => byId[id]).whereType<Module>().toList();
+
+    final pool = _PickedPool(
+      byId: byId,
+      proteins: pick(request.proteinIds),
+      sides: pick(request.sideIds),
+      soups: pick(request.soupIds),
+      breakfasts: pick(request.breakfastIds),
+      vegetables:
+          modules.where((m) => m.category == ModuleCategory.vegetable).toList(),
+      sauces: modules.where((m) => m.category == ModuleCategory.sauce).toList(),
       pairings: pairings
           .where((p) =>
               request.proteinIds.contains(p.proteinId) &&
@@ -68,13 +65,12 @@ class StubMenuGenerator implements MenuGenerator {
       for (int d = 0; d < _weekdays.length; d++) {
         final globalIdx = weekIdx * 7 + d;
         final (weekday, shortName) = _weekdays[d];
-        final breakfast = _buildBreakfast(breakfasts, globalIdx);
-        final lunch = _buildMainMeal(picked, globalIdx, allMeals,
-            preferLightCarbs: false);
-        final dinner = _buildMainMeal(picked, globalIdx + 1, allMeals,
-            preferLightCarbs: true,
-            // ужин не повторяется с обедом того же дня
-            avoidProteinId: lunch.moduleIds.isNotEmpty ? lunch.moduleIds.first : null);
+        final breakfast = _buildBreakfast(pool, globalIdx);
+        final lunch = _buildMainMeal(pool, globalIdx);
+        final dinnerProtein =
+            lunch.componentOf(MealRole.protein)?.moduleId;
+        final dinner =
+            _buildMainMeal(pool, globalIdx + 1, avoidProteinId: dinnerProtein);
         days.add(DayPlan(
           weekday: weekday,
           shortName: shortName,
@@ -99,25 +95,28 @@ class StubMenuGenerator implements MenuGenerator {
         uniqueDishes: uniqueTitles.length,
         totalMeals: allMeals.length,
         modulesUsed: allModuleIds.length,
-        flavourProfiles: _profilesFrom(picked.pairings),
+        flavourProfiles: _profilesFrom(pool.pairings),
       ),
     );
   }
 
-  PlannedMeal _buildBreakfast(List<Module> breakfasts, int dayIdx) {
-    if (breakfasts.isEmpty) {
+  MealComponent _comp(Module m, MealRole role) =>
+      MealComponent(moduleId: m.id, role: role, name: m.name, emoji: m.emoji);
+
+  PlannedMeal _buildBreakfast(_PickedPool pool, int dayIdx) {
+    if (pool.breakfasts.isEmpty) {
       return const PlannedMeal(
         title: 'Завтрак на выбор',
-        moduleIds: [],
-        reheatMinutes: 0,
+        kind: MealKind.breakfast,
         fromContainer: 'кладовая',
       );
     }
-    // batch-завтрак: один и тот же на 2-3 дня подряд
-    final b = breakfasts[(dayIdx ~/ 2) % breakfasts.length];
+    // batch-завтрак: один и тот же на 2 дня подряд
+    final b = pool.breakfasts[(dayIdx ~/ 2) % pool.breakfasts.length];
     return PlannedMeal(
-      title: '${b.name} — ${b.emoji}',
-      moduleIds: [b.id],
+      title: b.name,
+      kind: MealKind.breakfast,
+      components: [_comp(b, MealRole.standalone)],
       reheatMinutes: b.prepMinutes ?? 0,
       fromContainer: _containerFor(b),
     );
@@ -125,89 +124,67 @@ class StubMenuGenerator implements MenuGenerator {
 
   PlannedMeal _buildMainMeal(
     _PickedPool pool,
-    int slotIdx,
-    List<PlannedMeal> previous, {
-    required bool preferLightCarbs,
+    int slotIdx, {
     String? avoidProteinId,
   }) {
     if (pool.proteins.isEmpty) {
       return const PlannedMeal(
         title: 'Выберите белки',
-        moduleIds: [],
-        reheatMinutes: 0,
         fromContainer: 'каталог',
       );
     }
 
-    // выбираем белок с round-robin, избегая повтор подряд
     final proteinPool = avoidProteinId == null
         ? pool.proteins
         : pool.proteins.where((p) => p.id != avoidProteinId).toList();
-    final protein = proteinPool.isEmpty
-        ? pool.proteins[slotIdx % pool.proteins.length]
-        : proteinPool[slotIdx % proteinPool.length];
+    final protein = (proteinPool.isEmpty ? pool.proteins : proteinPool)[
+        slotIdx % (proteinPool.isEmpty ? pool.proteins : proteinPool).length];
 
-    // если есть готовая pairing с этим белком — используем её
-    final pairing = pool.pairings
-        .where((p) => p.proteinId == protein.id)
-        .toList()
-      ..sort((a, b) => a.proteinId.compareTo(b.proteinId));
-    if (pairing.isNotEmpty) {
-      final pick = pairing[slotIdx % pairing.length];
-      final title = pick.name ??
-          [
-            protein.name,
-            pool.sides.firstWhere(
-              (s) => s.id == pick.sideId,
-              orElse: () => protein,
-            ).name,
-            if (pick.sauceId != null) _sauceLabel(pick.sauceId!),
-          ].join(' + ');
-      return PlannedMeal(
-        title: title,
-        moduleIds: [
-          pick.proteinId,
-          pick.sideId,
-          if (pick.sauceId != null) pick.sauceId!,
-        ],
-        reheatMinutes: 2 + slotIdx % 3,
-        fromContainer: _containerFor(protein),
-      );
+    // подходящая pairing с этим белком (для гарнира/соуса/тегов)
+    final matching =
+        pool.pairings.where((p) => p.proteinId == protein.id).toList()
+          ..sort((a, b) => a.sideId.compareTo(b.sideId));
+    Pairing? pairing = matching.isNotEmpty ? matching[slotIdx % matching.length] : null;
+
+    final components = <MealComponent>[_comp(protein, MealRole.protein)];
+
+    // гарнир — из pairing или round-robin из пиков
+    Module? side;
+    if (pairing != null) side = pool.byId[pairing.sideId];
+    side ??= pool.sides.isNotEmpty ? pool.sides[slotIdx % pool.sides.length] : null;
+    if (side != null) components.add(_comp(side, MealRole.side));
+
+    // овощ — автоподбор из каталога
+    if (pool.vegetables.isNotEmpty) {
+      final veg = pool.vegetables[slotIdx % pool.vegetables.length];
+      components.add(_comp(veg, MealRole.vegetable));
     }
 
-    // fallback: round-robin белок × гарнир
-    if (pool.sides.isEmpty) {
-      return PlannedMeal(
-        title: protein.name,
-        moduleIds: [protein.id],
-        reheatMinutes: 2,
-        fromContainer: _containerFor(protein),
-      );
-    }
-    final side = pool.sides[slotIdx % pool.sides.length];
+    // соус — из pairing или round-robin
+    Module? sauce;
+    if (pairing?.sauceId != null) sauce = pool.byId[pairing!.sauceId!];
+    sauce ??= pool.sauces.isNotEmpty ? pool.sauces[slotIdx % pool.sauces.length] : null;
+    if (sauce != null) components.add(_comp(sauce, MealRole.sauce));
+
+    final title = pairing?.name ?? components.map((c) => c.name).join(' + ');
+
     return PlannedMeal(
-      title: '${protein.name} + ${side.name}',
-      moduleIds: [protein.id, side.id],
+      title: title,
+      kind: MealKind.main,
+      components: components,
       reheatMinutes: 2 + slotIdx % 3,
       fromContainer: _containerFor(protein),
     );
   }
 
   String _containerFor(Module m) {
-    final z = m.storage.zone;
-    return switch (z.jsonValue) {
+    return switch (m.storage.zone.jsonValue) {
       'fridge' => 'холодильник',
       'freezer' => 'морозилка',
       'vacuum' => 'вакуум',
       'pantry' => 'кладовая',
       _ => '',
     };
-  }
-
-  String _sauceLabel(String sauceId) {
-    // Простая маркировка — генератор не знает имя соуса без модуля.
-    // Stage 5 (реальный Claude) подставит человеческое имя.
-    return sauceId.replaceAll('_', ' ');
   }
 
   List<String> _profilesFrom(List<Pairing> pairings) {
@@ -221,13 +198,21 @@ class StubMenuGenerator implements MenuGenerator {
 
 class _PickedPool {
   _PickedPool({
+    required this.byId,
     required this.proteins,
     required this.sides,
     required this.soups,
+    required this.breakfasts,
+    required this.vegetables,
+    required this.sauces,
     required this.pairings,
   });
+  final Map<String, Module> byId;
   final List<Module> proteins;
   final List<Module> sides;
   final List<Module> soups;
+  final List<Module> breakfasts;
+  final List<Module> vegetables;
+  final List<Module> sauces;
   final List<Pairing> pairings;
 }
