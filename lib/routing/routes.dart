@@ -17,6 +17,9 @@ abstract final class Routes {
   /// Push-экран Шефа: «Предпочтения» (открывается из Профиля).
   static const chefPreferences = '/chef/preferences';
 
+  /// Push-экран Шефа: «Мои сочетания» (открывается из Профиля).
+  static const chefFavourites = '/chef/favourites';
+
   // Guest branch (2 таба — «Моя неделя» убрана в v2)
   static const guestToday = '/guest/today';
   static const guestInventory = '/guest/inventory';

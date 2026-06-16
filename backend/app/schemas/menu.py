@@ -31,9 +31,16 @@ class PreferencesSchema(_ApiModel):
     weekStyle: str | None = None
 
 
+class FavouriteComboSchema(_ApiModel):
+    protein: str
+    side: str
+    sauce: str | None = None
+
+
 class GenerationRequestSchema(_ApiModel):
     picks: _Picks
     preferences: PreferencesSchema = Field(default_factory=PreferencesSchema)
+    favourites: list[FavouriteComboSchema] = Field(default_factory=list)
 
 
 # ---------- Response ----------

@@ -4,6 +4,7 @@ import 'package:modular_chef/models/module.dart';
 import 'package:modular_chef/models/weekly_menu.dart';
 import 'package:modular_chef/services/active_menu.dart';
 import 'package:modular_chef/services/catalog_service.dart';
+import 'package:modular_chef/services/favourite_combos.dart';
 import 'package:modular_chef/services/menu_repository.dart';
 import 'package:modular_chef/services/preferences.dart';
 import 'package:modular_chef/theme/app_colors.dart';
@@ -114,6 +115,7 @@ class _TwoWeekMenuScreenState extends State<TwoWeekMenuScreen> {
           _DayCard(
             day: week.days[i],
             onEditMeal: (slot) => _openMealEditor(context, i, slot),
+            onFavMeal: (slot) => _saveFav(context, i, slot),
           ),
           const SizedBox(height: 12),
         ],
@@ -174,6 +176,28 @@ class _TwoWeekMenuScreenState extends State<TwoWeekMenuScreen> {
           fromModuleId: fromModuleId,
           to: _toComponent(chosen, role),
         );
+  }
+
+  // Сохранить тарелку как любимое сочетание.
+  void _saveFav(BuildContext context, int dayIdx, MealSlot slot) {
+    final meal = context.read<ActiveMenu>().menu!.weeks[_weekIndex].days[dayIdx].mealAt(slot);
+    if (meal == null) return;
+    final protein = meal.componentOf(MealRole.protein);
+    final side = meal.componentOf(MealRole.side);
+    if (protein == null || side == null) return;
+    final added = context.read<FavouriteCombos>().add(ComboFav(
+          proteinId: protein.moduleId,
+          sideId: side.moduleId,
+          sauceId: meal.componentOf(MealRole.sauce)?.moduleId,
+          title: meal.title,
+        ));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(added ? 'Добавлено в любимые ♥' : 'Уже в любимых'),
+        behavior: SnackBarBehavior.floating,
+        duration: const Duration(seconds: 1),
+      ),
+    );
   }
 
   Future<Module?> _pickModule(
@@ -456,9 +480,10 @@ class _ComponentOverview extends StatelessWidget {
 }
 
 class _DayCard extends StatelessWidget {
-  const _DayCard({required this.day, required this.onEditMeal});
+  const _DayCard({required this.day, required this.onEditMeal, required this.onFavMeal});
   final DayPlan day;
   final ValueChanged<MealSlot> onEditMeal;
+  final ValueChanged<MealSlot> onFavMeal;
 
   @override
   Widget build(BuildContext context) {
@@ -488,7 +513,14 @@ class _DayCard extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           for (int i = 0; i < meals.length; i++) ...[
-            _MealRow(slot: meals[i].$1, meal: meals[i].$2, onTap: () => onEditMeal(meals[i].$1)),
+            _MealRow(
+              slot: meals[i].$1,
+              meal: meals[i].$2,
+              onTap: () => onEditMeal(meals[i].$1),
+              onFav: meals[i].$2.kind == MealKind.main
+                  ? () => onFavMeal(meals[i].$1)
+                  : null,
+            ),
             if (i < meals.length - 1) const Divider(height: 18, color: Colors.transparent),
           ],
         ],
@@ -498,10 +530,11 @@ class _DayCard extends StatelessWidget {
 }
 
 class _MealRow extends StatelessWidget {
-  const _MealRow({required this.slot, required this.meal, required this.onTap});
+  const _MealRow({required this.slot, required this.meal, required this.onTap, this.onFav});
   final MealSlot slot;
   final PlannedMeal meal;
   final VoidCallback onTap;
+  final VoidCallback? onFav;
 
   @override
   Widget build(BuildContext context) {
@@ -554,6 +587,16 @@ class _MealRow extends StatelessWidget {
                 ],
               ),
             ),
+            if (onFav != null)
+              InkWell(
+                onTap: onFav,
+                borderRadius: BorderRadius.circular(999),
+                child: const Padding(
+                  padding: EdgeInsets.all(4),
+                  child: Icon(Icons.favorite_border, size: 17, color: AppColors.secondary),
+                ),
+              ),
+            const SizedBox(width: 2),
             Icon(Icons.tune, size: 16, color: AppColors.onSurfaceVariant.withValues(alpha: 0.6)),
           ],
         ),

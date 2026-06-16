@@ -4,6 +4,7 @@ import 'config/api_config.dart';
 import 'routing/app_router.dart';
 import 'services/active_menu.dart';
 import 'services/catalog_service.dart';
+import 'services/favourite_combos.dart';
 import 'services/http_menu_generator.dart';
 import 'services/menu_generator.dart';
 import 'services/menu_repository.dart';
@@ -25,6 +26,7 @@ class _ModularChefAppState extends State<ModularChefApp> {
   late final ActiveMenu _activeMenu = ActiveMenu();
   late final TodayPlan _todayPlan = TodayPlan();
   late final Preferences _preferences = Preferences();
+  late final FavouriteCombos _favourites = FavouriteCombos();
 
   /// Выбор генератора решается на старте по `--dart-define=API_BASE_URL`.
   /// Без флага — оффлайн stub; с флагом — сетевой через FastAPI на Railway.
@@ -54,6 +56,7 @@ class _ModularChefAppState extends State<ModularChefApp> {
     _activeMenu.dispose();
     _todayPlan.dispose();
     _preferences.dispose();
+    _favourites.dispose();
     super.dispose();
   }
 
@@ -66,6 +69,7 @@ class _ModularChefAppState extends State<ModularChefApp> {
         ChangeNotifierProvider<ActiveMenu>.value(value: _activeMenu),
         ChangeNotifierProvider<TodayPlan>.value(value: _todayPlan),
         ChangeNotifierProvider<Preferences>.value(value: _preferences),
+        ChangeNotifierProvider<FavouriteCombos>.value(value: _favourites),
         Provider<MenuGenerator>.value(value: _generator),
         Provider<MenuRepository>.value(value: _menuRepo),
       ],

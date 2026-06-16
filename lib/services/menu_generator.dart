@@ -41,6 +41,17 @@ class StubMenuGenerator implements MenuGenerator {
     List<Module> pick(List<String> ids) =>
         ids.map((id) => byId[id]).whereType<Module>().toList();
 
+    // Любимые сочетания шефа — приоритетные пары (идут первыми в пуле).
+    final favPairings = request.favourites
+        .map((f) => Pairing(
+              proteinId: f.proteinId,
+              sideId: f.sideId,
+              sauceId: f.sauceId,
+              tags: const ['favourite'],
+              name: f.title,
+            ))
+        .toList();
+
     final pool = _PickedPool(
       byId: byId,
       proteins: pick(request.proteinIds),
@@ -50,11 +61,13 @@ class StubMenuGenerator implements MenuGenerator {
       vegetables:
           modules.where((m) => m.category == ModuleCategory.vegetable).toList(),
       sauces: modules.where((m) => m.category == ModuleCategory.sauce).toList(),
-      pairings: pairings
-          .where((p) =>
-              request.proteinIds.contains(p.proteinId) &&
-              request.sideIds.contains(p.sideId))
-          .toList(),
+      pairings: [
+        // фавориты первыми → выбираются раньше каталожных пар
+        ...favPairings,
+        ...pairings.where((p) =>
+            request.proteinIds.contains(p.proteinId) &&
+            request.sideIds.contains(p.sideId)),
+      ],
     );
 
     final allMeals = <PlannedMeal>[];

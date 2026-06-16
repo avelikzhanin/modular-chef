@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modular_chef/models/weekly_menu.dart';
+import 'package:modular_chef/screens/chef/favourites_screen.dart';
 import 'package:modular_chef/screens/chef/menu_screen.dart';
 import 'package:modular_chef/screens/chef/my_dishes_screen.dart';
 import 'package:modular_chef/screens/chef/preferences_screen.dart';
@@ -68,6 +69,11 @@ GoRouter buildRouter(RoleProvider role) {
         path: Routes.chefPreferences,
         parentNavigatorKey: _rootNavigatorKey,
         builder: (_, __) => const PreferencesScreen(),
+      ),
+      GoRoute(
+        path: Routes.chefFavourites,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (_, __) => const FavouritesScreen(),
       ),
       GoRoute(
         path: Routes.guestAssembleDish,

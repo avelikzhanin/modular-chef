@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:modular_chef/models/module.dart';
 import 'package:modular_chef/models/pairing.dart';
 import 'package:modular_chef/models/week_template.dart';
+import 'package:modular_chef/services/favourite_combos.dart';
 
 /// Что пользователь и контекст передают генератору меню.
 class GenerationRequest {
@@ -17,6 +18,7 @@ class GenerationRequest {
     this.allergies = const [],
     this.prepTimeLimitMinutes = 120,
     this.weekStyle,
+    this.favourites = const [],
   });
 
   final List<String> proteinIds;
@@ -27,6 +29,7 @@ class GenerationRequest {
   final List<String> allergies;
   final int prepTimeLimitMinutes;
   final String? weekStyle;
+  final List<ComboFav> favourites;
 
   Map<String, dynamic> toJson() => {
         'picks': {
@@ -41,6 +44,7 @@ class GenerationRequest {
           'prepTimeLimitMinutes': prepTimeLimitMinutes,
           if (weekStyle != null) 'weekStyle': weekStyle,
         },
+        'favourites': favourites.map((f) => f.toJson()).toList(),
       };
 }
 

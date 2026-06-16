@@ -34,6 +34,13 @@ class ProfileScreen extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           _NavTile(
+            icon: Icons.favorite_border,
+            title: 'Мои сочетания',
+            subtitle: 'Любимые тройки для генератора',
+            onTap: () => context.push(Routes.chefFavourites),
+          ),
+          const SizedBox(height: 12),
+          _NavTile(
             icon: Icons.tune_outlined,
             title: 'Предпочтения',
             subtitle: 'Аллергии, диета, ограничения',

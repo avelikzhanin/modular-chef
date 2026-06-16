@@ -5,6 +5,7 @@ import 'package:modular_chef/models/module.dart';
 import 'package:modular_chef/routing/routes.dart';
 import 'package:modular_chef/services/active_menu.dart';
 import 'package:modular_chef/services/catalog_service.dart';
+import 'package:modular_chef/services/favourite_combos.dart';
 import 'package:modular_chef/services/menu_generator.dart';
 import 'package:modular_chef/services/preferences.dart';
 import 'package:modular_chef/services/prompt_builder.dart';
@@ -156,6 +157,7 @@ class _MenuScreenState extends State<MenuScreen> {
       allergies: prefs.avoidList,
       prepTimeLimitMinutes: prefs.prepLimitMinutes,
       weekStyle: prefs.weekStyle,
+      favourites: context.read<FavouriteCombos>().items,
     );
 
     activeMenu.beginGenerating();
