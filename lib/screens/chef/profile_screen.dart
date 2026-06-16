@@ -33,11 +33,11 @@ class ProfileScreen extends StatelessWidget {
             onTap: () => context.push(Routes.chefMyDishes),
           ),
           const SizedBox(height: 12),
-          const _NavTile(
+          _NavTile(
             icon: Icons.tune_outlined,
             title: 'Предпочтения',
             subtitle: 'Аллергии, диета, ограничения',
-            onTap: null,
+            onTap: () => context.push(Routes.chefPreferences),
           ),
           const SizedBox(height: 12),
           const _NavTile(

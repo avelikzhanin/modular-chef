@@ -4,6 +4,7 @@ import 'package:modular_chef/models/module.dart';
 import 'package:modular_chef/models/weekly_menu.dart';
 import 'package:modular_chef/services/active_menu.dart';
 import 'package:modular_chef/services/catalog_service.dart';
+import 'package:modular_chef/services/preferences.dart';
 import 'package:modular_chef/theme/app_colors.dart';
 
 /// Push-экран Шефа «Меню на 2 недели» — полные тарелки + три уровня правки:
@@ -98,6 +99,7 @@ class _TwoWeekMenuScreenState extends State<TwoWeekMenuScreen> {
       children: [
         _WeekTabs(index: _weekIndex, onChanged: (i) => setState(() => _weekIndex = i)),
         const SizedBox(height: 16),
+        _PrefsChips(chips: context.watch<Preferences>().appliedChips),
         _Badge(summary: menu.summary),
         const SizedBox(height: 16),
         _ComponentOverview(
@@ -268,6 +270,43 @@ class _WeekTabs extends StatelessWidget {
         borderRadius: BorderRadius.circular(999),
       ),
       child: Row(children: [pill(0, 'Неделя 1'), pill(1, 'Неделя 2')]),
+    );
+  }
+}
+
+/// Подсветка учтённых предпочтений над меню.
+class _PrefsChips extends StatelessWidget {
+  const _PrefsChips({required this.chips});
+  final List<String> chips;
+
+  @override
+  Widget build(BuildContext context) {
+    if (chips.isEmpty) return const SizedBox.shrink();
+    final tt = Theme.of(context).textTheme;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Wrap(
+        spacing: 8,
+        runSpacing: 8,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        children: [
+          Text('Учтено:',
+              style: tt.labelMedium?.copyWith(color: AppColors.onSurfaceVariant)),
+          for (final c in chips)
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              decoration: BoxDecoration(
+                color: AppColors.secondaryContainer,
+                borderRadius: BorderRadius.circular(999),
+              ),
+              child: Text('$c ✓',
+                  style: tt.labelSmall?.copyWith(
+                    color: AppColors.onSecondaryContainer,
+                    fontWeight: FontWeight.w600,
+                  )),
+            ),
+        ],
+      ),
     );
   }
 }

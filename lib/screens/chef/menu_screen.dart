@@ -6,6 +6,7 @@ import 'package:modular_chef/routing/routes.dart';
 import 'package:modular_chef/services/active_menu.dart';
 import 'package:modular_chef/services/catalog_service.dart';
 import 'package:modular_chef/services/menu_generator.dart';
+import 'package:modular_chef/services/preferences.dart';
 import 'package:modular_chef/services/prompt_builder.dart';
 import 'package:modular_chef/shell/role_switcher.dart';
 import 'package:modular_chef/theme/app_colors.dart';
@@ -136,6 +137,7 @@ class _MenuScreenState extends State<MenuScreen> {
       BuildContext context, CatalogService catalog) async {
     final activeMenu = context.read<ActiveMenu>();
     final generator = context.read<MenuGenerator>();
+    final prefs = context.read<Preferences>();
     final byCategory = <ModuleCategory, List<String>>{
       for (final c in ModuleCategory.values) c: <String>[],
     };
@@ -151,6 +153,9 @@ class _MenuScreenState extends State<MenuScreen> {
       customDishes: _picked
           .where((id) => catalog.moduleById(id) == null)
           .toList(growable: false),
+      allergies: prefs.avoidList,
+      prepTimeLimitMinutes: prefs.prepLimitMinutes,
+      weekStyle: prefs.weekStyle,
     );
 
     activeMenu.beginGenerating();
