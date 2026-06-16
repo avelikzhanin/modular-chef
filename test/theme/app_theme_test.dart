@@ -5,58 +5,62 @@ import 'package:modular_chef/theme/app_theme.dart';
 import 'package:modular_chef/theme/app_typography.dart';
 
 void main() {
-  group('AppColors', () {
-    test('primary is the muted pistachio from spec', () {
-      expect(AppColors.primary, const Color(0xFF49655A));
+  group('AppColors «Лён и глина»', () {
+    test('primary is dry clay', () {
+      expect(AppColors.primary, const Color(0xFFAE6A4D));
     });
 
-    test('primary container is the soft pistachio', () {
-      expect(AppColors.primaryContainer, const Color(0xFFCBE9DC));
+    test('primary container is light clay', () {
+      expect(AppColors.primaryContainer, const Color(0xFFE8CDBD));
     });
 
-    test('surface base is the cool off-white', () {
-      expect(AppColors.surface, const Color(0xFFF8F9FB));
+    test('surface base is warm linen', () {
+      expect(AppColors.surface, const Color(0xFFEDE6DA));
     });
 
-    test('surface lowest is pure white for floating cards', () {
-      expect(AppColors.surfaceContainerLowest, const Color(0xFFFFFFFF));
+    test('surface lowest is warm paper for floating cards', () {
+      expect(AppColors.surfaceContainerLowest, const Color(0xFFFBF6EE));
     });
 
-    test('secondary container is the powdery terracotta', () {
-      expect(AppColors.secondaryContainer, const Color(0xFFF0DEDE));
+    test('secondary container is warm sand-olive', () {
+      expect(AppColors.secondaryContainer, const Color(0xFFE7DEC8));
     });
 
-    test('tertiary container is the soft pink', () {
-      expect(AppColors.tertiaryContainer, const Color(0xFFFDE5EC));
+    test('tertiary container is warm sand', () {
+      expect(AppColors.tertiaryContainer, const Color(0xFFF0E2D0));
     });
 
-    test('on-surface variant is the warm body grey', () {
-      expect(AppColors.onSurfaceVariant, const Color(0xFF596064));
+    test('on-surface variant is warm muted brown', () {
+      expect(AppColors.onSurfaceVariant, const Color(0xFF8A7C6C));
+    });
+
+    test('on-surface is espresso', () {
+      expect(AppColors.onSurface, const Color(0xFF2E2620));
     });
   });
 
-  group('AppTypography.applyClinicalRules', () {
-    final theme = AppTypography.applyClinicalRules(AppTypography.baseScale);
+  group('AppTypography.applyTypeRules', () {
+    final theme = AppTypography.applyTypeRules(AppTypography.baseScale);
 
-    test('display large uses tight letter-spacing per spec (-0.02em)', () {
+    test('display large uses tight letter-spacing (-0.02em)', () {
       // -0.02em при fontSize 57 ≈ -1.14 logical px
       expect(theme.displayLarge!.letterSpacing, closeTo(-1.14, 0.05));
     });
 
-    test('body large color is the warm body grey', () {
-      expect(theme.bodyLarge!.color, const Color(0xFF596064));
+    test('body large color is the warm muted brown', () {
+      expect(theme.bodyLarge!.color, const Color(0xFF8A7C6C));
     });
 
-    test('label medium is uppercase tracking +0.05em', () {
+    test('label medium tracking is +0.05em', () {
       // +0.05em при fontSize 12 = 0.6
       expect(theme.labelMedium!.letterSpacing, closeTo(0.6, 0.05));
     });
   });
 
   group('AppTheme.light', () {
-    // Инжектим текст-тему без google_fonts, чтобы не дёргать asset bundle.
+    // Инжектим текст-тему без google_fonts, чтобы не дёргать сеть.
     final theme = AppTheme.light(
-      textTheme: AppTypography.applyClinicalRules(AppTypography.baseScale),
+      textTheme: AppTypography.applyTypeRules(AppTypography.baseScale),
     );
 
     test('uses Material 3', () {
@@ -69,16 +73,23 @@ void main() {
       expect(theme.colorScheme.surface, AppColors.surface);
     });
 
-    test('scaffold background is the surface base', () {
+    test('scaffold background is the linen surface', () {
       expect(theme.scaffoldBackgroundColor, AppColors.surface);
     });
 
-    test('card has xl radius (24) and white background, no elevation', () {
+    test('card has 24 radius and warm paper background, no elevation', () {
       final card = theme.cardTheme;
       expect(card.color, AppColors.surfaceContainerLowest);
       final shape = card.shape as RoundedRectangleBorder;
       expect((shape.borderRadius as BorderRadius).topLeft.x, 24);
       expect(card.elevation, 0);
+    });
+
+    test('filled button is restrained: clay fill, 14 radius, not a pill', () {
+      final style = theme.filledButtonTheme.style!;
+      final shape = style.shape!.resolve({}) as RoundedRectangleBorder;
+      expect((shape.borderRadius as BorderRadius).topLeft.x, 14);
+      expect(style.backgroundColor!.resolve({}), AppColors.primary);
     });
 
     test('navigation bar is flat and uses primary container as indicator', () {

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'app_colors.dart';
 import 'app_typography.dart';
 
-/// Фабрика ThemeData по спецификации Clinical Ethereal.
-/// Правила: no 1px borders, скруглённые карточки, "Sanctuary shadow" (тинтованный).
+/// Фабрика ThemeData по дизайн-системе «Лён и глина».
+/// Правила: тёплые тона, скруглённые карточки (24px), сдержанные кнопки
+/// (14px, не пилюли), тёплая низкая тень, no 1px borders.
 abstract final class AppTheme {
   /// Builds the light ThemeData.
   ///
@@ -83,18 +84,33 @@ abstract final class AppTheme {
         backgroundColor: AppColors.surfaceContainerLow,
         selectedColor: AppColors.primaryContainer,
         labelStyle: tt.labelMedium,
-        shape: const StadiumBorder(),
+        shape: const StadiumBorder(), // маленькие теги — pill, это ок
         side: BorderSide.none,
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.primaryContainer,
-          foregroundColor: AppColors.onPrimaryContainer,
+      // Кнопки — сдержанные: сплошная глина, радиус 14, не толстые пилюли.
+      filledButtonTheme: FilledButtonThemeData(
+        style: FilledButton.styleFrom(
+          backgroundColor: AppColors.primary,
+          foregroundColor: AppColors.onPrimary,
           elevation: 0,
           textStyle: tt.labelLarge?.copyWith(fontWeight: FontWeight.w600),
-          shape: const StadiumBorder(),
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        ),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.primary,
+          foregroundColor: AppColors.onPrimary,
+          elevation: 0,
+          textStyle: tt.labelLarge?.copyWith(fontWeight: FontWeight.w600),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         ),
       ),
       dividerTheme: const DividerThemeData(

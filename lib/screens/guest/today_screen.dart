@@ -78,7 +78,7 @@ class TodayScreen extends StatelessWidget {
                 backgroundColor: AppColors.primaryContainer.withValues(alpha: 0.3),
                 foregroundColor: AppColors.primary,
                 padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 16),
-                shape: const StadiumBorder(),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                 textStyle: tt.titleSmall?.copyWith(fontWeight: FontWeight.w600),
               ),
               onPressed: () => context.push(Routes.guestAssembleDish),

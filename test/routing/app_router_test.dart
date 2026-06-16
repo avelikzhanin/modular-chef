@@ -26,7 +26,7 @@ Future<void> _pumpApp(WidgetTester tester, RoleProvider provider) async {
       child: MaterialApp.router(
         // Инжектим текст-тему без google_fonts, чтобы не дёргать сеть.
         theme: AppTheme.light(
-          textTheme: AppTypography.applyClinicalRules(AppTypography.baseScale),
+          textTheme: AppTypography.applyTypeRules(AppTypography.baseScale),
         ),
         routerConfig: router,
       ),

@@ -113,7 +113,7 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
                 backgroundColor: AppColors.tertiaryContainer,
                 foregroundColor: AppColors.onTertiaryContainer,
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-                shape: const StadiumBorder(),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                 textStyle: tt.titleSmall?.copyWith(fontWeight: FontWeight.w700),
               ),
               icon: const Icon(Icons.ios_share, size: 20),

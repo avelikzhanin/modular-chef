@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'app_colors.dart';
 
-/// Типографика Clinical Ethereal: Inter из Google Fonts.
-/// Display — tight letter-spacing (-0.02em), body — warm body grey.
+/// Типографика «Лён и глина»: Fraunces (заголовки, редакторский serif)
+/// + Inter (текст/UI). Контраст serif-заголовок + sans-body — ключ к
+/// взрослому редакторскому виду.
 abstract final class AppTypography {
   /// Material 3 type scale, заданная явно, чтобы её можно было применять
   /// независимо от того, удалось ли подгрузить шрифт.
@@ -25,11 +26,12 @@ abstract final class AppTypography {
     labelSmall:  TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
   );
 
-  /// Чистая функция: применяет правила Clinical Ethereal к любой базовой теме.
-  /// Letter-spacing на display, цвет on_surface_variant на body, +0.05em
-  /// tracking на label. Тестируется напрямую без сетевых зависимостей.
+  /// Чистая функция: применяет правила типографики (letter-spacing, цвета)
+  /// к базовой теме — БЕЗ применения шрифта, чтобы тесты работали без сети.
+  /// Display — tight letter-spacing (-0.02em), body — тёплый muted, label
+  /// — +0.05em tracking.
   @visibleForTesting
-  static TextTheme applyClinicalRules(TextTheme base) {
+  static TextTheme applyTypeRules(TextTheme base) {
     TextStyle display(TextStyle src) =>
         src.copyWith(letterSpacing: src.fontSize! * -0.02);
     TextStyle body(TextStyle src) =>
@@ -58,9 +60,19 @@ abstract final class AppTypography {
     );
   }
 
-  /// Production: Inter (через GoogleFonts) + clinical-правила.
-  /// В тестах используйте `applyClinicalRules(baseScale)` напрямую —
-  /// геттер `textTheme` требует инициализированного binding'а.
-  static TextTheme get textTheme =>
-      applyClinicalRules(GoogleFonts.interTextTheme(baseScale));
+  /// Production: правила + Inter на всём, Fraunces поверх display/headline.
+  /// В тестах используйте `applyTypeRules(baseScale)` напрямую —
+  /// геттер `textTheme` требует инициализированного binding'а (google_fonts).
+  static TextTheme get textTheme {
+    final ruled = applyTypeRules(baseScale);
+    final inter = GoogleFonts.interTextTheme(ruled);
+    return inter.copyWith(
+      displayLarge: GoogleFonts.fraunces(textStyle: inter.displayLarge),
+      displayMedium: GoogleFonts.fraunces(textStyle: inter.displayMedium),
+      displaySmall: GoogleFonts.fraunces(textStyle: inter.displaySmall),
+      headlineLarge: GoogleFonts.fraunces(textStyle: inter.headlineLarge),
+      headlineMedium: GoogleFonts.fraunces(textStyle: inter.headlineMedium),
+      headlineSmall: GoogleFonts.fraunces(textStyle: inter.headlineSmall),
+    );
+  }
 }

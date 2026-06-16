@@ -70,7 +70,7 @@ class _MenuScreenState extends State<MenuScreen> {
                       foregroundColor: AppColors.onPrimaryContainer,
                       disabledBackgroundColor: AppColors.surfaceContainerHigh,
                       padding: const EdgeInsets.symmetric(vertical: 18),
-                      shape: const StadiumBorder(),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                       textStyle:
                           tt.titleMedium?.copyWith(fontWeight: FontWeight.w700),
                     ),
@@ -220,7 +220,7 @@ class _MenuScreenState extends State<MenuScreen> {
                   backgroundColor: AppColors.primary,
                   foregroundColor: AppColors.onPrimary,
                   padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: const StadiumBorder(),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                 ),
                 child: const Text('Добавить'),
               ),

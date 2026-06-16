@@ -459,7 +459,7 @@ class _AssemblyBar extends StatelessWidget {
               backgroundColor: AppColors.primary,
               foregroundColor: AppColors.onPrimary,
               padding: const EdgeInsets.symmetric(vertical: 16),
-              shape: const StadiumBorder(),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
               textStyle: tt.titleMedium?.copyWith(fontWeight: FontWeight.w700),
             ),
             child: const Row(

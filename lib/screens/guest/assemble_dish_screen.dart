@@ -181,7 +181,7 @@ class AssembleDishScreen extends StatelessWidget {
             backgroundColor: AppColors.primaryContainer,
             foregroundColor: AppColors.onPrimaryContainer,
             padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 20),
-            shape: const StadiumBorder(),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
             textStyle: Theme.of(context)
                 .textTheme
                 .titleLarge

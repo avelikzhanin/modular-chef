@@ -111,7 +111,7 @@ class _PrepScreenState extends State<PrepScreen> {
                   backgroundColor: AppColors.primary,
                   foregroundColor: AppColors.onPrimary,
                   padding: const EdgeInsets.symmetric(vertical: 18),
-                  shape: const StadiumBorder(),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                   textStyle:
                       tt.titleMedium?.copyWith(fontWeight: FontWeight.w700),
                 ),
