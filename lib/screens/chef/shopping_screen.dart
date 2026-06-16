@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:modular_chef/shell/role_switcher.dart';
 import 'package:modular_chef/theme/app_colors.dart';
 
-/// Шеф-экран «Список покупок» — порт chef/serene_5 из Stitch.
-/// Группы по отделам магазина + переключатель недель + чекбоксы.
+/// Шеф-экран «Список покупок» — порт chef/serene_5 + разделение «Купить» / «Уже есть».
+/// `bought` — отметка в магазине (зачёркнуто). `have` — «уже есть дома», покупать не надо.
 class ShoppingScreen extends StatefulWidget {
   const ShoppingScreen({super.key});
 
@@ -20,8 +20,8 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
       icon: Icons.restaurant_outlined,
       tint: _SectionTint.primary,
       items: [
-        const _Item('Куриное филе, 1.2 кг'),
-        const _Item('Говяжий фарш, 600 г', checked: true),
+        _Item('Куриное филе, 1.2 кг'),
+        _Item('Говяжий фарш, 600 г', bought: true),
       ],
     ),
     _ShoppingSection(
@@ -29,10 +29,10 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
       icon: Icons.eco_outlined,
       tint: _SectionTint.primary,
       items: [
-        const _Item('Брокколи, 2 кочана'),
-        const _Item('Болгарский перец, 3 шт'),
-        const _Item('Шпинат свежий, 200 г'),
-        const _Item('Черри, 1 уп', checked: true),
+        _Item('Брокколи, 2 кочана'),
+        _Item('Болгарский перец, 3 шт'),
+        _Item('Шпинат свежий, 200 г'),
+        _Item('Черри, 1 уп', bought: true),
       ],
     ),
     _ShoppingSection(
@@ -40,8 +40,8 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
       icon: Icons.egg_alt_outlined,
       tint: _SectionTint.secondary,
       items: [
-        const _Item('Греческий йогурт, 500 г'),
-        const _Item('Яйца куриные, 10 шт'),
+        _Item('Греческий йогурт, 500 г'),
+        _Item('Яйца куриные, 10 шт', have: true),
       ],
     ),
     _ShoppingSection(
@@ -49,19 +49,23 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
       icon: Icons.inventory_2_outlined,
       tint: _SectionTint.primary,
       items: [
-        const _Item('Оливковое масло, 1 л'),
-        const _Item('Киноа, 400 г'),
-        const _Item('Морская соль', checked: true),
+        _Item('Оливковое масло, 1 л', have: true),
+        _Item('Киноа, 400 г'),
+        _Item('Морская соль', have: true),
       ],
     ),
   ];
 
-  void _toggle(_ShoppingSection s, _Item item) {
-    setState(() {
-      final i = s.items.indexOf(item);
-      s.items[i] = item.copy(checked: !item.checked);
-    });
-  }
+  void _toggleBought(_Item item) => setState(() => item.bought = !item.bought);
+  void _toggleHave(_Item item) => setState(() {
+        item.have = !item.have;
+        if (item.have) item.bought = false; // «есть дома» — не надо покупать
+      });
+
+  int get _toBuyCount =>
+      _sections.expand((s) => s.items).where((i) => !i.have).length;
+  int get _haveCount =>
+      _sections.expand((s) => s.items).where((i) => i.have).length;
 
   @override
   Widget build(BuildContext context) {
@@ -83,23 +87,23 @@ class _ShoppingScreenState extends State<ShoppingScreen> {
                   fontWeight: FontWeight.w800,
                 ),
               ),
-              const SizedBox(height: 4),
+              const SizedBox(height: 6),
               Text(
-                'ОРГАНИЗАЦИЯ РАЦИОНА',
-                style: tt.labelMedium?.copyWith(
-                  color: AppColors.onSurfaceVariant,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 1.4,
-                ),
+                'Купить $_toBuyCount · уже есть $_haveCount',
+                style: tt.bodyMedium?.copyWith(color: AppColors.onSurfaceVariant),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 20),
               _WeekTabs(
                 index: _weekIndex,
                 onChanged: (i) => setState(() => _weekIndex = i),
               ),
               const SizedBox(height: 24),
               for (final s in _sections) ...[
-                _SectionBlock(section: s, onToggle: _toggle),
+                _SectionBlock(
+                  section: s,
+                  onToggleBought: _toggleBought,
+                  onToggleHave: _toggleHave,
+                ),
                 const SizedBox(height: 16),
               ],
             ],
@@ -142,10 +146,10 @@ class _ShoppingSection {
 }
 
 class _Item {
-  const _Item(this.title, {this.checked = false});
+  _Item(this.title, {this.bought = false, this.have = false});
   final String title;
-  final bool checked;
-  _Item copy({bool? checked}) => _Item(title, checked: checked ?? this.checked);
+  bool bought; // отмечено купленным в магазине
+  bool have; // уже есть дома — покупать не надо
 }
 
 class _WeekTabs extends StatelessWidget {
@@ -197,9 +201,14 @@ class _WeekTabs extends StatelessWidget {
 }
 
 class _SectionBlock extends StatelessWidget {
-  const _SectionBlock({required this.section, required this.onToggle});
+  const _SectionBlock({
+    required this.section,
+    required this.onToggleBought,
+    required this.onToggleHave,
+  });
   final _ShoppingSection section;
-  final void Function(_ShoppingSection, _Item) onToggle;
+  final ValueChanged<_Item> onToggleBought;
+  final ValueChanged<_Item> onToggleHave;
 
   @override
   Widget build(BuildContext context) {
@@ -210,6 +219,10 @@ class _SectionBlock extends StatelessWidget {
     final iconColor = section.tint == _SectionTint.secondary
         ? AppColors.secondary
         : AppColors.primary;
+
+    final toBuy = section.items.where((i) => !i.have).toList();
+    final have = section.items.where((i) => i.have).toList();
+
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -232,33 +245,89 @@ class _SectionBlock extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 16),
-          for (final item in section.items)
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 6),
-              child: InkWell(
-                onTap: () => onToggle(section, item),
-                child: Row(
-                  children: [
-                    _Checkbox(checked: item.checked),
-                    const SizedBox(width: 14),
-                    Expanded(
-                      child: Text(
-                        item.title,
-                        style: tt.bodyLarge?.copyWith(
-                          color: item.checked
-                              ? AppColors.onSurfaceVariant
-                              : AppColors.onSurface,
-                          decoration: item.checked
-                              ? TextDecoration.lineThrough
-                              : TextDecoration.none,
-                        ),
-                      ),
-                    ),
-                  ],
+          const SizedBox(height: 12),
+          for (final item in toBuy)
+            _ItemRow(
+              item: item,
+              onToggleBought: () => onToggleBought(item),
+              onToggleHave: () => onToggleHave(item),
+            ),
+          if (have.isNotEmpty) ...[
+            const SizedBox(height: 8),
+            Text(
+              'УЖЕ ЕСТЬ',
+              style: tt.labelSmall?.copyWith(
+                color: AppColors.onSurfaceVariant,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 1.4,
+              ),
+            ),
+            const SizedBox(height: 4),
+            for (final item in have)
+              _ItemRow(
+                item: item,
+                onToggleBought: () => onToggleBought(item),
+                onToggleHave: () => onToggleHave(item),
+              ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+class _ItemRow extends StatelessWidget {
+  const _ItemRow({
+    required this.item,
+    required this.onToggleBought,
+    required this.onToggleHave,
+  });
+  final _Item item;
+  final VoidCallback onToggleBought;
+  final VoidCallback onToggleHave;
+
+  @override
+  Widget build(BuildContext context) {
+    final tt = Theme.of(context).textTheme;
+    final muted = item.have || item.bought;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Row(
+        children: [
+          // Лидирующий маркер: для «купить» — чекбокс куплено; для «есть» — дом
+          if (item.have)
+            const Icon(Icons.home_filled, size: 22, color: AppColors.secondary)
+          else
+            GestureDetector(
+              onTap: onToggleBought,
+              child: _Checkbox(checked: item.bought),
+            ),
+          const SizedBox(width: 14),
+          Expanded(
+            child: GestureDetector(
+              onTap: item.have ? null : onToggleBought,
+              behavior: HitTestBehavior.opaque,
+              child: Text(
+                item.title,
+                style: tt.bodyLarge?.copyWith(
+                  color: muted ? AppColors.onSurfaceVariant : AppColors.onSurface,
+                  decoration:
+                      item.bought ? TextDecoration.lineThrough : TextDecoration.none,
                 ),
               ),
             ),
+          ),
+          // Тоггл «есть дома»
+          IconButton(
+            visualDensity: VisualDensity.compact,
+            icon: Icon(
+              item.have ? Icons.undo : Icons.home_outlined,
+              size: 18,
+              color: AppColors.onSurfaceVariant,
+            ),
+            tooltip: item.have ? 'Вернуть в покупки' : 'Уже есть дома',
+            onPressed: onToggleHave,
+          ),
         ],
       ),
     );
@@ -282,8 +351,7 @@ class _Checkbox extends StatelessWidget {
         shape: BoxShape.circle,
       ),
       child: checked
-          ? const Icon(Icons.check,
-              size: 14, color: AppColors.onPrimaryContainer)
+          ? const Icon(Icons.check, size: 14, color: AppColors.onPrimaryContainer)
           : null,
     );
   }

@@ -14,9 +14,8 @@ abstract final class Routes {
   /// Push-экран Шефа: «Меню на 2 недели» (открывается после «Собрать меню»).
   static const chefTwoWeekMenu = '/chef/two-week-menu';
 
-  // Guest branch
+  // Guest branch (2 таба — «Моя неделя» убрана в v2)
   static const guestToday = '/guest/today';
-  static const guestWeek = '/guest/week';
   static const guestInventory = '/guest/inventory';
 
   /// Push-экран Гостя: «Собрать блюдо» (открывается из Сегодня / Запасы).

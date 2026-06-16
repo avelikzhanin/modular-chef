@@ -10,7 +10,6 @@ import 'package:modular_chef/screens/chef/two_week_menu_screen.dart';
 import 'package:modular_chef/screens/guest/assemble_dish_screen.dart';
 import 'package:modular_chef/screens/guest/inventory_screen.dart';
 import 'package:modular_chef/screens/guest/today_screen.dart';
-import 'package:modular_chef/screens/guest/week_screen.dart';
 import 'package:modular_chef/shell/chef_shell.dart';
 import 'package:modular_chef/shell/guest_shell.dart';
 import 'package:modular_chef/shell/role.dart';
@@ -24,7 +23,7 @@ final _rootNavigatorKey = GlobalKey<NavigatorState>();
 /// Создаёт `GoRouter`, который:
 ///  - слушает `RoleProvider` (refreshListenable)
 ///  - редиректит между Chef-веткой и Guest-веткой при смене роли
-///  - оборачивает каждую ветку в свой shell (5/3 табов)
+///  - оборачивает каждую ветку в свой shell (Шеф 5 / Гость 2 таба)
 GoRouter buildRouter(RoleProvider role) {
   return GoRouter(
     navigatorKey: _rootNavigatorKey,
@@ -107,7 +106,6 @@ ShellRoute _chefBranch() {
 ShellRoute _guestBranch() {
   const order = [
     Routes.guestToday,
-    Routes.guestWeek,
     Routes.guestInventory,
   ];
 
@@ -126,7 +124,6 @@ ShellRoute _guestBranch() {
     },
     routes: [
       GoRoute(path: Routes.guestToday, builder: (_, __) => const TodayScreen()),
-      GoRoute(path: Routes.guestWeek, builder: (_, __) => const WeekScreen()),
       GoRoute(path: Routes.guestInventory, builder: (_, __) => const InventoryScreen()),
     ],
   );

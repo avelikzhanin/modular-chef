@@ -12,16 +12,12 @@ class GuestShell extends StatelessWidget {
   final ValueChanged<int> onDestinationSelected;
   final Widget child;
 
+  // Гость живёт «сегодня» — горизонт недели убран (v2). Два таба.
   static const _destinations = <NavigationDestination>[
     NavigationDestination(
       icon: Icon(Icons.today_outlined),
       selectedIcon: Icon(Icons.today),
       label: 'Сегодня',
-    ),
-    NavigationDestination(
-      icon: Icon(Icons.calendar_month_outlined),
-      selectedIcon: Icon(Icons.calendar_month),
-      label: 'Неделя',
     ),
     NavigationDestination(
       icon: Icon(Icons.kitchen_outlined),
