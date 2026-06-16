@@ -4,6 +4,7 @@ import 'package:modular_chef/models/module.dart';
 import 'package:modular_chef/models/weekly_menu.dart';
 import 'package:modular_chef/services/active_menu.dart';
 import 'package:modular_chef/services/catalog_service.dart';
+import 'package:modular_chef/services/menu_repository.dart';
 import 'package:modular_chef/services/preferences.dart';
 import 'package:modular_chef/theme/app_colors.dart';
 
@@ -72,10 +73,12 @@ class _TwoWeekMenuScreenState extends State<TwoWeekMenuScreen> {
                   width: double.infinity,
                   child: FilledButton(
                     onPressed: () {
+                      // Сохраняем активное меню (best-effort) — переживёт перезапуск.
+                      context.read<MenuRepository>().saveActive(menu);
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
-                            'Меню утверждено — дальше «Список покупок»',
+                            'Меню утверждено и сохранено — дальше «Список покупок»',
                             style: tt.bodyMedium?.copyWith(color: AppColors.onPrimary),
                           ),
                           backgroundColor: AppColors.primary,

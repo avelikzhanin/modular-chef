@@ -6,6 +6,7 @@ import 'services/active_menu.dart';
 import 'services/catalog_service.dart';
 import 'services/http_menu_generator.dart';
 import 'services/menu_generator.dart';
+import 'services/menu_repository.dart';
 import 'services/preferences.dart';
 import 'services/today_plan.dart';
 import 'shell/role_provider.dart';
@@ -31,7 +32,20 @@ class _ModularChefAppState extends State<ModularChefApp> {
       ? HttpMenuGenerator(baseUrl: ApiConfig.baseUrl)
       : const StubMenuGenerator();
 
+  late final MenuRepository _menuRepo = ApiConfig.isBackendConfigured
+      ? HttpMenuRepository(baseUrl: ApiConfig.baseUrl)
+      : const NoopMenuRepository();
+
   late final _router = buildRouter(_role);
+
+  @override
+  void initState() {
+    super.initState();
+    // Восстанавливаем сохранённое меню (best-effort, не блокирует старт).
+    _menuRepo.fetchActive().then((menu) {
+      if (menu != null && mounted) _activeMenu.set(menu);
+    });
+  }
 
   @override
   void dispose() {
@@ -53,6 +67,7 @@ class _ModularChefAppState extends State<ModularChefApp> {
         ChangeNotifierProvider<TodayPlan>.value(value: _todayPlan),
         ChangeNotifierProvider<Preferences>.value(value: _preferences),
         Provider<MenuGenerator>.value(value: _generator),
+        Provider<MenuRepository>.value(value: _menuRepo),
       ],
       child: MaterialApp.router(
         title: 'Modular Chef',

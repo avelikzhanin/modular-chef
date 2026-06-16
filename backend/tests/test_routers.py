@@ -147,3 +147,61 @@ def test_generate_menu_rejects_invalid_request(client: TestClient) -> None:
     """`picks` обязателен — без него 422 от pydantic."""
     r = client.post("/menus/generate", json={})
     assert r.status_code == 422
+
+
+def _sample_menu() -> dict:
+    return WeeklyMenuSchema(
+        weeks=[
+            MenuWeekSchema(
+                index=0,
+                name="Неделя 1",
+                days=[
+                    DayPlanSchema(
+                        weekday="monday",
+                        shortName="Пн",
+                        breakfast=PlannedMealSchema(
+                            title="Овсянка",
+                            kind="breakfast",
+                            components=[
+                                MealComponentSchema(
+                                    moduleId="oatmeal_jar", role="standalone", name="Овсянка")
+                            ],
+                        ),
+                        lunch=PlannedMealSchema(
+                            title="Курица + рис",
+                            kind="main",
+                            components=[
+                                MealComponentSchema(moduleId="chicken_breast", role="protein", name="Курица"),
+                                MealComponentSchema(moduleId="rice", role="side", name="Рис"),
+                            ],
+                        ),
+                        dinner=PlannedMealSchema(
+                            title="Лосось",
+                            kind="main",
+                            components=[
+                                MealComponentSchema(moduleId="salmon", role="protein", name="Лосось")
+                            ],
+                        ),
+                    )
+                ],
+            )
+        ],
+        summary=MenuSummarySchema(uniqueDishes=3, totalMeals=3, modulesUsed=4),
+    ).model_dump()
+
+
+def test_active_menu_404_when_none(client: TestClient) -> None:
+    r = client.get("/menus/active")
+    assert r.status_code == 404
+
+
+def test_save_then_active_roundtrip(client: TestClient) -> None:
+    saved = client.post("/menus/save", json=_sample_menu())
+    assert saved.status_code == 200, saved.text
+    assert "id" in saved.json()
+
+    r = client.get("/menus/active")
+    assert r.status_code == 200, r.text
+    data = r.json()
+    assert data["weeks"][0]["days"][0]["lunch"]["title"] == "Курица + рис"
+    assert data["summary"]["totalMeals"] == 3
