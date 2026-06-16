@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:modular_chef/models/weekly_menu.dart';
 import 'package:modular_chef/screens/chef/menu_screen.dart';
 import 'package:modular_chef/screens/chef/my_dishes_screen.dart';
 import 'package:modular_chef/screens/chef/prep_screen.dart';
@@ -65,7 +66,14 @@ GoRouter buildRouter(RoleProvider role) {
       GoRoute(
         path: Routes.guestAssembleDish,
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (_, __) => const AssembleDishScreen(),
+        builder: (context, state) {
+          final slotParam = state.uri.queryParameters['slot'];
+          final slot = MealSlot.values.firstWhere(
+            (s) => s.jsonValue == slotParam,
+            orElse: () => MealSlot.lunch,
+          );
+          return AssembleDishScreen(slot: slot);
+        },
       ),
     ],
   );

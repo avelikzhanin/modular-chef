@@ -81,7 +81,8 @@ class InventoryScreen extends StatelessWidget {
                   bottom: 16,
                   child: _AssemblyBar(
                     summary: 'Курица + рис + йогуртовый соус',
-                    onAssemble: () => context.push(Routes.guestAssembleDish),
+                    onAssemble: () =>
+                        context.push('${Routes.guestAssembleDish}?slot=lunch'),
                   ),
                 ),
               ],

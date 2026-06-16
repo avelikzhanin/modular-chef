@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:modular_chef/routing/app_router.dart';
 import 'package:modular_chef/routing/routes.dart';
 import 'package:modular_chef/services/catalog_service.dart';
+import 'package:modular_chef/services/today_plan.dart';
 import 'package:modular_chef/shell/role.dart';
 import 'package:modular_chef/shell/role_provider.dart';
 import 'package:modular_chef/theme/app_theme.dart';
@@ -22,6 +23,7 @@ Future<void> _pumpApp(WidgetTester tester, RoleProvider provider) async {
       providers: [
         ChangeNotifierProvider<RoleProvider>.value(value: provider),
         ChangeNotifierProvider<CatalogService>.value(value: catalog),
+        ChangeNotifierProvider<TodayPlan>(create: (_) => TodayPlan()),
       ],
       child: MaterialApp.router(
         // Инжектим текст-тему без google_fonts, чтобы не дёргать сеть.

@@ -6,6 +6,7 @@ import 'services/active_menu.dart';
 import 'services/catalog_service.dart';
 import 'services/http_menu_generator.dart';
 import 'services/menu_generator.dart';
+import 'services/today_plan.dart';
 import 'shell/role_provider.dart';
 import 'theme/app_theme.dart';
 
@@ -20,6 +21,7 @@ class _ModularChefAppState extends State<ModularChefApp> {
   late final RoleProvider _role = RoleProvider();
   late final CatalogService _catalog = CatalogService()..load();
   late final ActiveMenu _activeMenu = ActiveMenu();
+  late final TodayPlan _todayPlan = TodayPlan();
 
   /// Выбор генератора решается на старте по `--dart-define=API_BASE_URL`.
   /// Без флага — оффлайн stub; с флагом — сетевой через FastAPI на Railway.
@@ -34,6 +36,7 @@ class _ModularChefAppState extends State<ModularChefApp> {
     _role.dispose();
     _catalog.dispose();
     _activeMenu.dispose();
+    _todayPlan.dispose();
     super.dispose();
   }
 
@@ -44,6 +47,7 @@ class _ModularChefAppState extends State<ModularChefApp> {
         ChangeNotifierProvider<RoleProvider>.value(value: _role),
         ChangeNotifierProvider<CatalogService>.value(value: _catalog),
         ChangeNotifierProvider<ActiveMenu>.value(value: _activeMenu),
+        ChangeNotifierProvider<TodayPlan>.value(value: _todayPlan),
         Provider<MenuGenerator>.value(value: _generator),
       ],
       child: MaterialApp.router(

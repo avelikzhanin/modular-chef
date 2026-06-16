@@ -22,7 +22,7 @@ class RoleSwitcher extends StatelessWidget {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 180),
           curve: Curves.easeOut,
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
           decoration: BoxDecoration(
             color: selected ? AppColors.primary : Colors.transparent,
             borderRadius: BorderRadius.circular(999),
@@ -32,16 +32,16 @@ class RoleSwitcher extends StatelessWidget {
             children: [
               Icon(
                 icon,
-                size: 15,
+                size: 18,
                 color: selected ? AppColors.onPrimary : AppColors.onSurfaceVariant,
               ),
-              const SizedBox(width: 4),
+              const SizedBox(width: 6),
               Text(
                 label,
-                style: tt.labelMedium?.copyWith(
+                style: tt.labelLarge?.copyWith(
                   color:
                       selected ? AppColors.onPrimary : AppColors.onSurfaceVariant,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ],
