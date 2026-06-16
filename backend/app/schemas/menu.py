@@ -9,15 +9,22 @@ from pydantic import BaseModel, ConfigDict, Field
 
 
 class _ApiModel(BaseModel):
-    """База: запрещаем extra-поля чтобы рано ловить дрейф контракта."""
+    """Строгая база для ОТВЕТА: запрещаем extra-поля чтобы рано ловить дрейф LLM."""
 
     model_config = ConfigDict(extra="forbid", populate_by_name=True)
+
+
+class _ReqModel(BaseModel):
+    """Терпимая база для ЗАПРОСА: игнорируем незнакомые поля, чтобы более
+    новый клиент (с доп. полями) не получал 422 от старого/строгого бэка."""
+
+    model_config = ConfigDict(extra="ignore", populate_by_name=True)
 
 
 # ---------- Request ----------
 
 
-class _Picks(_ApiModel):
+class _Picks(_ReqModel):
     proteins: list[str] = Field(default_factory=list)
     sides: list[str] = Field(default_factory=list)
     soups: list[str] = Field(default_factory=list)
@@ -25,19 +32,19 @@ class _Picks(_ApiModel):
     custom: list[str] = Field(default_factory=list)
 
 
-class PreferencesSchema(_ApiModel):
+class PreferencesSchema(_ReqModel):
     allergies: list[str] = Field(default_factory=list)
     prepTimeLimitMinutes: int = 120
     weekStyle: str | None = None
 
 
-class FavouriteComboSchema(_ApiModel):
+class FavouriteComboSchema(_ReqModel):
     protein: str
     side: str
     sauce: str | None = None
 
 
-class GenerationRequestSchema(_ApiModel):
+class GenerationRequestSchema(_ReqModel):
     picks: _Picks
     preferences: PreferencesSchema = Field(default_factory=PreferencesSchema)
     favourites: list[FavouriteComboSchema] = Field(default_factory=list)
