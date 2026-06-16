@@ -150,6 +150,25 @@ class PlannedMeal {
         reheatMinutes: reheatMinutes ?? this.reheatMinutes,
         fromContainer: fromContainer ?? this.fromContainer,
       );
+
+  /// Заменяет компонент той же роли (или добавляет) и пересобирает title.
+  PlannedMeal withComponent(MealComponent c) {
+    final next = [...components];
+    final idx = next.indexWhere((x) => x.role == c.role);
+    if (idx >= 0) {
+      next[idx] = c;
+    } else {
+      next.add(c);
+    }
+    return copyWith(components: next, title: titleFrom(next, kind));
+  }
+
+  /// Человеческое название из компонентов: для main — «A + B + C», иначе имя блюда.
+  static String titleFrom(List<MealComponent> comps, MealKind kind) {
+    if (comps.isEmpty) return '';
+    if (kind != MealKind.main) return comps.first.name;
+    return comps.map((c) => c.name).join(' + ');
+  }
 }
 
 /// План одного дня: завтрак / обед / ужин (+ опциональный перекус).
