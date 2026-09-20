@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:modular_chef/shell/linen_nav_bar.dart';
 
 class GuestShell extends StatelessWidget {
   const GuestShell({
@@ -13,27 +14,19 @@ class GuestShell extends StatelessWidget {
   final Widget child;
 
   // Гость живёт «сегодня» — горизонт недели убран (v2). Два таба.
-  static const _destinations = <NavigationDestination>[
-    NavigationDestination(
-      icon: Icon(Icons.today_outlined),
-      selectedIcon: Icon(Icons.today),
-      label: 'Сегодня',
-    ),
-    NavigationDestination(
-      icon: Icon(Icons.kitchen_outlined),
-      selectedIcon: Icon(Icons.kitchen),
-      label: 'Запасы',
-    ),
+  static const _items = <LinenNavItem>[
+    LinenNavItem(asset: 'assets/art/ui/nav_today.png', label: 'Сегодня'),
+    LinenNavItem(asset: 'assets/art/ui/nav_stock.png', label: 'Запасы'),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: child,
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: currentIndex,
-        onDestinationSelected: onDestinationSelected,
-        destinations: _destinations,
+      bottomNavigationBar: LinenNavBar(
+        items: _items,
+        currentIndex: currentIndex,
+        onSelected: onDestinationSelected,
       ),
     );
   }

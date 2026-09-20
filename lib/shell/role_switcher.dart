@@ -4,8 +4,9 @@ import 'role.dart';
 import 'role_provider.dart';
 import 'package:modular_chef/theme/app_colors.dart';
 
-/// Компактный сегмент-переключатель «Шеф | Гость» для AppBar.
-/// Видны оба состояния — понятнее, чем иконка-стрелка.
+/// Сегмент-переключатель «Шеф | Гость» — по макету Stitch:
+/// песочный трек, активный сегмент — светло-зелёная пилюля (Light Leaf).
+/// Компактный: помещается в AppBar (высота ≤ 40) без обрезания подсветки.
 class RoleSwitcher extends StatelessWidget {
   const RoleSwitcher({super.key});
 
@@ -14,7 +15,7 @@ class RoleSwitcher extends StatelessWidget {
     final role = context.watch<RoleProvider>().role;
     final tt = Theme.of(context).textTheme;
 
-    Widget seg(UserRole value, IconData icon, String label) {
+    Widget seg(UserRole value, String label) {
       final selected = role == value;
       return GestureDetector(
         behavior: HitTestBehavior.opaque,
@@ -22,26 +23,37 @@ class RoleSwitcher extends StatelessWidget {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 180),
           curve: Curves.easeOut,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
           decoration: BoxDecoration(
-            color: selected ? AppColors.primary : Colors.transparent,
+            color: selected ? AppColors.lightLeaf : Colors.transparent,
             borderRadius: BorderRadius.circular(999),
+            boxShadow: selected
+                ? const [
+                    BoxShadow(
+                        color: Color(0x14000000),
+                        blurRadius: 4,
+                        offset: Offset(0, 1)),
+                  ]
+                : null,
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(
-                icon,
-                size: 18,
-                color: selected ? AppColors.onPrimary : AppColors.onSurfaceVariant,
+              Image.asset(
+                value == UserRole.chef
+                    ? 'assets/art/ui/role_chef.png'
+                    : 'assets/art/ui/role_guest.png',
+                width: 18,
+                height: 18,
               ),
-              const SizedBox(width: 6),
+              const SizedBox(width: 5),
               Text(
                 label,
-                style: tt.labelLarge?.copyWith(
-                  color:
-                      selected ? AppColors.onPrimary : AppColors.onSurfaceVariant,
-                  fontWeight: FontWeight.w700,
+                style: tt.labelMedium?.copyWith(
+                  color: selected
+                      ? AppColors.leafDeep
+                      : AppColors.onSurfaceVariant,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ],
@@ -51,17 +63,16 @@ class RoleSwitcher extends StatelessWidget {
     }
 
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8),
       padding: const EdgeInsets.all(3),
       decoration: BoxDecoration(
-        color: AppColors.surfaceContainerLow,
+        color: AppColors.surfaceContainer.withValues(alpha: 0.7),
         borderRadius: BorderRadius.circular(999),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          seg(UserRole.chef, Icons.restaurant_menu, 'Шеф'),
-          seg(UserRole.guest, Icons.fastfood_outlined, 'Гость'),
+          seg(UserRole.chef, 'Шеф'),
+          seg(UserRole.guest, 'Гость'),
         ],
       ),
     );

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:modular_chef/models/weekly_menu.dart';
+import 'package:modular_chef/screens/chef/breakfast_preps_screen.dart';
 import 'package:modular_chef/screens/chef/favourites_screen.dart';
 import 'package:modular_chef/screens/chef/menu_screen.dart';
 import 'package:modular_chef/screens/chef/my_dishes_screen.dart';
 import 'package:modular_chef/screens/chef/preferences_screen.dart';
 import 'package:modular_chef/screens/chef/prep_screen.dart';
 import 'package:modular_chef/screens/chef/profile_screen.dart';
+import 'package:modular_chef/screens/chef/settings_screen.dart';
 import 'package:modular_chef/screens/chef/shopping_screen.dart';
 import 'package:modular_chef/screens/chef/storage_screen.dart';
 import 'package:modular_chef/screens/chef/two_week_menu_screen.dart';
@@ -74,6 +76,16 @@ GoRouter buildRouter(RoleProvider role) {
         path: Routes.chefFavourites,
         parentNavigatorKey: _rootNavigatorKey,
         builder: (_, __) => const FavouritesScreen(),
+      ),
+      GoRoute(
+        path: Routes.chefBreakfastPreps,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (_, __) => const BreakfastPrepsScreen(),
+      ),
+      GoRoute(
+        path: Routes.chefSettings,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (_, __) => const SettingsScreen(),
       ),
       GoRoute(
         path: Routes.guestAssembleDish,

@@ -87,6 +87,534 @@
     "methods": ["Гриль 10мин", "Запечь 25мин", "Маринованный 4ч"],
     "storage": {"zone": "fridge", "days": 4, "tip": "В рассоле — до недели"}
   },
+  {
+    "id": "pork_tenderloin",
+    "name": "Свиная вырезка",
+    "emoji": "🥓",
+    "category": "protein",
+    "tags": ["popular"],
+    "caloriesPer100g": 143,
+    "prepMinutes": 30,
+    "methods": ["Запечь 35мин", "Тушить 45мин", "Сковорода 15мин"],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Нарежь порционно до готовки"}
+  },
+  {
+    "id": "chicken_thighs",
+    "name": "Куриные бёдра",
+    "emoji": "🍗",
+    "category": "protein",
+    "tags": ["batch", "popular"],
+    "caloriesPer100g": 211,
+    "prepMinutes": 30,
+    "methods": ["Запечь 40мин", "Тушить 40мин", "Гриль 25мин"],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Сочнее грудки — прощают разогрев"}
+  },
+  {
+    "id": "ground_beef",
+    "name": "Говяжий фарш",
+    "emoji": "🍖",
+    "category": "protein",
+    "tags": ["batch"],
+    "caloriesPer100g": 250,
+    "prepMinutes": 20,
+    "methods": ["Сковорода 15мин", "Тушить в соусе 25мин", "Запечь 30мин"],
+    "storage": {"zone": "freezer", "days": 60, "tip": "Замораживай плоскими пластами — быстрее тает"}
+  },
+  {
+    "id": "trout",
+    "name": "Форель",
+    "emoji": "🐟",
+    "category": "protein",
+    "tags": ["omega3", "premium"],
+    "caloriesPer100g": 148,
+    "prepMinutes": 18,
+    "methods": ["В фольге 20мин", "Запечь 25мин", "Слабосолёный 24ч"],
+    "storage": {"zone": "vacuum", "days": 4, "tip": "Как лосось: без вакуума ест первым"}
+  },
+  {
+    "id": "tuna",
+    "name": "Тунец",
+    "emoji": "🐟",
+    "category": "protein",
+    "tags": ["lean", "fast"],
+    "caloriesPer100g": 132,
+    "prepMinutes": 10,
+    "methods": ["Гриль 6мин", "Сковорода 6мин", "Готовое"],
+    "storage": {"zone": "fridge", "days": 2, "tip": "Консервированный — кладовая, до полугода"}
+  },
+  {
+    "id": "squid",
+    "name": "Кальмары",
+    "emoji": "🦑",
+    "category": "protein",
+    "tags": ["fast", "lean"],
+    "caloriesPer100g": 92,
+    "prepMinutes": 6,
+    "methods": ["Отварить 2мин", "Гриль 4мин"],
+    "storage": {"zone": "freezer", "days": 60, "tip": "Варить не дольше 2 минут — иначе резина"}
+  },
+  {
+    "id": "liver",
+    "name": "Куриная печень",
+    "emoji": "🍢",
+    "category": "protein",
+    "tags": ["iron", "fast"],
+    "caloriesPer100g": 137,
+    "prepMinutes": 15,
+    "methods": ["Сковорода 10мин", "Тушить 20мин"],
+    "storage": {"zone": "fridge", "days": 2, "tip": "Не пересушивай — розовая внутри"}
+  },
+  {
+    "id": "pink_salmon",
+    "name": "Горбуша",
+    "emoji": "🐟",
+    "category": "protein",
+    "tags": ["omega3", "lean"],
+    "caloriesPer100g": 140,
+    "prepMinutes": 20,
+    "methods": ["Запечь 25мин", "В фольге 20мин", "Слабосолёная 24ч"],
+    "storage": {"zone": "fridge", "days": 2, "tip": "Суховата — фольга или соус обязательны"}
+  },
+  {
+    "id": "mackerel",
+    "name": "Скумбрия",
+    "emoji": "🐟",
+    "category": "protein",
+    "tags": ["omega3"],
+    "caloriesPer100g": 191,
+    "prepMinutes": 25,
+    "methods": ["Запечь 30мин", "В фольге 25мин", "Слабосолёная 24ч"],
+    "storage": {"zone": "freezer", "days": 60, "tip": "Жирная — запах держи в контейнере"}
+  },
+  {
+    "id": "pikeperch",
+    "name": "Судак",
+    "emoji": "🐟",
+    "category": "protein",
+    "tags": ["lean"],
+    "caloriesPer100g": 84,
+    "prepMinutes": 20,
+    "methods": ["Запечь 25мин", "Сковорода 12мин", "Отварить 15мин"],
+    "storage": {"zone": "fridge", "days": 2, "tip": "Нежный белый — не пересуши"}
+  },
+  {
+    "id": "pollock",
+    "name": "Минтай",
+    "emoji": "🐟",
+    "category": "protein",
+    "tags": ["lean", "budget"],
+    "caloriesPer100g": 72,
+    "prepMinutes": 18,
+    "methods": ["Запечь 20мин", "Тушить 20мин", "Сковорода 10мин"],
+    "storage": {"zone": "freezer", "days": 90, "tip": "Разморозка — только в холодильнике"}
+  },
+  {
+    "id": "hake",
+    "name": "Хек",
+    "emoji": "🐟",
+    "category": "protein",
+    "tags": ["lean", "budget"],
+    "caloriesPer100g": 86,
+    "prepMinutes": 18,
+    "methods": ["Запечь 22мин", "Тушить 20мин"],
+    "storage": {"zone": "freezer", "days": 90, "tip": "Хорош в томатном соусе"}
+  },
+  {
+    "id": "seabass",
+    "name": "Сибас",
+    "emoji": "🐟",
+    "category": "protein",
+    "tags": ["premium"],
+    "caloriesPer100g": 99,
+    "prepMinutes": 22,
+    "methods": ["Запечь целиком 25мин", "Гриль 15мин", "В фольге 20мин"],
+    "storage": {"zone": "fridge", "days": 2, "tip": "Лучше день в день, с лимоном и травами"}
+  },
+  {
+    "id": "dorado",
+    "name": "Дорада",
+    "emoji": "🐟",
+    "category": "protein",
+    "tags": ["premium"],
+    "caloriesPer100g": 96,
+    "prepMinutes": 22,
+    "methods": ["Запечь целиком 25мин", "Гриль 15мин"],
+    "storage": {"zone": "fridge", "days": 2, "tip": "Как сибас: свежая, с травами"}
+  },
+  {
+    "id": "herring",
+    "name": "Сельдь",
+    "emoji": "🐟",
+    "category": "protein",
+    "tags": ["omega3", "budget"],
+    "caloriesPer100g": 158,
+    "prepMinutes": 5,
+    "methods": ["Готовое", "Слабосолёная 48ч"],
+    "storage": {"zone": "fridge", "days": 5, "tip": "В рассоле — до недели"}
+  },
+  {
+    "id": "mussels",
+    "name": "Мидии",
+    "emoji": "🦪",
+    "category": "protein",
+    "tags": ["fast", "premium"],
+    "caloriesPer100g": 86,
+    "prepMinutes": 10,
+    "methods": ["Отварить 5мин", "Тушить в соусе 8мин"],
+    "storage": {"zone": "freezer", "days": 60, "tip": "Не размораживай повторно"}
+  },
+  {
+    "id": "lamb",
+    "name": "Баранина",
+    "emoji": "🥩",
+    "category": "protein",
+    "tags": ["premium"],
+    "caloriesPer100g": 209,
+    "prepMinutes": 45,
+    "methods": ["Запечь 60мин", "Тушить 90мин", "Гриль 20мин"],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Маринад с розмарином смягчает вкус"}
+  },
+  {
+    "id": "rabbit",
+    "name": "Кролик",
+    "emoji": "🍖",
+    "category": "protein",
+    "tags": ["lean"],
+    "caloriesPer100g": 173,
+    "prepMinutes": 60,
+    "methods": ["Тушить 90мин", "Запечь 60мин"],
+    "storage": {"zone": "fridge", "days": 3, "tip": "В сметане — классика, не пересуши"}
+  },
+  {
+    "id": "duck",
+    "name": "Утка",
+    "emoji": "🦆",
+    "category": "protein",
+    "tags": ["premium"],
+    "caloriesPer100g": 337,
+    "prepMinutes": 60,
+    "methods": ["Запечь 90мин", "Тушить 60мин", "Сковорода 15мин"],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Грудку — розовой, жир слей и сохрани"}
+  },
+  {
+    "id": "beef_tongue",
+    "name": "Говяжий язык",
+    "emoji": "🥩",
+    "category": "protein",
+    "tags": ["batch"],
+    "caloriesPer100g": 224,
+    "prepMinutes": 150,
+    "methods": ["Отварить 150мин"],
+    "storage": {"zone": "fridge", "days": 4, "tip": "Чисти горячим под холодной водой"}
+  },
+  {
+    "id": "chicken_cutlets",
+    "name": "Куриные котлеты",
+    "emoji": "🍗",
+    "category": "protein",
+    "tags": ["batch", "popular"],
+    "caloriesPer100g": 190,
+    "prepMinutes": 30,
+    "methods": ["Сковорода 15мин", "Запечь 25мин", "На пару 20мин"],
+    "storage": {"zone": "freezer", "days": 60, "tip": "Лепи двойную порцию — морозь сырыми"}
+  },
+  {
+    "id": "fish_cutlets",
+    "name": "Рыбные котлеты",
+    "emoji": "🐟",
+    "category": "protein",
+    "tags": ["batch"],
+    "caloriesPer100g": 160,
+    "prepMinutes": 30,
+    "methods": ["Сковорода 12мин", "Запечь 25мин", "На пару 18мин"],
+    "storage": {"zone": "freezer", "days": 45, "tip": "Из трески или минтая, морозь сырыми"}
+  },
+  {
+    "id": "chicken_wings",
+    "name": "Куриные крылья",
+    "emoji": "🍗",
+    "category": "protein",
+    "tags": ["popular"],
+    "caloriesPer100g": 203,
+    "prepMinutes": 35,
+    "methods": ["Запечь 40мин", "Гриль 25мин"],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Маринуй с вечера — вкуснее вдвое"}
+  },
+  {
+    "id": "whole_chicken",
+    "name": "Курица целиком",
+    "emoji": "🍗",
+    "category": "protein",
+    "tags": ["batch"],
+    "caloriesPer100g": 190,
+    "prepMinutes": 80,
+    "methods": ["Запечь 80мин", "Отварить 60мин"],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Одна курица = мясо на 3 дня + бульон"}
+  },
+  {
+    "id": "goose",
+    "name": "Гусь",
+    "emoji": "🪿",
+    "category": "protein",
+    "tags": ["premium"],
+    "caloriesPer100g": 305,
+    "prepMinutes": 150,
+    "methods": ["Запечь 150мин"],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Праздничный формат, жир сохрани"}
+  },
+  {
+    "id": "quail",
+    "name": "Перепёлка",
+    "emoji": "🐦",
+    "category": "protein",
+    "tags": ["premium", "fast"],
+    "caloriesPer100g": 134,
+    "prepMinutes": 25,
+    "methods": ["Запечь 25мин", "Гриль 15мин"],
+    "storage": {"zone": "fridge", "days": 2, "tip": "Одна-две на порцию"}
+  },
+  {
+    "id": "chicken_mince",
+    "name": "Куриный фарш",
+    "emoji": "🍗",
+    "category": "protein",
+    "tags": ["batch", "lean"],
+    "caloriesPer100g": 143,
+    "prepMinutes": 20,
+    "methods": ["Сковорода 12мин", "Запечь 25мин", "На пару 20мин"],
+    "storage": {"zone": "freezer", "days": 60, "tip": "Морозь плоскими пластами"}
+  },
+  {
+    "id": "turkey_mince",
+    "name": "Фарш индейки",
+    "emoji": "🦃",
+    "category": "protein",
+    "tags": ["batch", "lean"],
+    "caloriesPer100g": 150,
+    "prepMinutes": 20,
+    "methods": ["Сковорода 12мин", "Тушить в соусе 20мин"],
+    "storage": {"zone": "freezer", "days": 60, "tip": "Легче говяжьего, впитывает специи"}
+  },
+  {
+    "id": "veal",
+    "name": "Телятина",
+    "emoji": "🥩",
+    "category": "protein",
+    "tags": ["premium", "lean"],
+    "caloriesPer100g": 172,
+    "prepMinutes": 40,
+    "methods": ["Запечь 45мин", "Тушить 60мин", "Сковорода 12мин"],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Нежнее говядины — не пересуши"}
+  },
+  {
+    "id": "pork_ribs",
+    "name": "Свиные рёбра",
+    "emoji": "🍖",
+    "category": "protein",
+    "tags": ["popular"],
+    "caloriesPer100g": 277,
+    "prepMinutes": 90,
+    "methods": ["Запечь 90мин", "Тушить 80мин"],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Под соусом барбекю — классика"}
+  },
+  {
+    "id": "pork_loin",
+    "name": "Карбонад",
+    "emoji": "🥓",
+    "category": "protein",
+    "tags": ["popular"],
+    "caloriesPer100g": 154,
+    "prepMinutes": 45,
+    "methods": ["Запечь 50мин", "Сковорода 12мин"],
+    "storage": {"zone": "fridge", "days": 4, "tip": "Запечённый — отличная нарезка на бутерброды"}
+  },
+  {
+    "id": "beef_stew",
+    "name": "Говядина для тушения",
+    "emoji": "🥩",
+    "category": "protein",
+    "tags": ["batch"],
+    "caloriesPer100g": 187,
+    "prepMinutes": 100,
+    "methods": ["Тушить 100мин"],
+    "storage": {"zone": "freezer", "days": 60, "tip": "Гуляш только вкуснее на второй день"}
+  },
+  {
+    "id": "beef_liver",
+    "name": "Говяжья печень",
+    "emoji": "🍢",
+    "category": "protein",
+    "tags": ["iron"],
+    "caloriesPer100g": 127,
+    "prepMinutes": 20,
+    "methods": ["Сковорода 12мин", "Тушить 25мин"],
+    "storage": {"zone": "fridge", "days": 2, "tip": "Вымочи в молоке 30 минут — уйдёт горечь"}
+  },
+  {
+    "id": "beef_stroganoff",
+    "name": "Бефстроганов",
+    "emoji": "🥩",
+    "category": "protein",
+    "tags": ["batch", "popular"],
+    "caloriesPer100g": 193,
+    "prepMinutes": 35,
+    "methods": ["Тушить 30мин"],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Соус загустеет — разбавь при разогреве"}
+  },
+  {
+    "id": "chum_salmon",
+    "name": "Кета",
+    "emoji": "🐟",
+    "category": "protein",
+    "tags": ["omega3", "lean"],
+    "caloriesPer100g": 127,
+    "prepMinutes": 22,
+    "methods": ["Запечь 25мин", "В фольге 22мин", "Слабосолёная 24ч"],
+    "storage": {"zone": "fridge", "days": 2, "tip": "Суше горбуши — держи в маринаде"}
+  },
+  {
+    "id": "perch",
+    "name": "Окунь",
+    "emoji": "🐟",
+    "category": "protein",
+    "tags": ["lean"],
+    "caloriesPer100g": 91,
+    "prepMinutes": 20,
+    "methods": ["Запечь 22мин", "Сковорода 10мин"],
+    "storage": {"zone": "fridge", "days": 2, "tip": "Морской окунь — сладковатое мясо"}
+  },
+  {
+    "id": "halibut",
+    "name": "Палтус",
+    "emoji": "🐟",
+    "category": "protein",
+    "tags": ["premium", "omega3"],
+    "caloriesPer100g": 111,
+    "prepMinutes": 20,
+    "methods": ["Запечь 20мин", "В фольге 18мин"],
+    "storage": {"zone": "fridge", "days": 2, "tip": "Очень нежный — фольга спасает"}
+  },
+  {
+    "id": "wolffish",
+    "name": "Зубатка",
+    "emoji": "🐟",
+    "category": "protein",
+    "tags": ["budget"],
+    "caloriesPer100g": 96,
+    "prepMinutes": 20,
+    "methods": ["Запечь 25мин", "Сковорода 12мин"],
+    "storage": {"zone": "freezer", "days": 60, "tip": "Стейк — в кляре, иначе развалится"}
+  },
+  {
+    "id": "flounder",
+    "name": "Камбала",
+    "emoji": "🐟",
+    "category": "protein",
+    "tags": ["lean", "fast"],
+    "caloriesPer100g": 83,
+    "prepMinutes": 15,
+    "methods": ["Запечь 18мин", "Сковорода 8мин"],
+    "storage": {"zone": "fridge", "days": 2, "tip": "Тонкая — готовится мгновенно"}
+  },
+  {
+    "id": "scallops",
+    "name": "Гребешки",
+    "emoji": "🦪",
+    "category": "protein",
+    "tags": ["premium", "fast"],
+    "caloriesPer100g": 88,
+    "prepMinutes": 6,
+    "methods": ["Сковорода 4мин", "Гриль 5мин"],
+    "storage": {"zone": "freezer", "days": 60, "tip": "По 90 секунд на сторону, не больше"}
+  },
+  {
+    "id": "octopus",
+    "name": "Осьминог",
+    "emoji": "🐙",
+    "category": "protein",
+    "tags": ["premium"],
+    "caloriesPer100g": 82,
+    "prepMinutes": 60,
+    "methods": ["Отварить 45мин", "Гриль 8мин"],
+    "storage": {"zone": "freezer", "days": 60, "tip": "Сначала отварить, потом обжарить"}
+  },
+  {
+    "id": "crab",
+    "name": "Краб",
+    "emoji": "🦀",
+    "category": "protein",
+    "tags": ["premium", "fast"],
+    "caloriesPer100g": 87,
+    "prepMinutes": 10,
+    "methods": ["Отварить 8мин", "Готовое"],
+    "storage": {"zone": "freezer", "days": 60, "tip": "Фаланги уже варёные — только разогреть"}
+  },
+  {
+    "id": "tempeh",
+    "name": "Темпе",
+    "emoji": "🟫",
+    "category": "protein",
+    "tags": ["vegan"],
+    "caloriesPer100g": 193,
+    "prepMinutes": 15,
+    "methods": ["Сковорода 10мин", "Запечь 20мин", "Маринованный 2ч"],
+    "storage": {"zone": "fridge", "days": 5, "tip": "Ореховый вкус, жарь до корочки"}
+  },
+  {
+    "id": "seitan",
+    "name": "Сейтан",
+    "emoji": "🟤",
+    "category": "protein",
+    "tags": ["vegan"],
+    "caloriesPer100g": 121,
+    "prepMinutes": 15,
+    "methods": ["Сковорода 10мин", "Тушить 20мин"],
+    "storage": {"zone": "fridge", "days": 5, "tip": "Пшеничный белок — текстура как у мяса"}
+  },
+  {
+    "id": "edamame",
+    "name": "Эдамаме",
+    "emoji": "🫛",
+    "category": "protein",
+    "tags": ["vegan", "fast"],
+    "caloriesPer100g": 122,
+    "prepMinutes": 8,
+    "methods": ["Отварить 5мин", "На пару 6мин"],
+    "storage": {"zone": "freezer", "days": 90, "tip": "С крупной солью — готовый перекус"}
+  },
+  {
+    "id": "chickpea_cutlets",
+    "name": "Нутовые котлеты",
+    "emoji": "🧆",
+    "category": "protein",
+    "tags": ["vegan", "batch"],
+    "caloriesPer100g": 180,
+    "prepMinutes": 30,
+    "methods": ["Сковорода 12мин", "Запечь 25мин"],
+    "storage": {"zone": "freezer", "days": 45, "tip": "Морозь сырыми между листами пергамента"}
+  },
+  {
+    "id": "falafel",
+    "name": "Фалафель",
+    "emoji": "🧆",
+    "category": "protein",
+    "tags": ["vegan", "batch"],
+    "caloriesPer100g": 333,
+    "prepMinutes": 30,
+    "methods": ["Запечь 25мин", "Сковорода 10мин"],
+    "storage": {"zone": "freezer", "days": 45, "tip": "К нему хумус и дзадзики — идеальная пара"}
+  },
+  {
+    "id": "soy_meat",
+    "name": "Соевое мясо",
+    "emoji": "🟫",
+    "category": "protein",
+    "tags": ["vegan", "budget", "long_keep"],
+    "caloriesPer100g": 102,
+    "prepMinutes": 20,
+    "methods": ["Замочить 15мин", "Тушить в соусе 15мин"],
+    "storage": {"zone": "pantry", "days": 180, "tip": "Сухое хранится месяцами, впитывает любой соус"}
+  },
 
   {
     "id": "rice",
@@ -165,6 +693,149 @@
     "methods": ["Варка 15мин"],
     "storage": {"zone": "fridge", "days": 4, "tip": ""}
   },
+  {
+    "id": "rice_basmati",
+    "name": "Рис басмати",
+    "emoji": "🍚",
+    "category": "side",
+    "tags": ["batch", "premium"],
+    "caloriesPer100g": 121,
+    "prepMinutes": 18,
+    "methods": ["Варка 15мин", "Запарка 20мин"],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Промой до прозрачной воды — будет рассыпчатым"}
+  },
+  {
+    "id": "pasta",
+    "name": "Макароны",
+    "emoji": "🍝",
+    "category": "side",
+    "tags": ["fast", "popular"],
+    "caloriesPer100g": 131,
+    "prepMinutes": 12,
+    "methods": ["Варка 10мин"],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Сбрызни маслом, чтобы не слиплись"}
+  },
+  {
+    "id": "lentils",
+    "name": "Чечевица",
+    "emoji": "🟠",
+    "category": "side",
+    "tags": ["batch", "vegan", "protein_rich"],
+    "caloriesPer100g": 116,
+    "prepMinutes": 25,
+    "methods": ["Варка 20мин"],
+    "storage": {"zone": "fridge", "days": 4, "tip": "Красная разварится в пюре, зелёная держит форму"}
+  },
+  {
+    "id": "chickpeas",
+    "name": "Нут",
+    "emoji": "🟡",
+    "category": "side",
+    "tags": ["batch", "vegan", "protein_rich"],
+    "caloriesPer100g": 164,
+    "prepMinutes": 50,
+    "methods": ["Замочить 8ч", "Варка 45мин"],
+    "storage": {"zone": "fridge", "days": 5, "tip": "Отвар сохрани — аквафаба для хумуса"}
+  },
+  {
+    "id": "pearl_barley",
+    "name": "Перловка",
+    "emoji": "🌾",
+    "category": "side",
+    "tags": ["batch"],
+    "caloriesPer100g": 109,
+    "prepMinutes": 45,
+    "methods": ["Замочить 2ч", "Варка 40мин"],
+    "storage": {"zone": "fridge", "days": 4, "tip": "После замачивания варится вдвое быстрее"}
+  },
+  {
+    "id": "rice_brown",
+    "name": "Бурый рис",
+    "emoji": "🍚",
+    "category": "side",
+    "tags": ["batch", "lean"],
+    "caloriesPer100g": 111,
+    "prepMinutes": 35,
+    "methods": ["Варка 30мин"],
+    "storage": {"zone": "fridge", "days": 4, "tip": "Варится дольше белого, зато сытнее"}
+  },
+  {
+    "id": "millet_side",
+    "name": "Пшено",
+    "emoji": "🌾",
+    "category": "side",
+    "tags": ["batch", "budget"],
+    "caloriesPer100g": 90,
+    "prepMinutes": 25,
+    "methods": ["Варка 20мин"],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Промой кипятком от горечи"}
+  },
+  {
+    "id": "polenta",
+    "name": "Полента",
+    "emoji": "🌽",
+    "category": "side",
+    "tags": ["batch"],
+    "caloriesPer100g": 85,
+    "prepMinutes": 30,
+    "methods": ["Варка 25мин"],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Остыла — нарежь и обжарь ломтиками"}
+  },
+  {
+    "id": "soba",
+    "name": "Соба",
+    "emoji": "🍜",
+    "category": "side",
+    "tags": ["fast"],
+    "caloriesPer100g": 99,
+    "prepMinutes": 8,
+    "methods": ["Варка 5мин"],
+    "storage": {"zone": "fridge", "days": 2, "tip": "Промой холодной водой после варки"}
+  },
+  {
+    "id": "rice_noodles",
+    "name": "Рисовая лапша",
+    "emoji": "🍜",
+    "category": "side",
+    "tags": ["fast"],
+    "caloriesPer100g": 109,
+    "prepMinutes": 6,
+    "methods": ["Запарка 5мин"],
+    "storage": {"zone": "fridge", "days": 2, "tip": "Только запарка кипятком — не вари"}
+  },
+  {
+    "id": "sweet_potato",
+    "name": "Батат",
+    "emoji": "🍠",
+    "category": "side",
+    "tags": ["batch"],
+    "caloriesPer100g": 86,
+    "prepMinutes": 35,
+    "methods": ["Запечь 35мин", "Отварить 20мин"],
+    "storage": {"zone": "fridge", "days": 4, "tip": "Запечённый — сладкий, к любому белку"}
+  },
+  {
+    "id": "red_beans",
+    "name": "Фасоль красная",
+    "emoji": "🫘",
+    "category": "side",
+    "tags": ["batch", "vegan", "protein_rich"],
+    "caloriesPer100g": 127,
+    "prepMinutes": 70,
+    "methods": ["Замочить 8ч", "Варка 60мин"],
+    "storage": {"zone": "fridge", "days": 4, "tip": "Из банки — без замачивания, сразу готова"}
+  },
+  {
+    "id": "mung_beans",
+    "name": "Маш",
+    "emoji": "🫛",
+    "category": "side",
+    "tags": ["batch", "vegan", "protein_rich"],
+    "caloriesPer100g": 105,
+    "prepMinutes": 35,
+    "methods": ["Варка 30мин"],
+    "storage": {"zone": "fridge", "days": 4, "tip": "Не требует замачивания, варится быстро"}
+  },
 
   {
     "id": "cheese_soup",
@@ -211,6 +882,193 @@
     "storage": {"zone": "freezer", "days": 45, "tip": "Семечки тыквы — отдельно"}
   },
   {
+    "id": "chicken_broth",
+    "name": "Куриный бульон",
+    "emoji": "🍗",
+    "category": "soup",
+    "tags": ["broth", "batch"],
+    "caloriesPer100g": 15,
+    "prepMinutes": 100,
+    "methods": ["Варка 90мин"],
+    "storage": {"zone": "freezer", "days": 90, "tip": "Кубики-концентрат: 1 кубик + стакан воды"}
+  },
+  {
+    "id": "beef_broth",
+    "name": "Говяжий бульон",
+    "emoji": "🥩",
+    "category": "soup",
+    "tags": ["broth", "batch"],
+    "caloriesPer100g": 20,
+    "prepMinutes": 160,
+    "methods": ["Варка 150мин"],
+    "storage": {"zone": "freezer", "days": 90, "tip": "Желе-кубики: 1 кубик + стакан воды"}
+  },
+  {
+    "id": "fish_broth",
+    "name": "Рыбный бульон",
+    "emoji": "🐟",
+    "category": "soup",
+    "tags": ["broth"],
+    "caloriesPer100g": 12,
+    "prepMinutes": 45,
+    "methods": ["Варка 40мин"],
+    "storage": {"zone": "freezer", "days": 60, "tip": "Кубики; храни отдельно — запах"}
+  },
+  {
+    "id": "vegetable_broth",
+    "name": "Овощной бульон",
+    "emoji": "🥕",
+    "category": "soup",
+    "tags": ["broth", "vegan"],
+    "caloriesPer100g": 8,
+    "prepMinutes": 35,
+    "methods": ["Варка 30мин"],
+    "storage": {"zone": "freezer", "days": 90, "tip": "Кубики-концентрат для соусов и тушения"}
+  },
+  {
+    "id": "borscht",
+    "name": "Борщ",
+    "emoji": "🥣",
+    "category": "soup",
+    "tags": ["classic", "batch"],
+    "caloriesPer100g": 49,
+    "prepMinutes": 90,
+    "methods": ["Варка 80мин"],
+    "storage": {"zone": "fridge", "days": 4, "tip": "На второй день только вкуснее"}
+  },
+  {
+    "id": "shchi",
+    "name": "Щи",
+    "emoji": "🥬",
+    "category": "soup",
+    "tags": ["classic", "batch"],
+    "caloriesPer100g": 38,
+    "prepMinutes": 70,
+    "methods": ["Варка 60мин"],
+    "storage": {"zone": "fridge", "days": 4, "tip": "Хорошо морозятся порциями"}
+  },
+  {
+    "id": "lentil_soup",
+    "name": "Чечевичный суп",
+    "emoji": "🟠",
+    "category": "soup",
+    "tags": ["vegan", "batch"],
+    "caloriesPer100g": 58,
+    "prepMinutes": 40,
+    "methods": ["Варка 35мин"],
+    "storage": {"zone": "freezer", "days": 60, "tip": "Красная чечевица разварится в крем"}
+  },
+  {
+    "id": "pea_soup",
+    "name": "Гороховый суп",
+    "emoji": "🟡",
+    "category": "soup",
+    "tags": ["classic", "batch"],
+    "caloriesPer100g": 66,
+    "prepMinutes": 90,
+    "methods": ["Замочить 4ч", "Варка 60мин"],
+    "storage": {"zone": "freezer", "days": 60, "tip": "С копчёностями — гуще вкус"}
+  },
+  {
+    "id": "minestrone",
+    "name": "Минестроне",
+    "emoji": "🍅",
+    "category": "soup",
+    "tags": ["vegan"],
+    "caloriesPer100g": 45,
+    "prepMinutes": 45,
+    "methods": ["Варка 40мин"],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Пасту вари отдельно и добавляй при подаче"}
+  },
+  {
+    "id": "kharcho",
+    "name": "Харчо",
+    "emoji": "🌶️",
+    "category": "soup",
+    "tags": ["spicy"],
+    "caloriesPer100g": 70,
+    "prepMinutes": 80,
+    "methods": ["Варка 70мин"],
+    "storage": {"zone": "fridge", "days": 4, "tip": "Рис впитает бульон — храни гуще, разбавляй"}
+  },
+  {
+    "id": "ukha",
+    "name": "Уха",
+    "emoji": "🐟",
+    "category": "soup",
+    "tags": ["classic", "lean"],
+    "caloriesPer100g": 46,
+    "prepMinutes": 40,
+    "methods": ["Варка 35мин"],
+    "storage": {"zone": "fridge", "days": 2, "tip": "Рыбные супы долго не живут — свари меньше"}
+  },
+  {
+    "id": "tom_yum",
+    "name": "Том-ям",
+    "emoji": "🦐",
+    "category": "soup",
+    "tags": ["spicy", "premium"],
+    "caloriesPer100g": 60,
+    "prepMinutes": 30,
+    "methods": ["Варка 25мин"],
+    "storage": {"zone": "fridge", "days": 2, "tip": "Креветки добавляй при разогреве"}
+  },
+  {
+    "id": "ramen_soup",
+    "name": "Рамен",
+    "emoji": "🍜",
+    "category": "soup",
+    "tags": ["premium"],
+    "caloriesPer100g": 85,
+    "prepMinutes": 60,
+    "methods": ["Варка 50мин"],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Бульон отдельно, лапша и яйцо — при сборке"}
+  },
+  {
+    "id": "beet_cold_soup",
+    "name": "Свекольник",
+    "emoji": "🥤",
+    "category": "soup",
+    "tags": ["cold", "fast"],
+    "caloriesPer100g": 36,
+    "prepMinutes": 30,
+    "methods": ["Варка 25мин", "Настоять 2ч"],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Холодный — не замораживать"}
+  },
+  {
+    "id": "okroshka",
+    "name": "Окрошка",
+    "emoji": "🥒",
+    "category": "soup",
+    "tags": ["cold", "fast"],
+    "caloriesPer100g": 52,
+    "prepMinutes": 25,
+    "methods": ["Сборка 20мин"],
+    "storage": {"zone": "fridge", "days": 2, "tip": "Нарезку и заливку храни отдельно"}
+  },
+  {
+    "id": "broccoli_cream_soup",
+    "name": "Крем из брокколи",
+    "emoji": "🥦",
+    "category": "soup",
+    "tags": ["vegan", "lean"],
+    "caloriesPer100g": 40,
+    "prepMinutes": 30,
+    "methods": ["Варка 25мин"],
+    "storage": {"zone": "freezer", "days": 45, "tip": "Морозь без сливок, добавляй их при разогреве"}
+  },
+  {
+    "id": "spinach_cream_soup",
+    "name": "Шпинатный крем",
+    "emoji": "🥬",
+    "category": "soup",
+    "tags": ["vegan", "lean"],
+    "caloriesPer100g": 38,
+    "prepMinutes": 25,
+    "methods": ["Варка 20мин"],
+    "storage": {"zone": "fridge", "days": 2, "tip": "Яркий цвет живёт два дня"}
+  },
+  {
     "id": "mushroom_soup",
     "name": "Грибной суп",
     "emoji": "🍄",
@@ -223,15 +1081,26 @@
   },
 
   {
-    "id": "oatmeal_jar",
-    "name": "Овсянка в банке",
+    "id": "eggs",
+    "name": "Яйца",
+    "emoji": "🍳",
+    "category": "breakfast",
+    "tags": ["protein", "constructor"],
+    "caloriesPer100g": 155,
+    "prepMinutes": 8,
+    "methods": ["Готовятся утром, 5–8 мин"],
+    "storage": {"zone": "fridge", "days": 7, "tip": "Сырые яйца — неделя; готовь утром"}
+  },
+  {
+    "id": "jar",
+    "name": "Баночка",
     "emoji": "🥣",
     "category": "breakfast",
-    "tags": ["overnight", "batch"],
-    "caloriesPer100g": 80,
+    "tags": ["overnight", "batch", "constructor"],
+    "caloriesPer100g": 110,
     "prepMinutes": 5,
-    "methods": ["Замочить на ночь"],
-    "storage": {"zone": "fridge", "days": 4, "tip": "Стеклянная банка 300мл, ягоды добавь утром"}
+    "methods": ["Собрать слоями с вечера"],
+    "storage": {"zone": "fridge", "days": 4, "tip": "Стеклянная банка 300мл, на 3–4 дня"}
   },
   {
     "id": "syrniki",
@@ -243,17 +1112,6 @@
     "prepMinutes": 20,
     "methods": ["Сковорода 15мин"],
     "storage": {"zone": "fridge", "days": 2, "tip": "Разогревать в духовке"}
-  },
-  {
-    "id": "omelet",
-    "name": "Омлет",
-    "emoji": "🍳",
-    "category": "breakfast",
-    "tags": ["fast", "protein"],
-    "caloriesPer100g": 155,
-    "prepMinutes": 8,
-    "methods": ["Сковорода 5мин"],
-    "storage": {"zone": "fridge", "days": 1, "tip": "Свежий — лучший вариант"}
   },
   {
     "id": "porridge",
@@ -268,7 +1126,7 @@
   },
   {
     "id": "sandwiches",
-    "name": "Бутерброды",
+    "name": "Бутерброд",
     "emoji": "🥪",
     "category": "breakfast",
     "tags": ["fast"],
@@ -278,26 +1136,92 @@
     "storage": {"zone": "fridge", "days": 1, "tip": "Хлеб отдельно — не размякнет"}
   },
   {
-    "id": "granola",
+    "id": "granola_bowl",
     "name": "Гранола",
     "emoji": "🥥",
     "category": "breakfast",
     "tags": ["batch", "long_keep"],
     "caloriesPer100g": 470,
-    "prepMinutes": 35,
-    "methods": ["Запечь 30мин"],
-    "storage": {"zone": "pantry", "days": 21, "tip": "Герметичная банка, тёмное место"}
+    "prepMinutes": 5,
+    "methods": ["Залить молоком/йогуртом"],
+    "storage": {"zone": "pantry", "days": 21, "tip": "Гранола — в банке; молоко добавь утром"}
   },
   {
-    "id": "shakshuka",
-    "name": "Шакшука",
-    "emoji": "🍳",
+    "id": "porridge_oat",
+    "name": "Овсяная",
+    "emoji": "🥣",
     "category": "breakfast",
-    "tags": ["protein", "weekend"],
-    "caloriesPer100g": 120,
+    "tags": ["porridge_kind"],
+    "caloriesPer100g": 88,
+    "prepMinutes": 10,
+    "methods": ["Варка 8мин"],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Добавь молока при разогреве"}
+  },
+  {
+    "id": "porridge_rice",
+    "name": "Рисовая",
+    "emoji": "🥣",
+    "category": "breakfast",
+    "tags": ["porridge_kind"],
+    "caloriesPer100g": 97,
+    "prepMinutes": 25,
+    "methods": ["Варка 20мин"],
+    "storage": {"zone": "fridge", "days": 3, "tip": "На медленном огне, часто мешать"}
+  },
+  {
+    "id": "porridge_semolina",
+    "name": "Манная",
+    "emoji": "🥣",
+    "category": "breakfast",
+    "tags": ["porridge_kind"],
+    "caloriesPer100g": 98,
+    "prepMinutes": 10,
+    "methods": ["Варка 7мин"],
+    "storage": {"zone": "fridge", "days": 2, "tip": "Сыпь крупу тонкой струйкой — без комков"}
+  },
+  {
+    "id": "porridge_millet",
+    "name": "Пшённая",
+    "emoji": "🥣",
+    "category": "breakfast",
+    "tags": ["porridge_kind"],
+    "caloriesPer100g": 90,
+    "prepMinutes": 30,
+    "methods": ["Варка 25мин"],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Промой кипятком от горечи"}
+  },
+  {
+    "id": "cottage_breakfast",
+    "name": "Творог",
+    "emoji": "🥛",
+    "category": "breakfast",
+    "tags": ["fast", "protein_rich"],
+    "caloriesPer100g": 121,
+    "prepMinutes": 3,
+    "methods": ["Сборка 3мин"],
+    "storage": {"zone": "fridge", "days": 4, "tip": "Топпинги — мёд, ягоды, орехи из баночных слоёв"}
+  },
+  {
+    "id": "oladi",
+    "name": "Оладушки",
+    "emoji": "🥞",
+    "category": "breakfast",
+    "tags": ["batch", "popular"],
+    "caloriesPer100g": 213,
     "prepMinutes": 25,
     "methods": ["Сковорода 20мин"],
-    "storage": {"zone": "fridge", "days": 2, "tip": "Без яиц — соус хранится 4 дня"}
+    "storage": {"zone": "fridge", "days": 2, "tip": "Тесто заведи с вечера — утром 10 минут"}
+  },
+  {
+    "id": "waffles",
+    "name": "Вафельки",
+    "emoji": "🧇",
+    "category": "breakfast",
+    "tags": ["batch"],
+    "caloriesPer100g": 291,
+    "prepMinutes": 20,
+    "methods": ["Вафельница 15мин"],
+    "storage": {"zone": "freezer", "days": 30, "tip": "Морозь готовые — тостер вернёт хруст"}
   },
 
   {
@@ -433,6 +1357,193 @@
     "methods": ["Готовое"],
     "storage": {"zone": "pantry", "days": 60, "tip": "После открытия — в холодильник"}
   },
+  {
+    "id": "creamy_mushroom",
+    "name": "Сливочно-грибной",
+    "emoji": "🍄",
+    "category": "sauce",
+    "tags": ["batch", "comfort"],
+    "caloriesPer100g": 130,
+    "prepMinutes": 20,
+    "methods": ["Варка 15мин"],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Не морозить — расслоится"}
+  },
+  {
+    "id": "teriyaki",
+    "name": "Терияки",
+    "emoji": "🥢",
+    "category": "sauce",
+    "tags": ["asian", "long_keep"],
+    "caloriesPer100g": 110,
+    "prepMinutes": 10,
+    "methods": ["Уварить 8мин"],
+    "storage": {"zone": "fridge", "days": 14, "tip": "Густеет при остывании"}
+  },
+  {
+    "id": "curry_coconut",
+    "name": "Карри-кокосовый",
+    "emoji": "🍛",
+    "category": "sauce",
+    "tags": ["asian", "batch"],
+    "caloriesPer100g": 140,
+    "prepMinutes": 20,
+    "methods": ["Варка 15мин"],
+    "storage": {"zone": "fridge", "days": 4, "tip": "Хорошо замораживается"}
+  },
+  {
+    "id": "bbq",
+    "name": "Барбекю",
+    "emoji": "🍖",
+    "category": "sauce",
+    "tags": ["comfort", "long_keep"],
+    "caloriesPer100g": 150,
+    "prepMinutes": 15,
+    "methods": ["Уварить 12мин"],
+    "storage": {"zone": "fridge", "days": 21, "tip": "В стекле — дольше"}
+  },
+  {
+    "id": "cheese_sauce",
+    "name": "Сырный соус",
+    "emoji": "🧀",
+    "category": "sauce",
+    "tags": ["comfort"],
+    "caloriesPer100g": 180,
+    "prepMinutes": 12,
+    "methods": ["Варка 10мин"],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Разогревать с ложкой молока"}
+  },
+  {
+    "id": "tkemali",
+    "name": "Ткемали",
+    "emoji": "🟢",
+    "category": "sauce",
+    "tags": ["fresh", "long_keep"],
+    "caloriesPer100g": 70,
+    "prepMinutes": 25,
+    "methods": ["Уварить 20мин"],
+    "storage": {"zone": "fridge", "days": 30, "tip": "Кислый — долго хранится"}
+  },
+  {
+    "id": "adjika",
+    "name": "Аджика",
+    "emoji": "🌶️",
+    "category": "sauce",
+    "tags": ["spicy", "long_keep"],
+    "caloriesPer100g": 90,
+    "prepMinutes": 20,
+    "methods": ["Блендер 10мин"],
+    "storage": {"zone": "fridge", "days": 30, "tip": "Острая — консервант сама себе"}
+  },
+  {
+    "id": "bolognese",
+    "name": "Болоньезе",
+    "emoji": "🍝",
+    "category": "sauce",
+    "tags": ["italian", "comfort", "batch"],
+    "caloriesPer100g": 160,
+    "prepMinutes": 60,
+    "methods": ["Тушить 50мин"],
+    "storage": {"zone": "freezer", "days": 60, "tip": "Морозить порционно"}
+  },
+  {
+    "id": "chimichurri",
+    "name": "Чимичурри",
+    "emoji": "🌿",
+    "category": "sauce",
+    "tags": ["fresh"],
+    "caloriesPer100g": 290,
+    "prepMinutes": 8,
+    "methods": ["Сборка 6мин"],
+    "storage": {"zone": "fridge", "days": 5, "tip": "Зелень+масло, слой масла сверху"}
+  },
+  {
+    "id": "salsa",
+    "name": "Сальса",
+    "emoji": "🍅",
+    "category": "sauce",
+    "tags": ["fresh", "spicy"],
+    "caloriesPer100g": 40,
+    "prepMinutes": 10,
+    "methods": ["Нарезка 8мин"],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Свежая — лучше за 2–3 дня"}
+  },
+  {
+    "id": "guacamole",
+    "name": "Гуакамоле",
+    "emoji": "🥑",
+    "category": "sauce",
+    "tags": ["fresh", "vegan"],
+    "caloriesPer100g": 160,
+    "prepMinutes": 8,
+    "methods": ["Размять 6мин"],
+    "storage": {"zone": "fridge", "days": 1, "tip": "Косточку оставь — меньше темнеет"}
+  },
+  {
+    "id": "hummus",
+    "name": "Хумус",
+    "emoji": "🫘",
+    "category": "sauce",
+    "tags": ["vegan", "batch"],
+    "caloriesPer100g": 170,
+    "prepMinutes": 10,
+    "methods": ["Блендер 8мин"],
+    "storage": {"zone": "fridge", "days": 5, "tip": "Сверху капля масла"}
+  },
+  {
+    "id": "caesar",
+    "name": "Цезарь",
+    "emoji": "🥗",
+    "category": "sauce",
+    "tags": ["comfort"],
+    "caloriesPer100g": 330,
+    "prepMinutes": 8,
+    "methods": ["Сборка 6мин"],
+    "storage": {"zone": "fridge", "days": 4, "tip": "В стекле"}
+  },
+  {
+    "id": "honey_mustard",
+    "name": "Медово-горчичная",
+    "emoji": "🍯",
+    "category": "sauce",
+    "tags": ["fresh", "long_keep"],
+    "caloriesPer100g": 220,
+    "prepMinutes": 3,
+    "methods": ["Сборка 2мин"],
+    "storage": {"zone": "fridge", "days": 14, "tip": "Мёд — натуральный консервант"}
+  },
+  {
+    "id": "soy_sesame",
+    "name": "Соево-кунжутная",
+    "emoji": "🥢",
+    "category": "sauce",
+    "tags": ["asian", "vegan", "long_keep"],
+    "caloriesPer100g": 130,
+    "prepMinutes": 4,
+    "methods": ["Сборка 3мин"],
+    "storage": {"zone": "fridge", "days": 14, "tip": "Перед едой взболтать"}
+  },
+  {
+    "id": "tzatziki",
+    "name": "Дзадзики",
+    "emoji": "🥒",
+    "category": "sauce",
+    "tags": ["fresh"],
+    "caloriesPer100g": 90,
+    "prepMinutes": 8,
+    "methods": ["Сборка 6мин"],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Огурец отжать — не потечёт"}
+  },
+  {
+    "id": "balsamic",
+    "name": "Бальзамик-винегрет",
+    "emoji": "🍶",
+    "category": "sauce",
+    "tags": ["fresh", "vegan", "long_keep"],
+    "caloriesPer100g": 250,
+    "prepMinutes": 3,
+    "methods": ["Сборка 2мин"],
+    "storage": {"zone": "pantry", "days": 30, "tip": "Масло+бальзамик, взбалтывать"}
+  },
 
   {
     "id": "nuts",
@@ -488,5 +1599,746 @@
     "prepMinutes": 20,
     "methods": ["Без выпечки 15мин"],
     "storage": {"zone": "fridge", "days": 10, "tip": "Замораживаются — до месяца"}
+  },
+
+  {
+    "id": "egg_omelet",
+    "name": "Омлет",
+    "emoji": "🍳",
+    "category": "egg_style",
+    "tags": ["cooked_in"],
+    "prepMinutes": 6,
+    "methods": ["Сковорода 5мин"],
+    "storage": {"zone": "fridge", "days": 1, "tip": "Свежим — вкуснее"}
+  },
+  {
+    "id": "egg_scrambled",
+    "name": "Скрэмбл",
+    "emoji": "🍳",
+    "category": "egg_style",
+    "tags": ["cooked_in"],
+    "prepMinutes": 5,
+    "methods": ["Сковорода 4мин"],
+    "storage": {"zone": "fridge", "days": 1, "tip": "Лучше готовить утром"}
+  },
+  {
+    "id": "egg_fried",
+    "name": "Глазунья",
+    "emoji": "🍳",
+    "category": "egg_style",
+    "tags": ["cooked_in"],
+    "prepMinutes": 4,
+    "methods": ["Сковорода 3мин"],
+    "storage": {"zone": "fridge", "days": 1, "tip": "Желток целый — готовь утром"}
+  },
+  {
+    "id": "egg_shakshuka",
+    "name": "Шакшука",
+    "emoji": "🍅",
+    "category": "egg_style",
+    "tags": ["cooked_in", "weekend"],
+    "prepMinutes": 20,
+    "methods": ["Сковорода 20мин"],
+    "storage": {"zone": "fridge", "days": 2, "tip": "Соус можно заморозить заранее"}
+  },
+  {
+    "id": "egg_poached",
+    "name": "Пашот",
+    "emoji": "🥚",
+    "category": "egg_style",
+    "tags": ["serve_only"],
+    "prepMinutes": 5,
+    "methods": ["Варка 4мин"],
+    "storage": {"zone": "fridge", "days": 1, "tip": "Текучий желток — только свежим"}
+  },
+  {
+    "id": "egg_boiled",
+    "name": "Варёные",
+    "emoji": "🥚",
+    "category": "egg_style",
+    "tags": ["serve_only", "batch"],
+    "prepMinutes": 9,
+    "methods": ["Варка 8мин"],
+    "storage": {"zone": "fridge", "days": 7, "tip": "Вкрутую — до недели в скорлупе"}
+  },
+
+  {
+    "id": "addin_cheese",
+    "name": "Сыр",
+    "emoji": "🧀",
+    "category": "egg_addin",
+    "tags": ["cook", "serve"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 7, "tip": "Тёртый — отдельный контейнер"}
+  },
+  {
+    "id": "addin_feta",
+    "name": "Фета",
+    "emoji": "🧀",
+    "category": "egg_addin",
+    "tags": ["serve"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 7, "tip": "В рассоле — дольше"}
+  },
+  {
+    "id": "addin_tomatoes",
+    "name": "Помидоры",
+    "emoji": "🍅",
+    "category": "egg_addin",
+    "tags": ["cook", "serve"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 4, "tip": ""}
+  },
+  {
+    "id": "addin_spinach",
+    "name": "Шпинат",
+    "emoji": "🥬",
+    "category": "egg_addin",
+    "tags": ["cook"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 2, "tip": "В бумажном полотенце"}
+  },
+  {
+    "id": "addin_pepper",
+    "name": "Перец",
+    "emoji": "🫑",
+    "category": "egg_addin",
+    "tags": ["cook"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 6, "tip": ""}
+  },
+  {
+    "id": "addin_mushrooms",
+    "name": "Грибы",
+    "emoji": "🍄",
+    "category": "egg_addin",
+    "tags": ["cook"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Обжарить заранее"}
+  },
+  {
+    "id": "addin_bacon",
+    "name": "Бекон",
+    "emoji": "🥓",
+    "category": "egg_addin",
+    "tags": ["cook"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 5, "tip": ""}
+  },
+  {
+    "id": "addin_ham",
+    "name": "Ветчина",
+    "emoji": "🍖",
+    "category": "egg_addin",
+    "tags": ["cook", "serve"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 5, "tip": ""}
+  },
+  {
+    "id": "addin_chicken",
+    "name": "Курица (остатки)",
+    "emoji": "🍗",
+    "category": "egg_addin",
+    "tags": ["cook"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Из заготовок шефа"}
+  },
+  {
+    "id": "addin_green_onion",
+    "name": "Зелёный лук",
+    "emoji": "🧅",
+    "category": "egg_addin",
+    "tags": ["cook", "serve"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 5, "tip": ""}
+  },
+  {
+    "id": "addin_herbs",
+    "name": "Зелень",
+    "emoji": "🌿",
+    "category": "egg_addin",
+    "tags": ["cook", "serve"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 4, "tip": ""}
+  },
+  {
+    "id": "addin_salmon",
+    "name": "Лосось с/с",
+    "emoji": "🐟",
+    "category": "egg_addin",
+    "tags": ["cook", "serve"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Слабосолёный"}
+  },
+  {
+    "id": "addin_avocado",
+    "name": "Авокадо",
+    "emoji": "🥑",
+    "category": "egg_addin",
+    "tags": ["serve"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 2, "tip": "Резать перед едой"}
+  },
+  {
+    "id": "addin_toast",
+    "name": "Тост",
+    "emoji": "🍞",
+    "category": "egg_addin",
+    "tags": ["serve"],
+    "methods": [],
+    "storage": {"zone": "pantry", "days": 4, "tip": "Хлеб отдельно"}
+  },
+  {
+    "id": "addin_salad",
+    "name": "Салат-микс",
+    "emoji": "🥗",
+    "category": "egg_addin",
+    "tags": ["serve"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 2, "tip": ""}
+  },
+
+  {
+    "id": "jb_overnight_oats",
+    "name": "Овсянка на ночь",
+    "emoji": "🥣",
+    "category": "jar_base",
+    "tags": ["grain"],
+    "methods": ["Замочить на ночь"],
+    "storage": {"zone": "fridge", "days": 4, "tip": "Геркулес + молоко/йогурт"}
+  },
+  {
+    "id": "jb_chia",
+    "name": "Чиа-пудинг",
+    "emoji": "⚪",
+    "category": "jar_base",
+    "tags": ["grain"],
+    "methods": ["Настоять 4ч+"],
+    "storage": {"zone": "fridge", "days": 5, "tip": "Семена чиа + молоко"}
+  },
+  {
+    "id": "jb_greek_yogurt",
+    "name": "Греческий йогурт",
+    "emoji": "🥛",
+    "category": "jar_base",
+    "tags": ["dairy"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 4, "tip": "Густой — хорошо держит слои"}
+  },
+  {
+    "id": "jb_cottage",
+    "name": "Творог взбитый",
+    "emoji": "🥛",
+    "category": "jar_base",
+    "tags": ["dairy"],
+    "methods": ["Взбить блендером"],
+    "storage": {"zone": "fridge", "days": 3, "tip": ""}
+  },
+  {
+    "id": "jb_rice_pudding",
+    "name": "Рисовый пудинг",
+    "emoji": "🍚",
+    "category": "jar_base",
+    "tags": ["dairy"],
+    "methods": ["Варка 25мин"],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Молочный рис"}
+  },
+  {
+    "id": "jb_semolina",
+    "name": "Манный пудинг",
+    "emoji": "🥣",
+    "category": "jar_base",
+    "tags": ["dairy"],
+    "methods": ["Варка 8мин"],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Холодным — как пудинг"}
+  },
+  {
+    "id": "jb_quinoa",
+    "name": "Киноа-пудинг",
+    "emoji": "🌾",
+    "category": "jar_base",
+    "tags": ["grain"],
+    "methods": ["Варка 15мин"],
+    "storage": {"zone": "fridge", "days": 4, "tip": "Сладкая киноа на молоке"}
+  },
+  {
+    "id": "jb_bircher",
+    "name": "Бирхер-мюсли",
+    "emoji": "🍎",
+    "category": "jar_base",
+    "tags": ["grain", "dairy"],
+    "methods": ["Замочить на ночь"],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Овсянка + тёртое яблоко"}
+  },
+  {
+    "id": "jb_flax",
+    "name": "Льняная каша",
+    "emoji": "🟤",
+    "category": "jar_base",
+    "tags": ["grain"],
+    "methods": ["Настоять 30мин"],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Молотый лён + молоко"}
+  },
+  {
+    "id": "jb_coconut",
+    "name": "Кокосовый пудинг",
+    "emoji": "🥥",
+    "category": "jar_base",
+    "tags": ["grain"],
+    "methods": ["Настоять 4ч"],
+    "storage": {"zone": "fridge", "days": 4, "tip": "На кокосовом молоке"}
+  },
+  {
+    "id": "jb_millet",
+    "name": "Пшённая каша",
+    "emoji": "🌾",
+    "category": "jar_base",
+    "tags": ["grain"],
+    "methods": ["Варка 20мин"],
+    "storage": {"zone": "fridge", "days": 3, "tip": ""}
+  },
+  {
+    "id": "jb_choco_oats",
+    "name": "Шоколадная овсянка",
+    "emoji": "🍫",
+    "category": "jar_base",
+    "tags": ["grain"],
+    "methods": ["Замочить на ночь"],
+    "storage": {"zone": "fridge", "days": 4, "tip": "Овсянка + какао"}
+  },
+  {
+    "id": "jb_pumpkin_oats",
+    "name": "Тыквенная овсянка",
+    "emoji": "🎃",
+    "category": "jar_base",
+    "tags": ["grain"],
+    "methods": ["Замочить на ночь"],
+    "storage": {"zone": "fridge", "days": 4, "tip": "С тыквенным пюре и корицей"}
+  },
+  {
+    "id": "jb_protein_mousse",
+    "name": "Протеиновый мусс",
+    "emoji": "💪",
+    "category": "jar_base",
+    "tags": ["dairy"],
+    "methods": ["Взбить"],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Творог/йогурт + протеин"}
+  },
+  {
+    "id": "jb_milk_couscous",
+    "name": "Молочный кускус",
+    "emoji": "🌾",
+    "category": "jar_base",
+    "tags": ["dairy"],
+    "methods": ["Запарка 8мин"],
+    "storage": {"zone": "fridge", "days": 3, "tip": ""}
+  },
+
+  {
+    "id": "jbar_peanut",
+    "name": "Арахисовая паста",
+    "emoji": "🥜",
+    "category": "jar_barrier",
+    "tags": ["barrier"],
+    "methods": [],
+    "storage": {"zone": "pantry", "days": 60, "tip": "Густая — отличный барьер"}
+  },
+  {
+    "id": "jbar_almond",
+    "name": "Миндальная паста",
+    "emoji": "🌰",
+    "category": "jar_barrier",
+    "tags": ["barrier"],
+    "methods": [],
+    "storage": {"zone": "pantry", "days": 60, "tip": ""}
+  },
+  {
+    "id": "jbar_jam",
+    "name": "Джем",
+    "emoji": "🍓",
+    "category": "jar_barrier",
+    "tags": ["barrier"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 30, "tip": ""}
+  },
+  {
+    "id": "jbar_honey",
+    "name": "Мёд",
+    "emoji": "🍯",
+    "category": "jar_barrier",
+    "tags": ["barrier"],
+    "methods": [],
+    "storage": {"zone": "pantry", "days": 90, "tip": "Натуральный консервант"}
+  },
+  {
+    "id": "jbar_fruit_puree",
+    "name": "Фруктовое пюре",
+    "emoji": "🍎",
+    "category": "jar_barrier",
+    "tags": ["barrier"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 7, "tip": "Банан/яблоко"}
+  },
+  {
+    "id": "jbar_coulis",
+    "name": "Ягодный кули",
+    "emoji": "🫐",
+    "category": "jar_barrier",
+    "tags": ["barrier"],
+    "methods": ["Уварить 8мин"],
+    "storage": {"zone": "fridge", "days": 7, "tip": "Густой ягодный соус"}
+  },
+  {
+    "id": "jbar_tahini",
+    "name": "Тахини",
+    "emoji": "🌰",
+    "category": "jar_barrier",
+    "tags": ["barrier"],
+    "methods": [],
+    "storage": {"zone": "pantry", "days": 60, "tip": ""}
+  },
+  {
+    "id": "jbar_lemon_curd",
+    "name": "Лимонный курд",
+    "emoji": "🍋",
+    "category": "jar_barrier",
+    "tags": ["barrier"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 10, "tip": ""}
+  },
+  {
+    "id": "jbar_cream_cheese",
+    "name": "Крем-чиз",
+    "emoji": "🧀",
+    "category": "jar_barrier",
+    "tags": ["barrier", "dairy"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 7, "tip": ""}
+  },
+  {
+    "id": "jbar_coconut_cream",
+    "name": "Кокосовый крем",
+    "emoji": "🥥",
+    "category": "jar_barrier",
+    "tags": ["barrier"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 5, "tip": ""}
+  },
+  {
+    "id": "jbar_choco_spread",
+    "name": "Шоколадная паста",
+    "emoji": "🍫",
+    "category": "jar_barrier",
+    "tags": ["barrier"],
+    "methods": [],
+    "storage": {"zone": "pantry", "days": 45, "tip": "Тёмная, без пальмового"}
+  },
+  {
+    "id": "jbar_caramel",
+    "name": "Солёная карамель",
+    "emoji": "🍮",
+    "category": "jar_barrier",
+    "tags": ["barrier"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 14, "tip": ""}
+  },
+  {
+    "id": "jbar_condensed",
+    "name": "Варёная сгущёнка",
+    "emoji": "🥛",
+    "category": "jar_barrier",
+    "tags": ["barrier"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 14, "tip": ""}
+  },
+  {
+    "id": "jbar_thick_yogurt",
+    "name": "Густой йогурт",
+    "emoji": "🥛",
+    "category": "jar_barrier",
+    "tags": ["barrier", "dairy"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 4, "tip": "Как разделитель слоёв"}
+  },
+  {
+    "id": "jbar_urbech",
+    "name": "Урбеч",
+    "emoji": "🟤",
+    "category": "jar_barrier",
+    "tags": ["barrier"],
+    "methods": [],
+    "storage": {"zone": "pantry", "days": 60, "tip": ""}
+  },
+
+  {
+    "id": "jm_strawberry",
+    "name": "Клубника",
+    "emoji": "🍓",
+    "category": "jar_middle",
+    "tags": ["juicy"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 3, "tip": ""}
+  },
+  {
+    "id": "jm_raspberry",
+    "name": "Малина",
+    "emoji": "🍇",
+    "category": "jar_middle",
+    "tags": ["juicy"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 2, "tip": ""}
+  },
+  {
+    "id": "jm_blueberry",
+    "name": "Черника",
+    "emoji": "🫐",
+    "category": "jar_middle",
+    "tags": ["juicy"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 4, "tip": ""}
+  },
+  {
+    "id": "jm_frozen_berries",
+    "name": "Заморож. ягоды",
+    "emoji": "🧊",
+    "category": "jar_middle",
+    "tags": ["juicy", "frozen"],
+    "methods": [],
+    "storage": {"zone": "freezer", "days": 90, "tip": "Дадут сок — только в средний слой"}
+  },
+  {
+    "id": "jm_banana",
+    "name": "Банан",
+    "emoji": "🍌",
+    "category": "jar_middle",
+    "tags": ["banana"],
+    "methods": [],
+    "storage": {"zone": "pantry", "days": 3, "tip": "Темнеет — под прокладку или утром"}
+  },
+  {
+    "id": "jm_apple_pear",
+    "name": "Яблоко/груша",
+    "emoji": "🍏",
+    "category": "jar_middle",
+    "tags": ["juicy"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 5, "tip": ""}
+  },
+  {
+    "id": "jm_peach",
+    "name": "Персик",
+    "emoji": "🍑",
+    "category": "jar_middle",
+    "tags": ["juicy"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 3, "tip": ""}
+  },
+  {
+    "id": "jm_mango",
+    "name": "Манго",
+    "emoji": "🥭",
+    "category": "jar_middle",
+    "tags": ["juicy"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 3, "tip": ""}
+  },
+  {
+    "id": "jm_kiwi",
+    "name": "Киви",
+    "emoji": "🥝",
+    "category": "jar_middle",
+    "tags": ["juicy", "acidic"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 4, "tip": "Кислый — осторожно с молочной основой"}
+  },
+  {
+    "id": "jm_pomegranate",
+    "name": "Гранат",
+    "emoji": "🔴",
+    "category": "jar_middle",
+    "tags": ["juicy"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 5, "tip": "Зёрна"}
+  },
+  {
+    "id": "jm_baked_apple",
+    "name": "Печёное яблоко",
+    "emoji": "🍎",
+    "category": "jar_middle",
+    "tags": ["juicy"],
+    "methods": ["Запечь 20мин"],
+    "storage": {"zone": "fridge", "days": 4, "tip": "С корицей"}
+  },
+  {
+    "id": "jm_pineapple",
+    "name": "Ананас",
+    "emoji": "🍍",
+    "category": "jar_middle",
+    "tags": ["juicy", "acidic"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Кислый — осторожно с молочной основой"}
+  },
+  {
+    "id": "jm_fig",
+    "name": "Инжир",
+    "emoji": "🟣",
+    "category": "jar_middle",
+    "tags": ["juicy"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 3, "tip": ""}
+  },
+  {
+    "id": "jm_citrus",
+    "name": "Цитрус",
+    "emoji": "🍊",
+    "category": "jar_middle",
+    "tags": ["juicy", "acidic"],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 5, "tip": "Кислый — осторожно с молочной основой"}
+  },
+  {
+    "id": "jm_dried_fruit",
+    "name": "Сухофрукты",
+    "emoji": "🟤",
+    "category": "jar_middle",
+    "tags": [],
+    "methods": ["Замочить 20мин"],
+    "storage": {"zone": "pantry", "days": 30, "tip": "Курага/чернослив/изюм"}
+  },
+
+  {
+    "id": "jt_granola",
+    "name": "Гранола",
+    "emoji": "🌾",
+    "category": "jar_top",
+    "tags": ["crunchy"],
+    "methods": [],
+    "storage": {"zone": "pantry", "days": 21, "tip": "Добавь утром, иначе размокнет"}
+  },
+  {
+    "id": "jt_walnuts",
+    "name": "Грецкий орех",
+    "emoji": "🌰",
+    "category": "jar_top",
+    "tags": ["crunchy"],
+    "methods": [],
+    "storage": {"zone": "pantry", "days": 30, "tip": ""}
+  },
+  {
+    "id": "jt_almonds",
+    "name": "Миндаль",
+    "emoji": "🌰",
+    "category": "jar_top",
+    "tags": ["crunchy"],
+    "methods": [],
+    "storage": {"zone": "pantry", "days": 30, "tip": ""}
+  },
+  {
+    "id": "jt_hazelnuts",
+    "name": "Фундук",
+    "emoji": "🌰",
+    "category": "jar_top",
+    "tags": ["crunchy"],
+    "methods": [],
+    "storage": {"zone": "pantry", "days": 30, "tip": ""}
+  },
+  {
+    "id": "jt_cashews",
+    "name": "Кешью",
+    "emoji": "🥜",
+    "category": "jar_top",
+    "tags": ["crunchy"],
+    "methods": [],
+    "storage": {"zone": "pantry", "days": 30, "tip": ""}
+  },
+  {
+    "id": "jt_pumpkin_seeds",
+    "name": "Тыквенные семечки",
+    "emoji": "🎃",
+    "category": "jar_top",
+    "tags": ["crunchy"],
+    "methods": [],
+    "storage": {"zone": "pantry", "days": 30, "tip": ""}
+  },
+  {
+    "id": "jt_sunflower_seeds",
+    "name": "Семечки",
+    "emoji": "🌻",
+    "category": "jar_top",
+    "tags": ["crunchy"],
+    "methods": [],
+    "storage": {"zone": "pantry", "days": 30, "tip": ""}
+  },
+  {
+    "id": "jt_chia_flax",
+    "name": "Чиа/лён",
+    "emoji": "🌱",
+    "category": "jar_top",
+    "tags": [],
+    "methods": [],
+    "storage": {"zone": "pantry", "days": 60, "tip": "Можно с вечера"}
+  },
+  {
+    "id": "jt_coconut",
+    "name": "Кокос. стружка",
+    "emoji": "🥥",
+    "category": "jar_top",
+    "tags": ["crunchy"],
+    "methods": [],
+    "storage": {"zone": "pantry", "days": 45, "tip": ""}
+  },
+  {
+    "id": "jt_cacao_nibs",
+    "name": "Какао-крупка",
+    "emoji": "🍫",
+    "category": "jar_top",
+    "tags": ["crunchy"],
+    "methods": [],
+    "storage": {"zone": "pantry", "days": 60, "tip": ""}
+  },
+  {
+    "id": "jt_dark_choco",
+    "name": "Тёмный шоколад",
+    "emoji": "🍫",
+    "category": "jar_top",
+    "tags": [],
+    "methods": [],
+    "storage": {"zone": "pantry", "days": 60, "tip": "Тёртый/капли"}
+  },
+  {
+    "id": "jt_fruit_chips",
+    "name": "Фруктовые чипсы",
+    "emoji": "🍏",
+    "category": "jar_top",
+    "tags": ["crunchy"],
+    "methods": [],
+    "storage": {"zone": "pantry", "days": 21, "tip": "Добавь утром"}
+  },
+  {
+    "id": "jt_muesli",
+    "name": "Мюсли",
+    "emoji": "🌾",
+    "category": "jar_top",
+    "tags": ["crunchy"],
+    "methods": [],
+    "storage": {"zone": "pantry", "days": 21, "tip": "Добавь утром"}
+  },
+  {
+    "id": "jt_sesame_poppy",
+    "name": "Кунжут/мак",
+    "emoji": "⚫",
+    "category": "jar_top",
+    "tags": [],
+    "methods": [],
+    "storage": {"zone": "pantry", "days": 60, "tip": "Можно с вечера"}
+  },
+  {
+    "id": "jt_mint_zest",
+    "name": "Мята/цедра",
+    "emoji": "🌿",
+    "category": "jar_top",
+    "tags": [],
+    "methods": [],
+    "storage": {"zone": "fridge", "days": 3, "tip": "Свежая — для подачи"}
   }
 ]

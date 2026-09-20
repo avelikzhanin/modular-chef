@@ -22,6 +22,14 @@ class CatalogService extends ChangeNotifier {
   bool get isLoaded => _isLoaded;
   Object? get loadError => _loadError;
 
+  /// Читает ассет строкой без loadString: тот для файлов >50КБ декодирует
+  /// в отдельном изоляте, который не завершается в widget-тестах (fake async).
+  static Future<String> _readString(AssetBundle b, String key) async {
+    final data = await b.load(key);
+    return utf8.decode(
+        data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes));
+  }
+
   /// Параллельно загружает все 4 каталога. Идемпотентно — повторный вызов
   /// после успешной загрузки сразу возвращается без обращений к bundle.
   Future<void> load({AssetBundle? bundle}) async {
@@ -29,10 +37,10 @@ class CatalogService extends ChangeNotifier {
     final b = bundle ?? rootBundle;
     try {
       final results = await Future.wait([
-        b.loadString('assets/data/modules.json'),
-        b.loadString('assets/data/pairings.json'),
-        b.loadString('assets/data/week_templates.json'),
-        b.loadString('assets/data/storage_rules.json'),
+        _readString(b, 'assets/data/modules.json'),
+        _readString(b, 'assets/data/pairings.json'),
+        _readString(b, 'assets/data/week_templates.json'),
+        _readString(b, 'assets/data/storage_rules.json'),
       ]);
       _modules = (jsonDecode(results[0]) as List)
           .cast<Map<String, dynamic>>()

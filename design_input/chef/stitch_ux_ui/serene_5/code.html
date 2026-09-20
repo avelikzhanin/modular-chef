@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed-variant": "#6d5c62",
+                    "surface-tint": "#49655a",
+                    "inverse-on-surface": "#9b9d9f",
+                    "secondary-container": "#f0dede",
+                    "tertiary-container": "#fde5ec",
+                    "on-secondary": "#fff7f6",
+                    "on-primary-container": "#3c574d",
+                    "primary-fixed": "#cbe9dc",
+                    "on-primary": "#e4fff3",
+                    "on-tertiary-container": "#635258",
+                    "on-tertiary": "#fff7f8",
+                    "on-background": "#2c3337",
+                    "background": "#f8f9fb",
+                    "secondary": "#695c5c",
+                    "outline": "#757c80",
+                    "on-surface": "#2c3337",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#e3e9ec",
+                    "on-error-container": "#6e0a12",
+                    "tertiary-fixed-dim": "#eed7de",
+                    "surface-variant": "#dde3e8",
+                    "error": "#a83836",
+                    "error-container": "#fa746f",
+                    "on-surface-variant": "#596064",
+                    "tertiary-fixed": "#fde5ec",
+                    "secondary-dim": "#5c5050",
+                    "on-primary-fixed-variant": "#466157",
+                    "on-tertiary-fixed": "#504046",
+                    "tertiary": "#6c5b61",
+                    "primary-dim": "#3e594e",
+                    "surface-container": "#eaeef2",
+                    "tertiary-dim": "#5f4f55",
+                    "surface-container-low": "#f0f4f7",
+                    "on-primary-fixed": "#2a453b",
+                    "surface-dim": "#d4dbdf",
+                    "on-error": "#fff7f6",
+                    "surface-bright": "#f8f9fb",
+                    "secondary-fixed-dim": "#e2d0d0",
+                    "primary": "#49655a",
+                    "surface-container-highest": "#dde3e8",
+                    "inverse-primary": "#dcfbed",
+                    "surface": "#f8f9fb",
+                    "secondary-fixed": "#f0dede",
+                    "on-secondary-fixed-variant": "#655859",
+                    "inverse-surface": "#0b0f10",
+                    "on-secondary-container": "#5b4f4f",
+                    "on-secondary-fixed": "#483d3d",
+                    "error-dim": "#67040d",
+                    "primary-container": "#cbe9dc",
+                    "primary-fixed-dim": "#bddbce",
+                    "outline-variant": "#acb3b7"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .thin-icon { font-variation-settings: 'wght' 200; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(24px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#f8f9fb]/80 dark:bg-slate-900/80 backdrop-blur-xl flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="professional headshot of a smiling man with a beard in a bright, clean kitchen environment with soft morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBURmzGbi-nP5umI7QHe1E1Uo_K0jqFGugJKf3JO3PVGzafh1ToR70apTNwyFSAfeRVKLc_z1G86YnB702BAZ9-g4R9Y2iwxe4jEuj_xPzRaa4eSZeVspugzSkP_-V0FSrCiQbFtOWwpIPCzqgJZzAmFXNPgMcVwlq6M1UkNlB0FJRG--_eMqSFW3-ig9-2XFkypoNQn42NpefCWOz0HLuCrzR2DJ-zKM0pXBfbehHC6t44jEKrtuKxSISLeTJVWUvaXa4ABZ5ykce9"/>
+</div>
+<span class="text-xl font-bold text-[#49655a] dark:text-[#cbe9dc] font-['Inter'] tracking-tight">Modular Chef</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-[#f0f4f7] transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-[#49655a]" data-icon="notifications">notifications</span>
+</button>
+</div>
+</header>
+<main class="pt-24 px-6 max-w-2xl mx-auto">
+<!-- Editorial Header -->
+<div class="mb-10">
+<h1 class="text-4xl font-extrabold tracking-tight text-primary mb-2">Список покупок</h1>
+<p class="text-on-surface-variant text-sm font-medium tracking-wide uppercase">Организация рациона</p>
+</div>
+<!-- Week Tabs (Asymmetric Layout) -->
+<div class="flex gap-2 p-1.5 bg-surface-container-low rounded-full mb-8 w-fit">
+<button class="px-8 py-2.5 rounded-full bg-surface-container-lowest text-primary font-semibold shadow-sm text-sm">Неделя 1</button>
+<button class="px-8 py-2.5 rounded-full text-on-surface-variant font-medium text-sm hover:opacity-80 transition-opacity">Неделя 2</button>
+</div>
+<!-- Shopping List Content (Grouped Bento-ish Layout) -->
+<div class="space-y-6">
+<!-- Meat Section -->
+<section class="bg-surface-container-lowest rounded-xl p-6">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary thin-icon" data-icon="restaurant">restaurant</span>
+<h2 class="text-lg font-bold tracking-tight text-on-surface">Мясо и птица</h2>
+</div>
+<ul class="space-y-4">
+<li class="flex items-center gap-4 group">
+<div class="w-6 h-6 rounded-full border-2 border-primary-fixed flex items-center justify-center cursor-pointer hover:bg-primary-container transition-colors">
+</div>
+<span class="text-on-surface text-[15px]">Куриное филе, 1.2 кг</span>
+</li>
+<li class="flex items-center gap-4 group">
+<div class="w-6 h-6 rounded-full bg-primary-container flex items-center justify-center cursor-pointer">
+<span class="material-symbols-outlined text-on-primary-container text-sm" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<span class="text-on-surface-variant line-through text-[15px]">Говяжий фарш, 600 г</span>
+</li>
+</ul>
+</section>
+<!-- Veggies Section -->
+<section class="bg-surface-container-lowest rounded-xl p-6">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary thin-icon" data-icon="eco">eco</span>
+<h2 class="text-lg font-bold tracking-tight text-on-surface">Овощи и зелень</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<ul class="space-y-4">
+<li class="flex items-center gap-4">
+<div class="w-6 h-6 rounded-full border-2 border-primary-fixed cursor-pointer"></div>
+<span class="text-on-surface text-[15px]">Брокколи, 2 кочана</span>
+</li>
+<li class="flex items-center gap-4">
+<div class="w-6 h-6 rounded-full border-2 border-primary-fixed cursor-pointer"></div>
+<span class="text-on-surface text-[15px]">Болгарский перец, 3 шт</span>
+</li>
+</ul>
+<ul class="space-y-4">
+<li class="flex items-center gap-4">
+<div class="w-6 h-6 rounded-full border-2 border-primary-fixed cursor-pointer"></div>
+<span class="text-on-surface text-[15px]">Шпинат свежий, 200 г</span>
+</li>
+<li class="flex items-center gap-4">
+<div class="w-6 h-6 rounded-full bg-primary-container flex items-center justify-center cursor-pointer">
+<span class="material-symbols-outlined text-on-primary-container text-sm" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<span class="text-on-surface-variant line-through text-[15px]">Черри, 1 уп</span>
+</li>
+</ul>
+</div>
+</section>
+<!-- Dairy Section (with Color Accent) -->
+<section class="bg-secondary-container/30 rounded-xl p-6">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-secondary thin-icon" data-icon="egg_alt">egg_alt</span>
+<h2 class="text-lg font-bold tracking-tight text-on-secondary-container">Молочные продукты</h2>
+</div>
+<ul class="space-y-4">
+<li class="flex items-center gap-4">
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant/30 cursor-pointer"></div>
+<span class="text-on-surface text-[15px]">Греческий йогурт, 500 г</span>
+</li>
+<li class="flex items-center gap-4">
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant/30 cursor-pointer"></div>
+<span class="text-on-surface text-[15px]">Яйца куриные, 10 шт</span>
+</li>
+</ul>
+</section>
+<!-- Pantry Section -->
+<section class="bg-surface-container-lowest rounded-xl p-6">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary thin-icon" data-icon="inventory_2">inventory_2</span>
+<h2 class="text-lg font-bold tracking-tight text-on-surface">Бакалея</h2>
+</div>
+<ul class="space-y-4">
+<li class="flex items-center gap-4">
+<div class="w-6 h-6 rounded-full border-2 border-primary-fixed cursor-pointer"></div>
+<span class="text-on-surface text-[15px]">Оливковое масло, 1 л</span>
+</li>
+<li class="flex items-center gap-4">
+<div class="w-6 h-6 rounded-full border-2 border-primary-fixed cursor-pointer"></div>
+<span class="text-on-surface text-[15px]">Киноа, 400 г</span>
+</li>
+<li class="flex items-center gap-4">
+<div class="w-6 h-6 rounded-full bg-primary-container flex items-center justify-center cursor-pointer">
+<span class="material-symbols-outlined text-on-primary-container text-sm" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<span class="text-on-surface-variant line-through text-[15px]">Морская соль</span>
+</li>
+</ul>
+</section>
+</div>
+<!-- Share Button (Floating Contextual Action) -->
+<div class="fixed bottom-28 right-6">
+<button class="flex items-center gap-2 bg-tertiary-container text-on-tertiary-container px-6 py-4 rounded-full shadow-[0_12px_32px_rgba(44,51,55,0.08)] font-semibold active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="ios_share">ios_share</span>
+<span>Поделиться</span>
+</button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-[#ffffff]/80 dark:bg-slate-950/80 backdrop-blur-xl z-50 rounded-t-[24px] shadow-[0_-12px_32px_rgba(44,51,55,0.04)]">
+<a class="flex flex-col items-center justify-center text-[#596064] dark:text-slate-400 px-5 py-1.5 hover:opacity-80 transition-opacity active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="restaurant_menu">restaurant_menu</span>
+<span class="font-['Inter'] text-[11px] uppercase tracking-[0.05em] font-medium mt-1">Меню</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-[#cbe9dc] dark:bg-[#49655a]/30 text-[#3c574d] dark:text-[#cbe9dc] rounded-full px-5 py-1.5 hover:opacity-80 transition-opacity active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="font-['Inter'] text-[11px] uppercase tracking-[0.05em] font-medium mt-1">Покупки</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#596064] dark:text-slate-400 px-5 py-1.5 hover:opacity-80 transition-opacity active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="set_meal">set_meal</span>
+<span class="font-['Inter'] text-[11px] uppercase tracking-[0.05em] font-medium mt-1">Подготовка</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#596064] dark:text-slate-400 px-5 py-1.5 hover:opacity-80 transition-opacity active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-['Inter'] text-[11px] uppercase tracking-[0.05em] font-medium mt-1">Хранение</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#596064] dark:text-slate-400 px-5 py-1.5 hover:opacity-80 transition-opacity active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-['Inter'] text-[11px] uppercase tracking-[0.05em] font-medium mt-1">Профиль</span>
+</a>
+</nav>
+</body></html>

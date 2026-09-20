@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Modular Chef - Собери своё меню</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#6d5c62",
+                        "surface-tint": "#49655a",
+                        "inverse-on-surface": "#9b9d9f",
+                        "secondary-container": "#f0dede",
+                        "tertiary-container": "#fde5ec",
+                        "on-secondary": "#fff7f6",
+                        "on-primary-container": "#3c574d",
+                        "primary-fixed": "#cbe9dc",
+                        "on-primary": "#e4fff3",
+                        "on-tertiary-container": "#635258",
+                        "on-tertiary": "#fff7f8",
+                        "on-background": "#2c3337",
+                        "background": "#f8f9fb",
+                        "secondary": "#695c5c",
+                        "outline": "#757c80",
+                        "on-surface": "#2c3337",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#e3e9ec",
+                        "on-error-container": "#6e0a12",
+                        "tertiary-fixed-dim": "#eed7de",
+                        "surface-variant": "#dde3e8",
+                        "error": "#a83836",
+                        "error-container": "#fa746f",
+                        "on-surface-variant": "#596064",
+                        "tertiary-fixed": "#fde5ec",
+                        "secondary-dim": "#5c5050",
+                        "on-primary-fixed-variant": "#466157",
+                        "on-tertiary-fixed": "#504046",
+                        "tertiary": "#6c5b61",
+                        "primary-dim": "#3e594e",
+                        "surface-container": "#eaeef2",
+                        "tertiary-dim": "#5f4f55",
+                        "surface-container-low": "#f0f4f7",
+                        "on-primary-fixed": "#2a453b",
+                        "surface-dim": "#d4dbdf",
+                        "on-error": "#fff7f6",
+                        "surface-bright": "#f8f9fb",
+                        "secondary-fixed-dim": "#e2d0d0",
+                        "primary": "#49655a",
+                        "surface-container-highest": "#dde3e8",
+                        "inverse-primary": "#dcfbed",
+                        "surface": "#f8f9fb",
+                        "secondary-fixed": "#f0dede",
+                        "on-secondary-fixed-variant": "#655859",
+                        "inverse-surface": "#0b0f10",
+                        "on-secondary-container": "#5b4f4f",
+                        "on-secondary-fixed": "#483d3d",
+                        "error-dim": "#67040d",
+                        "primary-container": "#cbe9dc",
+                        "primary-fixed-dim": "#bddbce",
+                        "outline-variant": "#acb3b7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#f8f9fb]/80 dark:bg-slate-900/80 backdrop-blur-xl flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container">
+<img alt="Avatar" class="w-full h-full object-cover" data-alt="Close up portrait of a professional chef in a white uniform with soft window lighting and a blurred kitchen background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAg1hIL4ntXdCPpybDAFbg42x7-zgmnKXXxR2j1XK1giIIbgrElEcxlDzzq7ck4iDZZBug42bONUbXLqk4sYE5FP6HFOdhwyPU5Zq9clnisDy3g8aHYwzJUoRWOBLUlIueKItiirfA70--mfeR5qrZosDrok_rr4L6nqsImUgxT_mgyaIFtE9ZBE3yA9ve3aYA8L7FR__xEpC3oemDSjon0jKoArPaR-FoFa-g2NcNE0hQ5nEIjEJt2O1RTsOjJPy5djHcQol5_nSuJ"/>
+</div>
+<h1 class="text-xl font-bold text-[#49655a] dark:text-[#cbe9dc] font-['Inter'] tracking-tight">Modular Chef</h1>
+</div>
+<button class="text-[#49655a] dark:text-[#cbe9dc] hover:bg-[#f0f4f7] dark:hover:bg-slate-800 transition-colors p-2 rounded-full active:scale-95 duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-2xl mx-auto space-y-12">
+<!-- Hero Section -->
+<section class="space-y-4">
+<p class="text-on-tertiary-fixed-variant font-label text-[11px] uppercase tracking-[0.05em] font-medium">Персональный план</p>
+<h2 class="text-4xl font-extrabold text-primary tracking-tight leading-tight">Собери своё меню</h2>
+<p class="text-on-surface-variant text-lg max-w-md">Выберите ингредиенты на ближайшие 2 недели. Мы подготовим заготовки для ваших блюд.</p>
+</section>
+<!-- Category: Proteins -->
+<section class="space-y-6">
+<div class="flex justify-between items-end">
+<h3 class="text-2xl font-semibold text-primary tracking-tight">Белки</h3>
+<span class="text-on-surface-variant font-label text-[11px] uppercase tracking-wider">4 варианта</span>
+</div>
+<div class="flex overflow-x-auto gap-4 pb-2 hide-scrollbar -mx-6 px-6">
+<!-- Card Selected -->
+<div class="flex-shrink-0 w-44 space-y-3 active:scale-95 transition-transform">
+<div class="aspect-[4/5] rounded-xl overflow-hidden ring-4 ring-primary-container bg-surface-container-lowest">
+<img alt="Salmon" class="w-full h-full object-cover" data-alt="Fresh raw salmon fillet with lemon and rosemary on a light marble surface with soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7HBAWBbag14mQ1FBcVdc1WWolgB3FTA0OybOUeq2vow25SuPyFEqr54GessqjYfJqG39K-4038CtH3_mYRmYlFGN7pJKcH-WFqjzbRpLVsYmHMtf3pla3DRdz0ed4d4hPYFE83TqGB2WwR4Oi_saCTRzglWRd3ICIriwVBYk0-tO0HsHr_Md4GlAFRINWMK6x-lTZRCVLiu5gOJ7sLVBNnCwlyDSZhyg95Jp9bW2nWIAF9x14Tn7QGuNkFgUQNe8dSEbwwGHnuS-i"/>
+</div>
+<div class="px-1">
+<p class="font-semibold text-on-surface">Лосось</p>
+<p class="text-xs text-on-surface-variant">Стейк на пару</p>
+</div>
+</div>
+<!-- Card -->
+<div class="flex-shrink-0 w-44 space-y-3 active:scale-95 transition-transform">
+<div class="aspect-[4/5] rounded-xl overflow-hidden bg-surface-container-lowest">
+<img alt="Chicken" class="w-full h-full object-cover" data-alt="Grilled chicken breast slices on a white ceramic plate with herbs in a bright clinical setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoJJd2YaCpAhHv8_JlNi9AhL8V8qHC9sYfezxa8rYLoqZfzpdfBAJl7VGNakx42mfNyxf45V0HfBnJKiNxmWB3ydi4eE6YXkkazcV8FMWOGza0wYMpnGy0C8ah_F0FPHEcEeiD_Yc-HJ3t8ei2oc-1LJ_4DkqUv1qyzDZE2UG0Gm8Uqm8W-CORNnc3eDokHfNZhRIKvqGiTwLlGZMGuke74kwPQwwcLt9WMVZmQj3bOjj4TZcRSc1IF3xFxcRx3EaJmLtCqtYdwreD"/>
+</div>
+<div class="px-1">
+<p class="font-semibold text-on-surface">Курица</p>
+<p class="text-xs text-on-surface-variant">Филе су-вид</p>
+</div>
+</div>
+<div class="flex-shrink-0 w-44 space-y-3 active:scale-95 transition-transform">
+<div class="aspect-[4/5] rounded-xl overflow-hidden bg-surface-container-lowest">
+<img alt="Beef" class="w-full h-full object-cover" data-alt="Thinly sliced roast beef on a light grey plate with minimal garnish and soft shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQpyFLnGO71WDXtj-3hqaK1S5BL_25W_ZIqqMRgml1jRNPz_JBMCkIq83d4cve8yCvhm9ETuYypXmJUBysWuvOwMF9mme0-nQuutwNhthRHrnI9laU-jwWpFmlKGCFriFnluPP8ZMBrhur3FTnxN_dAyy83NRiEZ-scwmE8M7fUM2qDAIboW4sdeSim2gVZyIY2C2mHelSJ6a6WPww2f8gYPlgjMBpAgaKIJ0eunQGVv0Xc3H4zLPfdK2xZ4FeGNPR1AOoYVJ6E1Ty"/>
+</div>
+<div class="px-1">
+<p class="font-semibold text-on-surface">Говядина</p>
+<p class="text-xs text-on-surface-variant">Медальоны</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Category: Sides -->
+<section class="space-y-6">
+<div class="flex justify-between items-end">
+<h3 class="text-2xl font-semibold text-primary tracking-tight">Гарниры</h3>
+<span class="text-on-surface-variant font-label text-[11px] uppercase tracking-wider">6 вариантов</span>
+</div>
+<div class="flex overflow-x-auto gap-4 pb-2 hide-scrollbar -mx-6 px-6">
+<div class="flex-shrink-0 w-44 space-y-3 active:scale-95 transition-transform">
+<div class="aspect-[4/5] rounded-xl overflow-hidden bg-surface-container-lowest">
+<img alt="Quinoa" class="w-full h-full object-cover" data-alt="Cooked white quinoa in a minimalist ceramic bowl with subtle steam and soft overhead light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA21_Ox4W_g5lHXQc-PgFWLzIY3qoEUokTJG31ruVvHMP0-xp_L2VBCuQhpViPfkvw-IadYDFOC_g7eSeM9U21wF-F_37s5o8w4rmt0CfkKO2S3jSgD4a-mSga6hBwDb1K8UgBQjX7WnLca1fsP45vxabga1caHcpdEsH8jyRi0LA3eFT1-wQIn4M7IxSPPb3EG74fQC4DAHkPKODpzDNBC5Mw2W6DlGal-BTXvf-PgY95d79p7yqJcaqQIe6qyND7ytCyyOhubbMjD"/>
+</div>
+<div class="px-1">
+<p class="font-semibold text-on-surface">Киноа</p>
+<p class="text-xs text-on-surface-variant">С овощами</p>
+</div>
+</div>
+<div class="flex-shrink-0 w-44 space-y-3 active:scale-95 transition-transform">
+<div class="aspect-[4/5] rounded-xl overflow-hidden ring-4 ring-primary-container bg-surface-container-lowest">
+<img alt="Vegetables" class="w-full h-full object-cover" data-alt="Steamed broccoli and asparagus with sea salt on a clean white background with bright morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzVVAosPgb7NwmSBvi48SJj8nILJY49mhm178UhhNxbZZbClLqXF2553Vf44zaR0O4UQ93SkV-sbHeo_JmSyg4UXmr22KT3eFzWcaNrDCeelk6Mwd7e74Cttim_4uc5rsQGD5oU9yPx4fh780RKJJOpJyDqoHabvleA6uDjDAzFTH7e-MFhHyXzSY91KPCqQK9g6Jq05_RLj1ECaBuzxRnQ4_G8TtPkL9lQVTmX2ECu_kZ-aG7qLbhilm4IjCbsy6fVNn8Bgo6hU9r"/>
+</div>
+<div class="px-1">
+<p class="font-semibold text-on-surface">Овощи</p>
+<p class="text-xs text-on-surface-variant">На пару</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Category: Soups -->
+<section class="space-y-6">
+<div class="flex justify-between items-end">
+<h3 class="text-2xl font-semibold text-primary tracking-tight">Супы</h3>
+<span class="text-on-surface-variant font-label text-[11px] uppercase tracking-wider">3 варианта</span>
+</div>
+<div class="flex overflow-x-auto gap-4 pb-2 hide-scrollbar -mx-6 px-6">
+<div class="flex-shrink-0 w-44 space-y-3 active:scale-95 transition-transform">
+<div class="aspect-[4/5] rounded-xl overflow-hidden bg-surface-container-lowest">
+<img alt="Pumpkin Soup" class="w-full h-full object-cover" data-alt="Creamy orange pumpkin soup in a bowl with pumpkin seeds and a swirl of cream, overhead artistic shot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYe7eATyWxSyoK8z87B1eQvbu76uCUJvjM-rsblKDi-T7-REha0tWcOGsmydJukPXrE6owlsq6vks1jKrFEsvloq6FDuoDQv7-N8k0h_KQe-IjYoPRQwMsfv1PSsTl7OlcERi8NXLx1dM9dpTf7XVA4YcyNrrxnSXTf608Rl6qCWhPxLlhVparoYRhTNWEe4BCv2ySqnMQvypsuEshZl2xo_iOmg38av1sZH_CzS7e0ItdpstsfiaAecZLbP9ej6co17Z4tfyGxWYb"/>
+</div>
+<div class="px-1">
+<p class="font-semibold text-on-surface">Тыквенный</p>
+<p class="text-xs text-on-surface-variant">Крем-суп</p>
+</div>
+</div>
+<div class="flex-shrink-0 w-44 space-y-3 active:scale-95 transition-transform">
+<div class="aspect-[4/5] rounded-xl overflow-hidden bg-surface-container-lowest">
+<img alt="Broccoli Soup" class="w-full h-full object-cover" data-alt="Smooth green broccoli soup in a white bowl with a sprig of fresh herb on a light grey background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWBnHW51cZTZqz5d6rb8Tx5AggqLX6nyEWX20u2UGVtmhusvEbYTA1PHOU1-eEw7I96VlRVdoht17_gYEfTG-qP85acef1N5OR1JbJnIdriMWUkHfL2A7EDO4CGY6jpfgcX5qigt3BrZubwGH24UVcFs7S2aGEfoRXcjIV9MBKwfo5xX9U3EoZtahZkvBBm6tzsk2-ShpZjF_SJ5zJoxCpi8AN6ZCKxHzMRicei1oH2pVBcEZThXElnF2VUtbrto6uhiJJp3kXHgv4"/>
+</div>
+<div class="px-1">
+<p class="font-semibold text-on-surface">Брокколи</p>
+<p class="text-xs text-on-surface-variant">С кешью</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Category: Breakfasts -->
+<section class="space-y-6">
+<div class="flex justify-between items-end">
+<h3 class="text-2xl font-semibold text-primary tracking-tight">Завтраки</h3>
+<span class="text-on-surface-variant font-label text-[11px] uppercase tracking-wider">5 вариантов</span>
+</div>
+<div class="flex overflow-x-auto gap-4 pb-2 hide-scrollbar -mx-6 px-6">
+<div class="flex-shrink-0 w-44 space-y-3 active:scale-95 transition-transform">
+<div class="aspect-[4/5] rounded-xl overflow-hidden ring-4 ring-primary-container bg-surface-container-lowest">
+<img alt="Oatmeal" class="w-full h-full object-cover" data-alt="Steel cut oatmeal with fresh blueberries and almond butter in a minimal ceramic bowl with bright light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0dbaWkvZ2vGb3KgmCVAfJ9rqcuP3CDnKDTAkL_b4hroxuJAj2DGuH4F3RTVTwq2nY-ea72kPMxyqPW5OTbxucdy5IlrMaCvft-3HdrW6SWkQhFyoUWGYTPtf75kumdZ5cmcqCXmjxDz_eyipVZIFlSnyynVIYBxDpxpzhoShu8-3Cq_HCJDmBg7GfOqPdgiy3MiMdACuD-45WVhvEYO7fgmpUZttK9QUkqnvK8XIiPF815ihgvBOUOkr8k99_WFRzh-m4Uc4Vq7dp"/>
+</div>
+<div class="px-1">
+<p class="font-semibold text-on-surface">Овсянка</p>
+<p class="text-xs text-on-surface-variant">С ягодами</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Category: My Dishes -->
+<section class="space-y-6 pb-8">
+<div class="flex justify-between items-end">
+<h3 class="text-2xl font-semibold text-primary tracking-tight">Мои блюда</h3>
+<span class="text-on-surface-variant font-label text-[11px] uppercase tracking-wider">Ваше избранное</span>
+</div>
+<div class="flex overflow-x-auto gap-4 pb-2 hide-scrollbar -mx-6 px-6">
+<button class="flex-shrink-0 w-44 aspect-[4/5] rounded-xl border-2 border-dashed border-outline-variant flex flex-col items-center justify-center gap-2 hover:bg-surface-container-low transition-colors group">
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary">add_circle</span>
+<p class="text-sm font-medium text-on-surface-variant">Добавить своё</p>
+</button>
+</div>
+</section>
+<!-- Fixed Bottom Action -->
+<div class="fixed bottom-[88px] left-0 w-full px-6 z-40 pointer-events-none">
+<div class="max-w-2xl mx-auto flex justify-center">
+<button class="pointer-events-auto bg-primary-container text-on-primary-container font-semibold px-12 py-4 rounded-full shadow-2xl active:scale-95 transition-all w-full md:w-auto min-w-[280px] flex items-center justify-center gap-3">
+                    Собрать меню
+                    <span class="material-symbols-outlined text-lg">check_circle</span>
+</button>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-[#ffffff]/80 dark:bg-slate-950/80 backdrop-blur-xl z-50 rounded-t-[24px] shadow-[0_-12px_32px_rgba(44,51,55,0.04)]">
+<!-- Active Tab: Меню -->
+<a class="flex flex-col items-center justify-center bg-[#cbe9dc] dark:bg-[#49655a]/30 text-[#3c574d] dark:text-[#cbe9dc] rounded-full px-5 py-1.5 active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">restaurant_menu</span>
+<span class="font-['Inter'] text-[11px] uppercase tracking-[0.05em] font-medium mt-1">Меню</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#596064] dark:text-slate-400 px-5 py-1.5 hover:opacity-80 transition-opacity active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-['Inter'] text-[11px] uppercase tracking-[0.05em] font-medium mt-1">Покупки</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#596064] dark:text-slate-400 px-5 py-1.5 hover:opacity-80 transition-opacity active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">set_meal</span>
+<span class="font-['Inter'] text-[11px] uppercase tracking-[0.05em] font-medium mt-1">Подготовка</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#596064] dark:text-slate-400 px-5 py-1.5 hover:opacity-80 transition-opacity active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-['Inter'] text-[11px] uppercase tracking-[0.05em] font-medium mt-1">Хранение</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#596064] dark:text-slate-400 px-5 py-1.5 hover:opacity-80 transition-opacity active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-['Inter'] text-[11px] uppercase tracking-[0.05em] font-medium mt-1">Профиль</span>
+</a>
+</nav>
+</body></html>

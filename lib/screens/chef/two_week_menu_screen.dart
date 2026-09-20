@@ -8,6 +8,8 @@ import 'package:modular_chef/services/favourite_combos.dart';
 import 'package:modular_chef/services/menu_repository.dart';
 import 'package:modular_chef/services/preferences.dart';
 import 'package:modular_chef/theme/app_colors.dart';
+import 'package:modular_chef/theme/module_visuals.dart';
+import 'package:modular_chef/widgets/leaf_button.dart';
 
 /// Push-экран Шефа «Меню на 2 недели» — полные тарелки + три уровня правки:
 /// предпочтения (подсветка, Stage 12), обзор по компонентам (батч) и точечная.
@@ -33,6 +35,18 @@ class _TwoWeekMenuScreenState extends State<TwoWeekMenuScreen> {
         return ModuleCategory.vegetable;
       case MealRole.sauce:
         return ModuleCategory.sauce;
+      case MealRole.eggStyle:
+        return ModuleCategory.eggStyle;
+      case MealRole.addition:
+        return ModuleCategory.eggAddin;
+      case MealRole.jarBase:
+        return ModuleCategory.jarBase;
+      case MealRole.jarBarrier:
+        return ModuleCategory.jarBarrier;
+      case MealRole.jarMiddle:
+        return ModuleCategory.jarMiddle;
+      case MealRole.jarTop:
+        return ModuleCategory.jarTop;
       case MealRole.standalone:
         return switch (kind) {
           MealKind.breakfast => ModuleCategory.breakfast,
@@ -72,9 +86,12 @@ class _TwoWeekMenuScreenState extends State<TwoWeekMenuScreen> {
                 top: false,
                 child: SizedBox(
                   width: double.infinity,
-                  child: FilledButton(
+                  child: LeafButton(
+                    label: 'Утвердить',
                     onPressed: () {
-                      // Сохраняем активное меню (best-effort) — переживёт перезапуск.
+                      // Фиксируем дату старта плана и сохраняем локально,
+                      // на сервер — best-effort копия.
+                      context.read<ActiveMenu>().approve();
                       context.read<MenuRepository>().saveActive(menu);
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -88,7 +105,6 @@ class _TwoWeekMenuScreenState extends State<TwoWeekMenuScreen> {
                       );
                       Navigator.maybePop(context);
                     },
-                    child: const Text('Утвердить'),
                   ),
                 ),
               ),
@@ -159,23 +175,42 @@ class _TwoWeekMenuScreenState extends State<TwoWeekMenuScreen> {
     );
   }
 
-  // Батч: заменить модуль во всех тарелках недели.
-  Future<void> _openBatchSwap(BuildContext context, MealRole role, String fromModuleId) async {
+  // Точечно-пачкой: показать, где стоит продукт → выбрать блюда → заменить.
+  Future<void> _openBatchSwap(
+      BuildContext context, MealRole role, String fromModuleId) async {
+    final active = context.read<ActiveMenu>();
     final catalog = context.read<CatalogService>();
     final from = catalog.moduleById(fromModuleId);
-    final category = _categoryFor(role, MealKind.main);
-    final options = catalog.modulesByCategory(category).where((m) => m.id != fromModuleId).toList();
-    final chosen = await _pickModule(
-      context,
-      options,
-      'Заменить «${from?.name ?? fromModuleId}» везде',
+    final meals = active.mealsWithModule(_weekIndex, fromModuleId);
+    if (meals.isEmpty) return;
+
+    // 1) где заменить
+    final targets = await showModalBottomSheet<Set<(int, MealSlot)>>(
+      context: context,
+      backgroundColor: AppColors.surfaceContainerLowest,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (_) => _TargetPicker(name: from?.name ?? fromModuleId, meals: meals),
     );
+    if (targets == null || targets.isEmpty || !context.mounted) return;
+
+    // 2) на что заменить
+    final category = _categoryFor(role, MealKind.main);
+    final options = catalog
+        .modulesByCategory(category)
+        .where((m) => m.id != fromModuleId)
+        .toList();
+    final chosen =
+        await _pickModule(context, options, 'Заменить «${from?.name ?? fromModuleId}»');
     if (chosen == null || !context.mounted) return;
-    context.read<ActiveMenu>().swapModuleEverywhere(
-          weekIndex: _weekIndex,
-          fromModuleId: fromModuleId,
-          to: _toComponent(chosen, role),
-        );
+
+    active.swapModuleInTargets(
+      weekIndex: _weekIndex,
+      fromModuleId: fromModuleId,
+      to: _toComponent(chosen, role),
+      targets: targets,
+    );
   }
 
   // Сохранить тарелку как любимое сочетание.
@@ -185,7 +220,7 @@ class _TwoWeekMenuScreenState extends State<TwoWeekMenuScreen> {
     final protein = meal.componentOf(MealRole.protein);
     final side = meal.componentOf(MealRole.side);
     if (protein == null || side == null) return;
-    final added = context.read<FavouriteCombos>().add(ComboFav(
+    final added = context.read<FavouriteCombos>().toggle(ComboFav(
           proteinId: protein.moduleId,
           sideId: side.moduleId,
           sauceId: meal.componentOf(MealRole.sauce)?.moduleId,
@@ -193,7 +228,7 @@ class _TwoWeekMenuScreenState extends State<TwoWeekMenuScreen> {
         ));
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(added ? 'Добавлено в любимые ♥' : 'Уже в любимых'),
+        content: Text(added ? 'Добавлено в любимые ♥' : 'Убрано из любимых'),
         behavior: SnackBarBehavior.floating,
         duration: const Duration(seconds: 1),
       ),
@@ -240,14 +275,11 @@ class _EmptyState extends StatelessWidget {
           children: [
             if (status == MenuStatus.generating)
               const CircularProgressIndicator()
+            else if (status == MenuStatus.error)
+              const Icon(Icons.error_outline,
+                  size: 48, color: AppColors.onSurfaceVariant)
             else
-              Icon(
-                status == MenuStatus.error
-                    ? Icons.error_outline
-                    : Icons.restaurant_menu_outlined,
-                size: 48,
-                color: AppColors.onSurfaceVariant,
-              ),
+              Image.asset('assets/art/empty_menu.png', width: 150),
             const SizedBox(height: 16),
             Text(text, textAlign: TextAlign.center, style: tt.bodyLarge),
           ],
@@ -417,7 +449,7 @@ class _ComponentOverview extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Обзор меню — тап, чтобы заменить пачкой',
+            'Обзор меню — тап по продукту, выбери где заменить',
             style: tt.labelMedium?.copyWith(
               color: AppColors.onSurfaceVariant,
               fontWeight: FontWeight.w600,
@@ -458,11 +490,28 @@ class _ComponentOverview extends StatelessWidget {
                                   color: AppColors.surfaceContainerLow,
                                   borderRadius: BorderRadius.circular(999),
                                 ),
-                                child: Text(
-                                  '${e.value.name} ×${e.value.count}',
-                                  style: tt.labelMedium?.copyWith(
-                                    color: AppColors.onSurface,
-                                  ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    if (moduleImage(e.key) != null) ...[
+                                      ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(999),
+                                        child: Image.asset(
+                                            moduleImage(e.key)!,
+                                            width: 18,
+                                            height: 18,
+                                            fit: BoxFit.cover),
+                                      ),
+                                      const SizedBox(width: 5),
+                                    ],
+                                    Text(
+                                      '${e.value.name} ×${e.value.count}',
+                                      style: tt.labelMedium?.copyWith(
+                                        color: AppColors.onSurface,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -547,18 +596,46 @@ class _MealRow extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 2),
-              child: Text(slot.emoji, style: const TextStyle(fontSize: 18)),
-            ),
-            const SizedBox(width: 10),
+            // Картинка блюда (первый компонент с акварелью) в белой паспарту.
+            Builder(builder: (_) {
+              String? img;
+              for (final c in meal.components) {
+                img = moduleImage(c.moduleId);
+                if (img != null) break;
+              }
+              return Container(
+                width: 52,
+                height: 52,
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFFFDF9),
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: img != null
+                    ? Image.asset(img, fit: BoxFit.cover)
+                    : const Icon(Icons.restaurant_rounded,
+                        color: AppColors.primaryContainer, size: 22),
+              );
+            }),
+            const SizedBox(width: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
+                    slot.label.toUpperCase(),
+                    style: tt.labelSmall?.copyWith(
+                      color: AppColors.onSurfaceVariant,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 1.2,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
                     meal.title,
-                    style: tt.bodyLarge?.copyWith(
+                    style: tt.headlineSmall?.copyWith(
+                      fontSize: 17,
+                      height: 1.25,
                       color: AppColors.onSurface,
                       fontWeight: FontWeight.w600,
                     ),
@@ -576,9 +653,20 @@ class _MealRow extends StatelessWidget {
                               color: AppColors.surfaceContainerLow,
                               borderRadius: BorderRadius.circular(999),
                             ),
-                            child: Text(
-                              '${c.emoji} ${c.name}',
-                              style: tt.labelSmall?.copyWith(color: AppColors.onSurfaceVariant),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                if (moduleImage(c.moduleId) != null) ...[
+                                  Image.asset(moduleImage(c.moduleId)!,
+                                      width: 16, height: 16),
+                                  const SizedBox(width: 4),
+                                ],
+                                Text(
+                                  c.name,
+                                  style: tt.labelSmall?.copyWith(
+                                      color: AppColors.onSurfaceVariant),
+                                ),
+                              ],
                             ),
                           ),
                       ],
@@ -588,14 +676,29 @@ class _MealRow extends StatelessWidget {
               ),
             ),
             if (onFav != null)
-              InkWell(
-                onTap: onFav,
-                borderRadius: BorderRadius.circular(999),
-                child: const Padding(
-                  padding: EdgeInsets.all(4),
-                  child: Icon(Icons.favorite_border, size: 17, color: AppColors.secondary),
-                ),
-              ),
+              Builder(builder: (context) {
+                final protein = meal.componentOf(MealRole.protein);
+                final side = meal.componentOf(MealRole.side);
+                final isFav = protein != null &&
+                    side != null &&
+                    context.watch<FavouriteCombos>().contains(
+                          protein.moduleId,
+                          side.moduleId,
+                          meal.componentOf(MealRole.sauce)?.moduleId,
+                        );
+                return InkWell(
+                  onTap: onFav,
+                  borderRadius: BorderRadius.circular(999),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10), // крупная зона тапа
+                    child: Icon(
+                      isFav ? Icons.favorite : Icons.favorite_border,
+                      size: 22,
+                      color: isFav ? AppColors.clay : AppColors.secondary,
+                    ),
+                  ),
+                );
+              }),
             const SizedBox(width: 2),
             Icon(Icons.tune, size: 16, color: AppColors.onSurfaceVariant.withValues(alpha: 0.6)),
           ],
@@ -679,6 +782,130 @@ class _PickList<T> extends StatelessWidget {
                   ],
                 ),
               ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Выбор тарелок, где заменить продукт (галочки, по умолчанию выбраны все).
+class _TargetPicker extends StatefulWidget {
+  const _TargetPicker({required this.name, required this.meals});
+  final String name;
+  final List<({int dayIndex, String dayShort, MealSlot slot, String title})>
+      meals;
+
+  @override
+  State<_TargetPicker> createState() => _TargetPickerState();
+}
+
+class _TargetPickerState extends State<_TargetPicker> {
+  late final Set<(int, MealSlot)> _selected = {
+    for (final m in widget.meals) (m.dayIndex, m.slot)
+  };
+
+  @override
+  Widget build(BuildContext context) {
+    final tt = Theme.of(context).textTheme;
+    final all = _selected.length == widget.meals.length;
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Container(
+                width: 36,
+                height: 4,
+                margin: const EdgeInsets.only(bottom: 14),
+                decoration: BoxDecoration(
+                  color: AppColors.outlineVariant.withValues(alpha: 0.5),
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    '«${widget.name}» — в ${widget.meals.length} блюдах',
+                    style: tt.titleMedium?.copyWith(
+                        color: AppColors.primary, fontWeight: FontWeight.w700),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () => setState(() {
+                    if (all) {
+                      _selected.clear();
+                    } else {
+                      _selected
+                        ..clear()
+                        ..addAll(
+                            [for (final m in widget.meals) (m.dayIndex, m.slot)]);
+                    }
+                  }),
+                  child: Text(all ? 'Снять все' : 'Выбрать все'),
+                ),
+              ],
+            ),
+            const SizedBox(height: 6),
+            Flexible(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    for (final m in widget.meals) _row(m, tt),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 12),
+            LeafButton(
+              onPressed: _selected.isEmpty
+                  ? null
+                  : () => Navigator.pop(context, _selected),
+              label: 'Заменить выбранные (${_selected.length})',
+              height: 48,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _row(
+      ({int dayIndex, String dayShort, MealSlot slot, String title}) m,
+      TextTheme tt) {
+    final key = (m.dayIndex, m.slot);
+    final checked = _selected.contains(key);
+    return InkWell(
+      onTap: () => setState(() {
+        checked ? _selected.remove(key) : _selected.add(key);
+      }),
+      borderRadius: BorderRadius.circular(12),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 6),
+        child: Row(
+          children: [
+            Icon(
+              checked ? Icons.check_box : Icons.check_box_outline_blank,
+              color: checked ? AppColors.primary : AppColors.onSurfaceVariant,
+              size: 22,
+            ),
+            const SizedBox(width: 10),
+            Text('${m.dayShort} · ${m.slot.label}',
+                style: tt.labelMedium?.copyWith(
+                    color: AppColors.onSurfaceVariant,
+                    fontWeight: FontWeight.w600)),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(m.title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: tt.bodyMedium?.copyWith(color: AppColors.onSurface)),
             ),
           ],
         ),

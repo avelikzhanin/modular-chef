@@ -1,7 +1,7 @@
 name: modular_chef
 description: Modular Chef — мил-преп с двумя ролями (Шеф и Гость).
 publish_to: 'none'
-version: 0.1.0+1
+version: 0.2.0+2
 
 environment:
   sdk: '>=3.5.0 <4.0.0'
@@ -19,6 +19,9 @@ dependencies:
 
   # State management
   provider: ^6.1.0
+
+  # Локальное сохранение (меню, план дня, запасы, выборы) — переживает перезапуск
+  shared_preferences: ^2.2.0
 
   # Typography (Inter via Google Fonts)
   google_fonts: ^6.1.0
@@ -40,3 +43,6 @@ flutter:
     - assets/data/
     - assets/images/
     - assets/prompts/
+    - assets/art/
+    - assets/art/icons/
+    - assets/art/ui/

@@ -24,6 +24,6 @@
   {"moduleId": "spinach", "zone": "fridge", "days": 2, "when": "пн-вт", "tip": "Завернуть в бумажное полотенце"},
   {"moduleId": "salad_mix", "zone": "fridge", "days": 2, "when": "пн-вт", "tip": "Бумажное полотенце впитывает влагу"},
 
-  {"moduleId": "granola", "zone": "pantry", "days": 21, "when": "3 недели", "tip": "Герметичная банка, тёмное место"},
-  {"moduleId": "oatmeal_jar", "zone": "fridge", "days": 4, "when": "пн-чт", "tip": "Стеклянная банка 300мл, ягоды добавь утром"}
+  {"moduleId": "granola_bowl", "zone": "pantry", "days": 21, "when": "3 недели", "tip": "Герметичная банка, тёмное место"},
+  {"moduleId": "jar", "zone": "fridge", "days": 4, "when": "пн-чт", "tip": "Стеклянная банка 300мл, ягоды добавь утром"}
 ]

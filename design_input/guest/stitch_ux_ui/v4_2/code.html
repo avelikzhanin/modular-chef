@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed": "#2a453b",
+                    "on-tertiary": "#fff7f8",
+                    "on-surface-variant": "#596064",
+                    "secondary-dim": "#5c5050",
+                    "error-dim": "#67040d",
+                    "surface-tint": "#49655a",
+                    "surface-dim": "#d4dbdf",
+                    "outline-variant": "#acb3b7",
+                    "on-primary-fixed-variant": "#466157",
+                    "surface-variant": "#dde3e8",
+                    "primary-dim": "#3e594e",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error-container": "#6e0a12",
+                    "error-container": "#fa746f",
+                    "tertiary-fixed": "#fde5ec",
+                    "tertiary-container": "#fde5ec",
+                    "on-tertiary-fixed-variant": "#6d5c62",
+                    "surface-container-high": "#e3e9ec",
+                    "primary-fixed-dim": "#bddbce",
+                    "tertiary": "#6c5b61",
+                    "surface-bright": "#f8f9fb",
+                    "secondary-fixed-dim": "#e2d0d0",
+                    "primary": "#49655a",
+                    "on-primary": "#e4fff3",
+                    "tertiary-fixed-dim": "#eed7de",
+                    "on-tertiary-container": "#635258",
+                    "secondary-container": "#f0dede",
+                    "secondary-fixed": "#f0dede",
+                    "surface-container": "#eaeef2",
+                    "outline": "#757c80",
+                    "primary-fixed": "#cbe9dc",
+                    "on-tertiary-fixed": "#504046",
+                    "primary-container": "#cbe9dc",
+                    "on-error": "#fff7f6",
+                    "on-background": "#2c3337",
+                    "surface-container-highest": "#dde3e8",
+                    "inverse-primary": "#dcfbed",
+                    "on-secondary-container": "#5b4f4f",
+                    "on-secondary": "#fff7f6",
+                    "tertiary-dim": "#5f4f55",
+                    "background": "#f8f9fb",
+                    "surface-container-low": "#f0f4f7",
+                    "on-secondary-fixed": "#483d3d",
+                    "secondary": "#695c5c",
+                    "on-surface": "#2c3337",
+                    "inverse-on-surface": "#9b9d9f",
+                    "inverse-surface": "#0b0f10",
+                    "surface": "#f8f9fb",
+                    "error": "#a83836",
+                    "on-secondary-fixed-variant": "#655859",
+                    "on-primary-container": "#3c574d"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-50 bg-[#f8f9fb] dark:bg-slate-950 flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high border border-outline-variant/15">
+<img alt="Guest user profile icon" class="w-full h-full object-cover" data-alt="Soft focused portrait of a professional chef with a warm smile, wearing a clean white jacket in a brightly lit kitchen." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzlLPXmLccFKnAoTSF1aAveFXU0Syo-PoucGDCQwDH44JBegtzZYLalvpiFIUQ1FlFFsanpu6COdj0GU_Mq-exeP3J24Lx82eF22EYMobHIdYSyySBipioYUDJZLEbfTEb57i1X5RXUZknDA3UKbd2nc4toUIfjbZWtFKD7Ba4BqGUAvehc02GJaCLnVFBmdQKIv6ATzrDN11FO492E5J_LubcMig1QUeEjBDBUbAepgqgnHtixXmjKvcz-mMxHFQeBNl6NTxPblYQ"/>
+</div>
+<span class="text-xl font-bold text-[#49655a] dark:text-[#cbe9dc] font-headline tracking-tight">Шеф-повар</span>
+</div>
+<button class="material-symbols-outlined text-primary p-2 hover:bg-[#cbe9dc]/20 transition-colors rounded-full active:scale-95 duration-150" data-icon="notifications">
+            notifications
+        </button>
+</header>
+<main class="max-w-md mx-auto px-6 pt-6">
+<!-- Header Section -->
+<section class="mb-8">
+<h1 class="text-3xl font-bold tracking-tight text-on-surface mb-6 font-headline">Меню на эту неделю</h1>
+<!-- Toggle Switch -->
+<div class="bg-surface-container-low p-1.5 rounded-full flex gap-1">
+<button class="flex-1 py-2.5 rounded-full text-sm font-semibold tracking-wide bg-surface-container-lowest text-primary shadow-sm">Неделя 1</button>
+<button class="flex-1 py-2.5 rounded-full text-sm font-medium tracking-wide text-on-surface-variant hover:bg-surface-container transition-colors">Неделя 2</button>
+</div>
+</section>
+<!-- Weekly Plan -->
+<section class="space-y-4">
+<!-- Monday (Active) -->
+<div class="p-4 rounded-xl bg-primary-container/30 border border-primary/5">
+<div class="flex items-center justify-between mb-3">
+<span class="text-xs font-bold uppercase tracking-widest text-primary">Понедельник</span>
+<span class="text-[10px] bg-primary text-on-primary px-2 py-0.5 rounded-full">Сегодня</span>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-lowest rounded-full text-sm font-medium text-on-surface-variant shadow-sm">
+<span class="text-base">🌅</span> Овсянка
+                    </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-lowest rounded-full text-sm font-medium text-on-surface-variant shadow-sm">
+<span class="text-base">🌞</span> Курица+рис
+                    </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-lowest rounded-full text-sm font-medium text-on-surface-variant shadow-sm">
+<span class="text-base">🌙</span> Лосось+булгур
+                    </span>
+</div>
+</div>
+<!-- Other Days (Inactive/Ghost) -->
+<div class="p-4 rounded-xl bg-surface-container-low">
+<span class="text-xs font-bold uppercase tracking-widest text-on-surface-variant/60 block mb-3">Вторник</span>
+<div class="flex flex-wrap gap-2">
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-lowest/70 rounded-full text-sm font-medium text-on-surface-variant/80">
+<span class="text-base">🌅</span> Сырники
+                    </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-lowest/70 rounded-full text-sm font-medium text-on-surface-variant/80">
+<span class="text-base">🌞</span> Суп куриный
+                    </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-lowest/70 rounded-full text-sm font-medium text-on-surface-variant/80">
+<span class="text-base">🌙</span> Стейк+спагетти
+                    </span>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-low">
+<span class="text-xs font-bold uppercase tracking-widest text-on-surface-variant/60 block mb-3">Среда</span>
+<div class="flex flex-wrap gap-2">
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-lowest/70 rounded-full text-sm font-medium text-on-surface-variant/80">
+<span class="text-base">🌅</span> Гранола
+                    </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-lowest/70 rounded-full text-sm font-medium text-on-surface-variant/80">
+<span class="text-base">🌞</span> Треска+киноа
+                    </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-lowest/70 rounded-full text-sm font-medium text-on-surface-variant/80">
+<span class="text-base">🌙</span> Плов
+                    </span>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-low">
+<span class="text-xs font-bold uppercase tracking-widest text-on-surface-variant/60 block mb-3">Четверг</span>
+<div class="flex flex-wrap gap-2">
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-lowest/70 rounded-full text-sm font-medium text-on-surface-variant/80">
+<span class="text-base">🌅</span> Омлет
+                    </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-lowest/70 rounded-full text-sm font-medium text-on-surface-variant/80">
+<span class="text-base">🌞</span> Борщ
+                    </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-lowest/70 rounded-full text-sm font-medium text-on-surface-variant/80">
+<span class="text-base">🌙</span> Тунец салат
+                    </span>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-low">
+<span class="text-xs font-bold uppercase tracking-widest text-on-surface-variant/60 block mb-3">Пятница</span>
+<div class="flex flex-wrap gap-2">
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-lowest/70 rounded-full text-sm font-medium text-on-surface-variant/80">
+<span class="text-base">🌅</span> Тост авокадо
+                    </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-lowest/70 rounded-full text-sm font-medium text-on-surface-variant/80">
+<span class="text-base">🌞</span> Паста песто
+                    </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-lowest/70 rounded-full text-sm font-medium text-on-surface-variant/80">
+<span class="text-base">🌙</span> Утка
+                    </span>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-low">
+<span class="text-xs font-bold uppercase tracking-widest text-on-surface-variant/60 block mb-3">Суббота</span>
+<div class="flex flex-wrap gap-2">
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-lowest/70 rounded-full text-sm font-medium text-on-surface-variant/80">
+<span class="text-base">🌅</span> Блины
+                    </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-lowest/70 rounded-full text-sm font-medium text-on-surface-variant/80">
+<span class="text-base">🌞</span> Лазанья
+                    </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-lowest/70 rounded-full text-sm font-medium text-on-surface-variant/80">
+<span class="text-base">🌙</span> Стейк
+                    </span>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-low">
+<span class="text-xs font-bold uppercase tracking-widest text-on-surface-variant/60 block mb-3">Воскресенье</span>
+<div class="flex flex-wrap gap-2">
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-lowest/70 rounded-full text-sm font-medium text-on-surface-variant/80">
+<span class="text-base">🌅</span> Фриттата
+                    </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-lowest/70 rounded-full text-sm font-medium text-on-surface-variant/80">
+<span class="text-base">🌞</span> Ростбиф
+                    </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-lowest/70 rounded-full text-sm font-medium text-on-surface-variant/80">
+<span class="text-base">🌙</span> Греческий салат
+                    </span>
+</div>
+</div>
+</section>
+<!-- Stats Section (Asymmetric Bento) -->
+<section class="mt-8 mb-12">
+<h2 class="text-sm font-bold uppercase tracking-widest text-on-surface-variant/70 mb-4 px-1">Осталось модулей</h2>
+<div class="grid grid-cols-2 gap-3">
+<div class="p-4 bg-secondary-container rounded-2xl flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="text-xl">🥩</span>
+<span class="text-lg font-bold text-on-secondary-container">4</span>
+</div>
+<span class="text-[10px] text-on-secondary-container/60 uppercase font-bold">Белки</span>
+</div>
+<div class="p-4 bg-tertiary-container rounded-2xl flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="text-xl">🍚</span>
+<span class="text-lg font-bold text-on-tertiary-container">6</span>
+</div>
+<span class="text-[10px] text-on-tertiary-container/60 uppercase font-bold">Угли</span>
+</div>
+<div class="p-4 bg-surface-container-high rounded-2xl flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="text-xl">🥗</span>
+<span class="text-lg font-bold text-on-surface">3</span>
+</div>
+<span class="text-[10px] text-on-surface-variant/60 uppercase font-bold">Овощи</span>
+</div>
+<div class="p-4 bg-primary-container rounded-2xl flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="text-xl">🥣</span>
+<span class="text-lg font-bold text-on-primary-container">2</span>
+</div>
+<span class="text-[10px] text-on-primary-container/60 uppercase font-bold">Супы</span>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl z-50 rounded-t-[1.5rem] shadow-[0_-12px_32px_rgba(44,51,55,0.04)]">
+<a class="flex flex-col items-center justify-center text-[#596064] px-6 py-2 hover:bg-[#f0dede] transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="calendar_today">calendar_today</span>
+<span class="text-[12px] font-medium tracking-wide uppercase font-['Inter']">Сегодня</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-[#cbe9dc] text-[#3c574d] rounded-full px-6 py-2 scale-110 duration-300 ease-out" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="date_range">date_range</span>
+<span class="text-[12px] font-medium tracking-wide uppercase font-['Inter']">Неделя</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#596064] px-6 py-2 hover:bg-[#f0dede] transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="inventory_2">inventory_2</span>
+<span class="text-[12px] font-medium tracking-wide uppercase font-['Inter']">Запасы</span>
+</a>
+</nav>
+</body></html>

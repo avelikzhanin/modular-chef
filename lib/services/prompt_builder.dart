@@ -19,6 +19,11 @@ class GenerationRequest {
     this.prepTimeLimitMinutes = 120,
     this.weekStyle,
     this.favourites = const [],
+    this.weeks = 2,
+    this.eggStyleIds = const [],
+    this.eggAddinIds = const [],
+    this.porridgeKindIds = const [],
+    this.sandwichFillingIds = const [],
   });
 
   final List<String> proteinIds;
@@ -31,13 +36,30 @@ class GenerationRequest {
   final String? weekStyle;
   final List<ComboFav> favourites;
 
+  /// Горизонт меню в неделях (1–3).
+  final int weeks;
+
+  /// Заготовки завтраков, выбранные Шефом — меню должно собираться только из
+  /// них, иначе в покупки попадает то, что он не выбирал.
+  final List<String> eggStyleIds;
+  final List<String> eggAddinIds;
+  final List<String> porridgeKindIds;
+  final List<String> sandwichFillingIds;
+
   Map<String, dynamic> toJson() => {
+        'weeks': weeks,
         'picks': {
           'proteins': proteinIds,
           'sides': sideIds,
           'soups': soupIds,
           'breakfasts': breakfastIds,
           'custom': customDishes,
+          // Без этих полей бэкенд добирал виды яиц и добавки сам, и в покупках
+          // оказывались бекон с фетой, которых Шеф не выбирал.
+          'eggStyles': eggStyleIds,
+          'eggAddins': eggAddinIds,
+          'porridgeKinds': porridgeKindIds,
+          'sandwichFillings': sandwichFillingIds,
         },
         'preferences': {
           'allergies': allergies,

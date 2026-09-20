@@ -33,7 +33,15 @@ enum MealRole {
   vegetable('vegetable', 'Овощ'),
   sauce('sauce', 'Соус'),
   base('base', 'База'),
-  standalone('standalone', 'Блюдо');
+  standalone('standalone', 'Блюдо'),
+  // Завтрак-конструктор. Яйца:
+  eggStyle('egg_style', 'Яйца'),
+  addition('addition', 'Добавка'),
+  // Баночка (4 слоя снизу вверх):
+  jarBase('jar_base', 'Основа'),
+  jarBarrier('jar_barrier', 'Прокладка'),
+  jarMiddle('jar_middle', 'Слой'),
+  jarTop('jar_top', 'Верх');
 
   const MealRole(this.jsonValue, this.label);
   final String jsonValue;

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed-variant": "#6d5c62",
+                    "surface-tint": "#49655a",
+                    "inverse-on-surface": "#9b9d9f",
+                    "secondary-container": "#f0dede",
+                    "tertiary-container": "#fde5ec",
+                    "on-secondary": "#fff7f6",
+                    "on-primary-container": "#3c574d",
+                    "primary-fixed": "#cbe9dc",
+                    "on-primary": "#e4fff3",
+                    "on-tertiary-container": "#635258",
+                    "on-tertiary": "#fff7f8",
+                    "on-background": "#2c3337",
+                    "background": "#f8f9fb",
+                    "secondary": "#695c5c",
+                    "outline": "#757c80",
+                    "on-surface": "#2c3337",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#e3e9ec",
+                    "on-error-container": "#6e0a12",
+                    "tertiary-fixed-dim": "#eed7de",
+                    "surface-variant": "#dde3e8",
+                    "error": "#a83836",
+                    "error-container": "#fa746f",
+                    "on-surface-variant": "#596064",
+                    "tertiary-fixed": "#fde5ec",
+                    "secondary-dim": "#5c5050",
+                    "on-primary-fixed-variant": "#466157",
+                    "on-tertiary-fixed": "#504046",
+                    "tertiary": "#6c5b61",
+                    "primary-dim": "#3e594e",
+                    "surface-container": "#eaeef2",
+                    "tertiary-dim": "#5f4f55",
+                    "surface-container-low": "#f0f4f7",
+                    "on-primary-fixed": "#2a453b",
+                    "surface-dim": "#d4dbdf",
+                    "on-error": "#fff7f6",
+                    "surface-bright": "#f8f9fb",
+                    "secondary-fixed-dim": "#e2d0d0",
+                    "primary": "#49655a",
+                    "surface-container-highest": "#dde3e8",
+                    "inverse-primary": "#dcfbed",
+                    "surface": "#f8f9fb",
+                    "secondary-fixed": "#f0dede",
+                    "on-secondary-fixed-variant": "#655859",
+                    "inverse-surface": "#0b0f10",
+                    "on-secondary-container": "#5b4f4f",
+                    "on-secondary-fixed": "#483d3d",
+                    "error-dim": "#67040d",
+                    "primary-container": "#cbe9dc",
+                    "primary-fixed-dim": "#bddbce",
+                    "outline-variant": "#acb3b7"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        display: inline-block;
+        line-height: 1;
+        text-transform: none;
+        letter-spacing: normal;
+        word-wrap: normal;
+        white-space: nowrap;
+        direction: ltr;
+      }
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      
+      .signature-texture {
+        background: linear-gradient(135deg, rgba(203, 233, 220, 0.15) 0%, rgba(73, 101, 90, 0.05) 100%);
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body text-on-surface antialiased pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#f8f9fb]/80 dark:bg-slate-900/80 backdrop-blur-xl flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high">
+<img alt="Avatar" class="w-full h-full object-cover" data-alt="Professional portrait of a user with a friendly expression in soft daylight, clean minimalist background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDkqicx-20iNsdUc0rK8mnkMalmPevDX57YOMS2WEllhNJjlQSdWwmDM6Q2R7CCjQyrP2TwnNnG9gok08OHypY_1HMids_A9DRpdk1C3iG3a_gC872vHmkpQguBJI2goUfyGEqLz4xLIQxK-TEy5_ux7N92P-IC-sy7cAPLyAjYrq3oIw7CoqPCsIqf--E0KKmzHZl4riyUQ8GYknMBCY5Ws1tzqlt9UrQeIpwXL6a-niSmXSr2MrcWuOaKfzFa_SL6xpJlFzWw4Pq"/>
+</div>
+<h1 class="font-['Inter'] font-semibold tracking-tight text-xl text-[#49655a] dark:text-[#cbe9dc]">Мои блюда</h1>
+</div>
+<button class="material-symbols-outlined text-[#49655a] dark:text-[#cbe9dc] hover:bg-[#f0f4f7] dark:hover:bg-slate-800 transition-colors p-2 rounded-full active:scale-95 duration-200" data-icon="notifications">notifications</button>
+</header>
+<!-- Main Canvas -->
+<main class="mt-24 px-6">
+<!-- Search & Editorial Tension Header -->
+<section class="mb-12">
+<div class="flex flex-col gap-2">
+<span class="text-xs font-label uppercase tracking-[0.05em] text-on-surface-variant">Библиотека рецептов</span>
+<div class="flex justify-between items-baseline">
+<h2 class="text-4xl font-headline font-extrabold text-primary tracking-tight">Ваша коллекция</h2>
+<div class="h-1 w-12 bg-primary-container rounded-full"></div>
+</div>
+</div>
+</section>
+<!-- Horizontal Filter Chips -->
+<nav class="mb-8 -mx-6 px-6 overflow-x-auto no-scrollbar flex gap-3">
+<button class="flex items-center px-6 py-2.5 rounded-full bg-primary-container text-on-primary-container font-medium text-sm transition-all shadow-sm active:scale-95">
+                Все блюда
+            </button>
+<button class="flex items-center px-6 py-2.5 rounded-full bg-surface-container-low text-on-surface-variant font-medium text-sm hover:bg-surface-container-high transition-all active:scale-95">
+                Завтраки
+            </button>
+<button class="flex items-center px-6 py-2.5 rounded-full bg-surface-container-low text-on-surface-variant font-medium text-sm hover:bg-surface-container-high transition-all active:scale-95">
+                Обеды
+            </button>
+<button class="flex items-center px-6 py-2.5 rounded-full bg-surface-container-low text-on-surface-variant font-medium text-sm hover:bg-surface-container-high transition-all active:scale-95">
+                Ужины
+            </button>
+<button class="flex items-center px-6 py-2.5 rounded-full bg-surface-container-low text-on-surface-variant font-medium text-sm hover:bg-surface-container-high transition-all active:scale-95">
+                Десерты
+            </button>
+</nav>
+<!-- Bento Grid / Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Card 1 -->
+<article class="bg-surface-container-lowest rounded-xl overflow-hidden signature-texture flex flex-col group">
+<div class="relative h-56 overflow-hidden">
+<img alt="Healthy Salad" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Gourmet buddha bowl with fresh vegetables, quinoa, and avocado slices on a ceramic plate, bright natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5RI0GY9wVH2TlDtT01AJRdD4tYffaDjiVXy3vApbEiISqFLgaI474vGxhx-t8ZSi_cXzD6jxJM-VlAcO0_omkYtNsDRIw6f7HRx14hOSRyVmE_vvSdHZoyt1HqWAVdabgvdrriHYkdHrBgetACWC8ycVQ0YabXhPWNO5TaOKDFyg9IDtwaWxfBjP5iZKMYILCVFgfnDfo18O1LjvkKDUy1Mt7Cgw_N4OcR0DSWZFpYWOyMdRgKIAUCnqRvAkQ9j7fE7UKsWf07cqX"/>
+<div class="absolute top-4 left-4 flex gap-2">
+<span class="bg-tertiary-container text-on-tertiary-container px-3 py-1 rounded-full text-[10px] font-label uppercase tracking-wider">ПП</span>
+</div>
+</div>
+<div class="p-6">
+<h3 class="text-xl font-headline font-bold text-on-surface mb-2">Салат с киноа и авокадо</h3>
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="text-xs font-medium text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="timer">timer</span> 20 мин
+                        </span>
+<span class="text-xs font-medium text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="local_fire_department">local_fire_department</span> 340 ккал
+                        </span>
+</div>
+<div class="p-3 bg-surface-container-low rounded-lg border-l-4 border-primary-container">
+<p class="text-xs text-on-surface-variant italic">Хранение: до 2 дней в герметичном контейнере.</p>
+</div>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="bg-surface-container-lowest rounded-xl overflow-hidden signature-texture flex flex-col group">
+<div class="relative h-56 overflow-hidden">
+<img alt="Vegetable Soup" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Creamy roasted pumpkin soup in a modern bowl garnished with pumpkin seeds and cream swirls, minimalist aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNJ08Qc93gHjUCANm3F5GZYiPgJuJ29nCWL0gIhnLM6eU4_lpONdrIPY3Ka9z5i7UiOIBP_9CaMOyg7KaXmgQRwA1d6RH_Ta1J3UU2g2BVwrsKNSgDyppK-mi1MuQHLaOFk1C4th0yCQ4p62xDIgyn3297aKbUgJXj4zt3aMKwBNxvDGNgZyPxg-dyUNcgt3o0OK5J5TCgCWZj8xCL68J4Dv0-QstUfzABSuDx-7uShZI7HEHAWbny1Wr84YyajTaU4iQeKkgbSZ2F"/>
+<div class="absolute top-4 left-4 flex gap-2">
+<span class="bg-tertiary-container text-on-tertiary-container px-3 py-1 rounded-full text-[10px] font-label uppercase tracking-wider">Веган</span>
+</div>
+</div>
+<div class="p-6">
+<h3 class="text-xl font-headline font-bold text-on-surface mb-2">Крем-суп из тыквы</h3>
+<div class="flex flex-wrap gap-2 mb-4">
+<span class="text-xs font-medium text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="timer">timer</span> 35 мин
+                        </span>
+<span class="text-xs font-medium text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="local_fire_department">local_fire_department</span> 210 ккал
+                        </span>
+</div>
+<div class="p-3 bg-surface-container-low rounded-lg border-l-4 border-primary-container">
+<p class="text-xs text-on-surface-variant italic">Хранение: можно замораживать на срок до 1 месяца.</p>
+</div>
+</div>
+</article>
+<!-- Card 3 (Empty/Ghost style for asymmetric feel) -->
+<article class="bg-secondary-container/30 rounded-xl overflow-hidden flex flex-col justify-center items-center p-8 border-2 border-dashed border-outline-variant/30 text-center min-h-[400px]">
+<div class="w-16 h-16 rounded-full bg-white flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="restaurant">restaurant</span>
+</div>
+<h3 class="font-headline font-semibold text-on-secondary-container mb-2">Добавьте свое блюдо</h3>
+<p class="text-sm text-on-secondary-container/80 leading-relaxed">Пополните свою библиотеку новыми кулинарными шедеврами</p>
+</article>
+</div>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed right-6 bottom-32 w-14 h-14 bg-primary-container text-on-primary-container rounded-full shadow-lg flex items-center justify-center hover:bg-primary-fixed-dim transition-all active:scale-90 z-40">
+<span class="material-symbols-outlined text-3xl" data-icon="add">add</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-[#ffffff]/80 dark:bg-slate-950/80 backdrop-blur-xl z-50 rounded-t-[24px] shadow-[0_-12px_32px_rgba(44,51,55,0.04)]">
+<a class="flex flex-col items-center justify-center bg-[#cbe9dc] dark:bg-[#49655a]/30 text-[#3c574d] dark:text-[#cbe9dc] rounded-full px-5 py-1.5 transition-opacity active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="restaurant_menu">restaurant_menu</span>
+<span class="font-['Inter'] text-[11px] uppercase tracking-[0.05em] font-medium mt-1">Меню</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#596064] dark:text-slate-400 px-5 py-1.5 hover:opacity-80 transition-opacity active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="font-['Inter'] text-[11px] uppercase tracking-[0.05em] font-medium mt-1">Покупки</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#596064] dark:text-slate-400 px-5 py-1.5 hover:opacity-80 transition-opacity active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="set_meal">set_meal</span>
+<span class="font-['Inter'] text-[11px] uppercase tracking-[0.05em] font-medium mt-1">Подготовка</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#596064] dark:text-slate-400 px-5 py-1.5 hover:opacity-80 transition-opacity active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-['Inter'] text-[11px] uppercase tracking-[0.05em] font-medium mt-1">Хранение</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#596064] dark:text-slate-400 px-5 py-1.5 hover:opacity-80 transition-opacity active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-['Inter'] text-[11px] uppercase tracking-[0.05em] font-medium mt-1">Профиль</span>
+</a>
+</nav>
+</body></html>

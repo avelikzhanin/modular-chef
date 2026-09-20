@@ -82,7 +82,7 @@ abstract final class AppTheme {
       ),
       chipTheme: ChipThemeData(
         backgroundColor: AppColors.surfaceContainerLow,
-        selectedColor: AppColors.primaryContainer,
+        selectedColor: AppColors.lightLeaf,
         labelStyle: tt.labelMedium,
         shape: const StadiumBorder(), // маленькие теги — pill, это ок
         side: BorderSide.none,
@@ -91,8 +91,8 @@ abstract final class AppTheme {
       // Кнопки — сдержанные: сплошная глина, радиус 14, не толстые пилюли.
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
-          backgroundColor: AppColors.primary,
-          foregroundColor: AppColors.onPrimary,
+          backgroundColor: AppColors.primaryContainer,
+          foregroundColor: AppColors.onPrimaryContainer,
           elevation: 0,
           textStyle: tt.labelLarge?.copyWith(fontWeight: FontWeight.w600),
           shape: RoundedRectangleBorder(
@@ -103,8 +103,8 @@ abstract final class AppTheme {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.primary,
-          foregroundColor: AppColors.onPrimary,
+          backgroundColor: AppColors.primaryContainer,
+          foregroundColor: AppColors.onPrimaryContainer,
           elevation: 0,
           textStyle: tt.labelLarge?.copyWith(fontWeight: FontWeight.w600),
           shape: RoundedRectangleBorder(

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed-variant": "#6d5c62",
+                    "surface-tint": "#49655a",
+                    "inverse-on-surface": "#9b9d9f",
+                    "secondary-container": "#f0dede",
+                    "tertiary-container": "#fde5ec",
+                    "on-secondary": "#fff7f6",
+                    "on-primary-container": "#3c574d",
+                    "primary-fixed": "#cbe9dc",
+                    "on-primary": "#e4fff3",
+                    "on-tertiary-container": "#635258",
+                    "on-tertiary": "#fff7f8",
+                    "on-background": "#2c3337",
+                    "background": "#f8f9fb",
+                    "secondary": "#695c5c",
+                    "outline": "#757c80",
+                    "on-surface": "#2c3337",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#e3e9ec",
+                    "on-error-container": "#6e0a12",
+                    "tertiary-fixed-dim": "#eed7de",
+                    "surface-variant": "#dde3e8",
+                    "error": "#a83836",
+                    "error-container": "#fa746f",
+                    "on-surface-variant": "#596064",
+                    "tertiary-fixed": "#fde5ec",
+                    "secondary-dim": "#5c5050",
+                    "on-primary-fixed-variant": "#466157",
+                    "on-tertiary-fixed": "#504046",
+                    "tertiary": "#6c5b61",
+                    "primary-dim": "#3e594e",
+                    "surface-container": "#eaeef2",
+                    "tertiary-dim": "#5f4f55",
+                    "surface-container-low": "#f0f4f7",
+                    "on-primary-fixed": "#2a453b",
+                    "surface-dim": "#d4dbdf",
+                    "on-error": "#fff7f6",
+                    "surface-bright": "#f8f9fb",
+                    "secondary-fixed-dim": "#e2d0d0",
+                    "primary": "#49655a",
+                    "surface-container-highest": "#dde3e8",
+                    "inverse-primary": "#dcfbed",
+                    "surface": "#f8f9fb",
+                    "secondary-fixed": "#f0dede",
+                    "on-secondary-fixed-variant": "#655859",
+                    "inverse-surface": "#0b0f10",
+                    "on-secondary-container": "#5b4f4f",
+                    "on-secondary-fixed": "#483d3d",
+                    "error-dim": "#67040d",
+                    "primary-container": "#cbe9dc",
+                    "primary-fixed-dim": "#bddbce",
+                    "outline-variant": "#acb3b7"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .step-active {
+            @apply ring-2 ring-primary-container ring-offset-2;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body min-h-screen pb-32">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-[#f8f9fb]/80 backdrop-blur-xl flex justify-between items-center px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Soft-focus portrait of a smiling user in a bright, modern kitchen with warm natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChah3qDF6DY7jsEj82fAekjNBoeIa3t5IQdy8WG4OLxmrNdyXSqNl71_Rg6kJxAODaR7k2OfcXk9Cz4_k1VTsgXq1ORXMe-ORWLsCxPBqD6n-8lvMDnpsY10ysESw8KOtxUJCONw8aN-LA6I7g4tzgM-5Z2a831Pwh2BeqLQV_mDDXEoV0qdK6qvbZ0_En5YR2qhAgesumXZF0Qth3Jvf6fUnRNlbQE23Oe-UynIbVtcQpyCFqqAChQAWQ1EguxRA178d5PyyPyKXd"/>
+</div>
+<span class="font-['Inter'] font-semibold tracking-tight text-[#49655a] text-xl font-bold">Modular Chef</span>
+</div>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-[#596064] hover:bg-[#f0f4f7] transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<main class="pt-24 px-6 max-w-2xl mx-auto space-y-8">
+<!-- Header & Global Progress -->
+<section class="space-y-4">
+<div class="flex justify-between items-end">
+<div>
+<h1 class="text-3xl font-headline font-bold tracking-tight text-primary">День заготовки</h1>
+<p class="text-on-surface-variant body-md">Этап 2 из 3: Термическая обработка</p>
+</div>
+<div class="text-right">
+<span class="text-2xl font-bold text-primary">64%</span>
+</div>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[64%] rounded-full"></div>
+</div>
+</section>
+<!-- Phase 1: Methods (Chips) -->
+<section class="space-y-4">
+<h2 class="text-xs font-label uppercase tracking-[0.05em] font-medium text-on-surface-variant">Методы обработки</h2>
+<div class="flex flex-wrap gap-2">
+<span class="bg-tertiary-container text-on-tertiary-container px-4 py-1.5 rounded-full text-sm font-medium">Нарезка кубиком</span>
+<span class="bg-primary-container text-on-primary-container px-4 py-1.5 rounded-full text-sm font-medium">Бланширование</span>
+<span class="bg-tertiary-container text-on-tertiary-container px-4 py-1.5 rounded-full text-sm font-medium">Запекание</span>
+<span class="bg-surface-container-high text-on-surface-variant px-4 py-1.5 rounded-full text-sm font-medium">Маринование</span>
+</div>
+</section>
+<!-- Phase 2: Timeline with Icons -->
+<section class="space-y-6">
+<h2 class="text-xs font-label uppercase tracking-[0.05em] font-medium text-on-surface-variant">Таймлайн процессов</h2>
+<div class="relative space-y-4">
+<!-- Vertical line -->
+<div class="absolute left-[21px] top-4 bottom-4 w-0.5 bg-surface-container-high"></div>
+<!-- Process 1 -->
+<div class="relative flex items-start gap-6 group">
+<div class="z-10 w-11 h-11 rounded-full bg-surface-container-lowest flex items-center justify-center shadow-[0_4px_12px_rgba(44,51,55,0.06)] text-primary">
+<span class="material-symbols-outlined">skillet</span>
+</div>
+<div class="flex-1 bg-surface-container-lowest p-5 rounded-xl shadow-[0_12px_32px_rgba(44,51,55,0.04)]">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-bold text-on-surface">Плита: Пассеровка</h3>
+<span class="text-xs font-medium text-primary bg-primary-container/30 px-2 py-0.5 rounded">15 мин</span>
+</div>
+<p class="text-sm text-on-surface-variant">Лук и морковь до золотистого цвета на медленном огне.</p>
+</div>
+</div>
+<!-- Process 2 -->
+<div class="relative flex items-start gap-6 group">
+<div class="z-10 w-11 h-11 rounded-full bg-primary-container flex items-center justify-center shadow-[0_4px_12px_rgba(44,51,55,0.06)] text-on-primary-container">
+<span class="material-symbols-outlined">oven_gen</span>
+</div>
+<div class="flex-1 bg-surface-container-lowest p-5 rounded-xl border-2 border-primary-container/20 shadow-[0_12px_32px_rgba(44,51,55,0.04)]">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-bold text-on-surface">Духовка: Куриное филе</h3>
+<span class="text-xs font-medium text-primary bg-primary-container/30 px-2 py-0.5 rounded">В процессе</span>
+</div>
+<p class="text-sm text-on-surface-variant">Температура 180°C. Ожидайте готовности через 12 минут.</p>
+</div>
+</div>
+<!-- Process 3 -->
+<div class="relative flex items-start gap-6 group opacity-60">
+<div class="z-10 w-11 h-11 rounded-full bg-surface-container-lowest flex items-center justify-center shadow-[0_4px_12px_rgba(44,51,55,0.06)] text-outline">
+<span class="material-symbols-outlined">flatware</span>
+</div>
+<div class="flex-1 bg-surface-container-low p-5 rounded-xl">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-bold text-on-surface">Нож: Финальная нарезка</h3>
+<span class="text-xs font-medium text-on-surface-variant bg-surface-container-high px-2 py-0.5 rounded">Ожидание</span>
+</div>
+<p class="text-sm text-on-surface-variant">Нарезка готового мяса на порционные слайсы после остывания.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Phase 3: Checkbox List -->
+<section class="space-y-4">
+<h2 class="text-xs font-label uppercase tracking-[0.05em] font-medium text-on-surface-variant">Инструкции по упаковке</h2>
+<div class="bg-surface-container-lowest rounded-xl p-2 space-y-1">
+<label class="flex items-center p-4 gap-4 hover:bg-surface-container-low rounded-lg transition-colors cursor-pointer group">
+<div class="relative flex items-center justify-center">
+<input checked="" class="peer appearance-none w-6 h-6 rounded-md border-2 border-primary-container checked:bg-primary-container transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute text-on-primary-container text-lg scale-0 peer-checked:scale-100 transition-transform">check</span>
+</div>
+<span class="flex-1 text-on-surface group-has-[:checked]:text-on-surface-variant group-has-[:checked]:line-through">Охладить до комнатной температуры</span>
+</label>
+<label class="flex items-center p-4 gap-4 hover:bg-surface-container-low rounded-lg transition-colors cursor-pointer group">
+<div class="relative flex items-center justify-center">
+<input class="peer appearance-none w-6 h-6 rounded-md border-2 border-primary-container checked:bg-primary-container transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute text-on-primary-container text-lg scale-0 peer-checked:scale-100 transition-transform">check</span>
+</div>
+<span class="flex-1 text-on-surface">Разделить на 5 равных порций</span>
+</label>
+<label class="flex items-center p-4 gap-4 hover:bg-surface-container-low rounded-lg transition-colors cursor-pointer group">
+<div class="relative flex items-center justify-center">
+<input class="peer appearance-none w-6 h-6 rounded-md border-2 border-primary-container checked:bg-primary-container transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute text-on-primary-container text-lg scale-0 peer-checked:scale-100 transition-transform">check</span>
+</div>
+<span class="flex-1 text-on-surface">Маркировать контейнеры «Пн-Пт»</span>
+</label>
+<label class="flex items-center p-4 gap-4 hover:bg-surface-container-low rounded-lg transition-colors cursor-pointer group">
+<div class="relative flex items-center justify-center">
+<input class="peer appearance-none w-6 h-6 rounded-md border-2 border-primary-container checked:bg-primary-container transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute text-on-primary-container text-lg scale-0 peer-checked:scale-100 transition-transform">check</span>
+</div>
+<span class="flex-1 text-on-surface">Вакуумировать для хранения</span>
+</label>
+</div>
+</section>
+<!-- Aesthetic Card Block -->
+<section class="grid grid-cols-2 gap-4">
+<div class="col-span-2 relative h-40 rounded-2xl overflow-hidden group">
+<img alt="Organized Prep" class="w-full h-full object-cover" data-alt="Minimalist kitchen scene with organized glass containers and fresh herbs on a light stone countertop with soft morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDb-EOcHpj7lOwJyTJ4haCjvyfhm61_N0wjeE0Kt-NOFPOTsHuPjjWEj8D6lOYtYH4ANmcsb6VE7tr9gWVHo9dq3N6Oo_rntRr_bmHnC7V9X3NrWVhgzEPAIQFnjqCuYGAho4FDb0jqhZS0-dOzVk9rhoGDlQVwbTymH3vpK2E0fCgqT6kKLGad4dK_P1LyQv0i34iUFpcGxw2Jcr5uZsuLKcHOPjM90jyyVn9IhKbSr2--AdGOqoApHVMzQu5wt4on3cT7pYZvr5od"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent flex flex-col justify-end p-6">
+<p class="text-white font-medium">Чистое рабочее место — залог успеха</p>
+<p class="text-primary-fixed text-xs">Подготовьте контейнеры заранее</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-[#ffffff]/80 backdrop-blur-xl z-50 rounded-t-[24px] shadow-[0_-12px_32px_rgba(44,51,55,0.04)]">
+<a class="flex flex-col items-center justify-center text-[#596064] px-5 py-1.5 hover:opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined">restaurant_menu</span>
+<span class="font-['Inter'] text-[11px] uppercase tracking-[0.05em] font-medium mt-1">Меню</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#596064] px-5 py-1.5 hover:opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-['Inter'] text-[11px] uppercase tracking-[0.05em] font-medium mt-1">Покупки</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-[#cbe9dc] text-[#3c574d] rounded-full px-5 py-1.5 active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">set_meal</span>
+<span class="font-['Inter'] text-[11px] uppercase tracking-[0.05em] font-medium mt-1">Подготовка</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#596064] px-5 py-1.5 hover:opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-['Inter'] text-[11px] uppercase tracking-[0.05em] font-medium mt-1">Хранение</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#596064] px-5 py-1.5 hover:opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-['Inter'] text-[11px] uppercase tracking-[0.05em] font-medium mt-1">Профиль</span>
+</a>
+</nav>
+<!-- Floating Action Button for Next Step -->
+<div class="fixed bottom-28 right-6">
+<button class="bg-primary text-on-primary h-14 w-14 rounded-full flex items-center justify-center shadow-lg active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-3xl">arrow_forward</span>
+</button>
+</div>
+</body></html>

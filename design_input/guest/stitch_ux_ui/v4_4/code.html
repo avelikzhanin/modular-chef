@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary-fixed": "#2a453b",
+                      "on-tertiary": "#fff7f8",
+                      "on-surface-variant": "#596064",
+                      "secondary-dim": "#5c5050",
+                      "error-dim": "#67040d",
+                      "surface-tint": "#49655a",
+                      "surface-dim": "#d4dbdf",
+                      "outline-variant": "#acb3b7",
+                      "on-primary-fixed-variant": "#466157",
+                      "surface-variant": "#dde3e8",
+                      "primary-dim": "#3e594e",
+                      "surface-container-lowest": "#ffffff",
+                      "on-error-container": "#6e0a12",
+                      "error-container": "#fa746f",
+                      "tertiary-fixed": "#fde5ec",
+                      "tertiary-container": "#fde5ec",
+                      "on-tertiary-fixed-variant": "#6d5c62",
+                      "surface-container-high": "#e3e9ec",
+                      "primary-fixed-dim": "#bddbce",
+                      "tertiary": "#6c5b61",
+                      "surface-bright": "#f8f9fb",
+                      "secondary-fixed-dim": "#e2d0d0",
+                      "primary": "#49655a",
+                      "on-primary": "#e4fff3",
+                      "tertiary-fixed-dim": "#eed7de",
+                      "on-tertiary-container": "#635258",
+                      "secondary-container": "#f0dede",
+                      "secondary-fixed": "#f0dede",
+                      "surface-container": "#eaeef2",
+                      "outline": "#757c80",
+                      "primary-fixed": "#cbe9dc",
+                      "on-tertiary-fixed": "#504046",
+                      "primary-container": "#cbe9dc",
+                      "on-error": "#fff7f6",
+                      "on-background": "#2c3337",
+                      "surface-container-highest": "#dde3e8",
+                      "inverse-primary": "#dcfbed",
+                      "on-secondary-container": "#5b4f4f",
+                      "on-secondary": "#fff7f6",
+                      "tertiary-dim": "#5f4f55",
+                      "background": "#f8f9fb",
+                      "surface-container-low": "#f0f4f7",
+                      "on-secondary-fixed": "#483d3d",
+                      "secondary": "#695c5c",
+                      "on-surface": "#2c3337",
+                      "inverse-on-surface": "#9b9d9f",
+                      "inverse-surface": "#0b0f10",
+                      "surface": "#f8f9fb",
+                      "error": "#a83836",
+                      "on-secondary-fixed-variant": "#655859",
+                      "on-primary-container": "#3c574d"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "xxl": "1.5rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Inter"],
+                      "body": ["Inter"],
+                      "label": ["Inter"]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .glass-effect {
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-32 selection:bg-primary-container">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky bg-[#f0f4f7] dark:bg-slate-900 z-40">
+<div class="flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden">
+<img alt="Guest user profile icon" class="w-full h-full object-cover" data-alt="Professional headshot of a friendly man with a warm smile, minimalist clean studio background, soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeZZUUfao-qMqpPiRkrAukSUu7yOaULpts7BiMeTTrEFIZ7JkGS6WJlMRPVRHt5uMPn-LzJDs_n9wDkBoR3HlLsX67kRCZZSqs8mXfsxouWj5otqd5ZfaSoo1UfCmiIFXDEOjqNgAWRxuS6Uk1I0pGl_y1ByhBB-Z9LTjUlrmC8QJlH7ddagMfMqVybhKCAwWeFYCBvGnRTteeVWO3_BaUxfGyWm19sxPDKdfiCQUuGdLEUGJYeNKYXuK-HuFPODwbx3qCJJ5sRE3O"/>
+</div>
+<h1 class="text-xl font-bold text-[#49655a] dark:text-[#cbe9dc] font-headline tracking-tight">Шеф-повар</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-[#cbe9dc]/20 transition-colors active:scale-95 duration-150 text-[#49655a]">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</header>
+<main class="px-6 mt-8 max-w-2xl mx-auto">
+<!-- Hero Section -->
+<section class="mb-8">
+<div class="flex flex-col gap-1">
+<p class="text-on-surface-variant font-medium text-sm tracking-wide">Понедельник, 14 апреля</p>
+<h2 class="text-3xl font-extrabold text-on-surface leading-tight tracking-tight">Привет! Вот твоё меню на сегодня</h2>
+</div>
+</section>
+<!-- Alert Banner -->
+<div class="mb-10 p-5 bg-secondary-container rounded-xxl flex items-start gap-4 shadow-sm">
+<div class="text-[#a83836]">
+<span class="material-symbols-outlined">warning</span>
+</div>
+<p class="text-on-secondary-container font-medium text-sm">Йогуртовый соус — последний день, используй сегодня</p>
+</div>
+<!-- Meals Grid - Asymmetric Layout -->
+<div class="flex flex-col gap-6">
+<!-- Meal Card 1 -->
+<div class="relative overflow-hidden bg-surface-container-lowest rounded-xxl transition-all hover:scale-[1.01] group">
+<div class="aspect-[16/9] w-full overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Top view of healthy oatmeal bowl topped with fresh blueberries, raspberries, and a drizzle of golden honey on a white marble surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3mzy5PY7JxcjzLmVvtVTXUEpygeqRaiaz7piD4YqlQUzyPSqk9V39D4jYY8lglYisH4HOS3gP9Oyvf26euX6WI3VkaQq3OA2TZTOCQ346G2f8OGfQ7BgSEbaB0C2BzAd2ZBYyq9qzj2VEriqurYlB7qpQ6fDmnZY6siwk2OWiBb6BnF8pUpIssgMakKrpd3OFqszHLQ3dPuH4gkjXm8-dgeVlpDH6Fk8yoTVJj5WICOc_yTd8zOSWKDioZ78BWRBU3DBSnlKb5yRm"/>
+<div class="absolute top-4 right-4 bg-surface-container-lowest/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">schedule</span> 0 мин
+                    </div>
+</div>
+<div class="p-6">
+<span class="text-[10px] font-bold uppercase tracking-[0.1em] text-primary mb-2 block">Завтрак</span>
+<h3 class="text-xl font-bold text-on-surface mb-3 leading-snug">Овсянка с ягодами и мёдом</h3>
+<div class="flex items-start gap-2 text-on-surface-variant">
+<div class="w-2 h-2 mt-1.5 rounded-full bg-green-500 shrink-0"></div>
+<p class="text-sm">Достать из холодильника. Перемешать, есть.</p>
+</div>
+</div>
+</div>
+<!-- Meal Card 2 -->
+<div class="relative overflow-hidden bg-surface-container-lowest rounded-xxl transition-all hover:scale-[1.01] group">
+<div class="aspect-[16/9] w-full overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Grilled chicken breast slices served with steamed broccoli and fluffy white rice on a ceramic plate, elegant minimal lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZ6jmbKEIl0neuzboqXRPP7urO-vIR3HF9bvtUDfn8_rKwH-72aE8RhjENu-IkGpg0Ith2gxCGFmbV0YgOJ-apFJjfIzV_LfWTYOK0vUQZuPQ_Urx0KzKMuX1Ia3YWhw1vbHDChC0759zg3bXsMzmiN_GH0NL3QP2JCFLf7UHIJHOpvLApgXON0jOOdBWb6S-3ZqmcZvmphaDENb-dYbAw6NDUTipImsWS74AD_SOYhwR-iTovZZAKVd7H5D7QqGC58EV3vmMc_IsO"/>
+<div class="absolute top-4 right-4 bg-surface-container-lowest/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">schedule</span> 2 мин
+                    </div>
+</div>
+<div class="p-6">
+<span class="text-[10px] font-bold uppercase tracking-[0.1em] text-primary mb-2 block">Обед</span>
+<h3 class="text-xl font-bold text-on-surface mb-3 leading-snug">Курица гриль + рис + брокколи</h3>
+<div class="flex items-start gap-2 text-on-surface-variant">
+<div class="w-2 h-2 mt-1.5 rounded-full bg-green-500 shrink-0"></div>
+<p class="text-sm">Разогреть 2 мин. Добавить йогуртовый соус.</p>
+</div>
+</div>
+</div>
+<!-- Meal Card 3 -->
+<div class="relative overflow-hidden bg-surface-container-lowest rounded-xxl transition-all hover:scale-[1.01] group">
+<div class="aspect-[16/9] w-full overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="Roasted salmon fillet paired with bulgur wheat and a fresh garden salad on a designer plate, ethereal soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPerW9GUYzdA3hwDDPag4IIEoJfTM0UyHKkxjOn2kJngfypx4JB6KLH1pB-wKOpsEdSApg5Fcev-CJMgewcGAaYPIrC05ssEQezezKi7x9M6Av4to7Zb6CPOVNZeZ2mfw0WlxrKa6FKt4KT4d9LsxTwGwN6FZWVbQpXSP7e7-nrJ8UIs0l8vfbth2emiccZvtTIydnld2nsRNY5DqGl53pA2M7Z0wsue1e8KxAM0sFypvMt_ibsAVdNJUBB5NxqzIfRrY7mMPRmRnW"/>
+<div class="absolute top-4 right-4 bg-surface-container-lowest/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">schedule</span> 5 мин
+                    </div>
+</div>
+<div class="p-6">
+<span class="text-[10px] font-bold uppercase tracking-[0.1em] text-primary mb-2 block">Ужин</span>
+<h3 class="text-xl font-bold text-on-surface mb-3 leading-snug">Лосось + булгур + салат из овощей</h3>
+<div class="flex items-start gap-2 text-on-surface-variant">
+<div class="w-2 h-2 mt-1.5 rounded-full bg-purple-500 shrink-0"></div>
+<p class="text-sm">Лосось из вакуума. Булгур разогреть 2 мин.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Link -->
+<div class="mt-12 mb-8 text-center">
+<a class="inline-flex items-center gap-2 text-primary font-semibold py-4 px-8 rounded-full bg-primary-container/30 hover:bg-primary-container transition-all active:scale-95" href="#">
+                Хочу что-то другое <span class="material-symbols-outlined">trending_flat</span>
+</a>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl z-50 rounded-t-[1.5rem] shadow-[0_-12px_32px_rgba(44,51,55,0.04)]">
+<!-- Active Tab: Сегодня -->
+<a class="flex flex-col items-center justify-center bg-[#cbe9dc] text-[#3c574d] rounded-full px-6 py-2 transition-all scale-110 duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="text-[12px] font-medium tracking-wide uppercase font-['Inter']">Сегодня</span>
+</a>
+<!-- Tab: Неделя -->
+<a class="flex flex-col items-center justify-center text-[#596064] px-6 py-2 hover:bg-[#f0dede] transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="date_range">date_range</span>
+<span class="text-[12px] font-medium tracking-wide uppercase font-['Inter']">Неделя</span>
+</a>
+<!-- Tab: Запасы -->
+<a class="flex flex-col items-center justify-center text-[#596064] px-6 py-2 hover:bg-[#f0dede] transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="text-[12px] font-medium tracking-wide uppercase font-['Inter']">Запасы</span>
+</a>
+</nav>
+</body></html>

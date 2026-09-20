@@ -8,22 +8,24 @@ import 'app_colors.dart';
 abstract final class AppTypography {
   /// Material 3 type scale, заданная явно, чтобы её можно было применять
   /// независимо от того, удалось ли подгрузить шрифт.
+  /// Шкала под DESIGN.md «Linen, Sand & Young Leaf»: серифные заголовки w600
+  /// (редакторская «книжная» подача), мелкие подписи w600 в разрядку.
   static const TextTheme baseScale = TextTheme(
-    displayLarge:  TextStyle(fontSize: 57, fontWeight: FontWeight.w400),
-    displayMedium: TextStyle(fontSize: 45, fontWeight: FontWeight.w400),
-    displaySmall:  TextStyle(fontSize: 36, fontWeight: FontWeight.w400),
-    headlineLarge:  TextStyle(fontSize: 32, fontWeight: FontWeight.w400),
-    headlineMedium: TextStyle(fontSize: 28, fontWeight: FontWeight.w400),
-    headlineSmall:  TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
-    titleLarge:  TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
-    titleMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-    titleSmall:  TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+    displayLarge:  TextStyle(fontSize: 48, fontWeight: FontWeight.w600),
+    displayMedium: TextStyle(fontSize: 40, fontWeight: FontWeight.w600),
+    displaySmall:  TextStyle(fontSize: 32, fontWeight: FontWeight.w600),
+    headlineLarge:  TextStyle(fontSize: 32, fontWeight: FontWeight.w600),
+    headlineMedium: TextStyle(fontSize: 28, fontWeight: FontWeight.w600),
+    headlineSmall:  TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+    titleLarge:  TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+    titleMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+    titleSmall:  TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
     bodyLarge:  TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
     bodyMedium: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
     bodySmall:  TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
-    labelLarge:  TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-    labelMedium: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
-    labelSmall:  TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
+    labelLarge:  TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+    labelMedium: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+    labelSmall:  TextStyle(fontSize: 11, fontWeight: FontWeight.w600),
   );
 
   /// Чистая функция: применяет правила типографики (letter-spacing, цвета)

@@ -11,11 +11,22 @@ abstract final class AppColors {
   static const Color surfaceContainerHigh = Color(0xFFDCD2BE);
   static const Color surfaceContainerLowest = Color(0xFFFBF6EE); // карточки (тёплая бумага)
 
-  // Primary — сухая глина (терракота приглушённая)
-  static const Color primary = Color(0xFFAE6A4D);
-  static const Color onPrimary = Color(0xFFFFF7F1);
-  static const Color primaryContainer = Color(0xFFE8CDBD); // светлая глина — заливки/индикатор
-  static const Color onPrimaryContainer = Color(0xFF6E3D27);
+  // Primary — молодой лист (зелёный акцент). Глубокий зелёный — заголовки/
+  // активное; молодой лист (container) — заливка кнопок и индикатор навигации.
+  static const Color primary = Color(0xFF436823); // глубокий лист — заголовки, активное
+  static const Color onPrimary = Color(0xFFFFFFFF);
+  static const Color primaryContainer = Color(0xFF8FB96A); // молодой лист — кнопки/индикатор
+  static const Color onPrimaryContainer = Color(0xFF23351A); // лист-чернила — текст на кнопке
+
+  // Светлый лист — мягкие чипы/«выбрано»; глина — только тёплая деталь (♥, алерт).
+  static const Color lightLeaf = Color(0xFFDCE9C8);
+  static const Color leafDeep = Color(0xFF4C6B2F);
+  static const Color clay = Color(0xFFAE6A4D);
+
+  // Глубокое озеро — второй акварельный акцент: вторая кнопка в паре.
+  // Подложка близка к среднему тону акварели btn_lake; текст — чернила озера.
+  static const Color lake = Color(0xFF56718D);
+  static const Color onLake = Color(0xFF182B40);
 
   // Secondary — олива-тауп
   static const Color secondary = Color(0xFF8A7E5E);

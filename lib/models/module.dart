@@ -8,7 +8,14 @@ enum ModuleCategory {
   breakfast('breakfast', 'Завтраки'),
   snack('snack', 'Перекусы'),
   vegetable('vegetable', 'Овощи'),
-  sauce('sauce', 'Соусы');
+  sauce('sauce', 'Соусы'),
+  // Конструктор завтрака. Яйца: вид + добавки. Баночка: 4 слоя.
+  eggStyle('egg_style', 'Яйца — вид'),
+  eggAddin('egg_addin', 'Добавки к яйцам'),
+  jarBase('jar_base', 'Основа баночки'),
+  jarBarrier('jar_barrier', 'Прокладка'),
+  jarMiddle('jar_middle', 'Сочный слой'),
+  jarTop('jar_top', 'Хруст / декор');
 
   const ModuleCategory(this.jsonValue, this.label);
   final String jsonValue;
