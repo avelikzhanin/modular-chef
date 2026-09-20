@@ -24,6 +24,10 @@ pubspec.lock
 analysis_options.yaml
 *.iml
 
+# Арт-ассеты приложения — бэкенду нужен только assets/data/
+assets/art/
+assets/images/
+
 # Dev environments
 .venv/
 .idea/
@@ -34,3 +38,7 @@ __pycache__/
 # OS
 .DS_Store
 Thumbs.db
+
+# Собранные APK — бэкенду не нужны, иначе upload висит на 250 МБ
+release/
+docs/

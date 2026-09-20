@@ -30,6 +30,13 @@ class _Picks(_ReqModel):
     soups: list[str] = Field(default_factory=list)
     breakfasts: list[str] = Field(default_factory=list)
     custom: list[str] = Field(default_factory=list)
+    # Уточнения внутри типов завтрака. Пустой список значит «Шеф не уточнял» —
+    # тогда выбор за моделью; непустой обязателен к исполнению, иначе в покупки
+    # едут добавки, которых Шеф не выбирал.
+    eggStyles: list[str] = Field(default_factory=list)
+    eggAddins: list[str] = Field(default_factory=list)
+    porridgeKinds: list[str] = Field(default_factory=list)
+    sandwichFillings: list[str] = Field(default_factory=list)
 
 
 class PreferencesSchema(_ReqModel):
@@ -48,6 +55,8 @@ class GenerationRequestSchema(_ReqModel):
     picks: _Picks
     preferences: PreferencesSchema = Field(default_factory=PreferencesSchema)
     favourites: list[FavouriteComboSchema] = Field(default_factory=list)
+    # Горизонт меню. Старый клиент поле не шлёт — для него остаются две недели.
+    weeks: int = Field(default=2, ge=1, le=3)
 
 
 # ---------- Response ----------
@@ -55,7 +64,21 @@ class GenerationRequestSchema(_ReqModel):
 
 class MealComponentSchema(_ApiModel):
     moduleId: str
-    role: Literal["protein", "side", "vegetable", "sauce", "base", "standalone"]
+    role: Literal[
+        "protein",
+        "side",
+        "vegetable",
+        "sauce",
+        "base",
+        "standalone",
+        # завтрак-конструктор
+        "egg_style",
+        "addition",
+        "jar_base",
+        "jar_barrier",
+        "jar_middle",
+        "jar_top",
+    ]
     name: str
     emoji: str = ""
 

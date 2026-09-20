@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
 from app.llm_client import LlmClient
-from app.routers import catalog, menus
+from app.routers import catalog, menus, state
 
 logger = logging.getLogger(__name__)
 
@@ -54,6 +54,7 @@ app.add_middleware(
 
 app.include_router(menus.router)
 app.include_router(catalog.router)
+app.include_router(state.router)
 
 
 @app.get("/health")

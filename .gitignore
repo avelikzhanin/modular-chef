@@ -43,3 +43,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Собранные APK — артефакты сборки, в репозиторий не кладём (сотни МБ)
+release/
