@@ -6,12 +6,12 @@ import 'package:modular_chef/theme/app_typography.dart';
 
 void main() {
   group('AppColors «Лён и глина»', () {
-    test('primary is dry clay', () {
-      expect(AppColors.primary, const Color(0xFFAE6A4D));
+    test('primary is deep leaf green', () {
+      expect(AppColors.primary, const Color(0xFF436823));
     });
 
-    test('primary container is light clay', () {
-      expect(AppColors.primaryContainer, const Color(0xFFE8CDBD));
+    test('primary container is young leaf', () {
+      expect(AppColors.primaryContainer, const Color(0xFF8FB96A));
     });
 
     test('surface base is warm linen', () {
@@ -43,8 +43,8 @@ void main() {
     final theme = AppTypography.applyTypeRules(AppTypography.baseScale);
 
     test('display large uses tight letter-spacing (-0.02em)', () {
-      // -0.02em при fontSize 57 ≈ -1.14 logical px
-      expect(theme.displayLarge!.letterSpacing, closeTo(-1.14, 0.05));
+      // -0.02em при fontSize 48 = -0.96 logical px
+      expect(theme.displayLarge!.letterSpacing, closeTo(-0.96, 0.05));
     });
 
     test('body large color is the warm muted brown', () {
@@ -85,11 +85,11 @@ void main() {
       expect(card.elevation, 0);
     });
 
-    test('filled button is restrained: clay fill, 14 radius, not a pill', () {
+    test('filled button is restrained: young-leaf fill, 14 radius, not a pill', () {
       final style = theme.filledButtonTheme.style!;
       final shape = style.shape!.resolve({}) as RoundedRectangleBorder;
       expect((shape.borderRadius as BorderRadius).topLeft.x, 14);
-      expect(style.backgroundColor!.resolve({}), AppColors.primary);
+      expect(style.backgroundColor!.resolve({}), AppColors.primaryContainer);
     });
 
     test('navigation bar is flat and uses primary container as indicator', () {

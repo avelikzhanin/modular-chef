@@ -4,7 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:modular_chef/routing/app_router.dart';
 import 'package:modular_chef/routing/routes.dart';
+import 'package:modular_chef/services/active_menu.dart';
+import 'package:modular_chef/services/app_settings.dart';
 import 'package:modular_chef/services/catalog_service.dart';
+import 'package:modular_chef/services/local_store.dart';
+import 'package:modular_chef/services/my_dishes.dart';
+import 'package:modular_chef/services/pantry_stock.dart';
+import 'package:modular_chef/services/shopping_list.dart';
 import 'package:modular_chef/services/today_plan.dart';
 import 'package:modular_chef/shell/role.dart';
 import 'package:modular_chef/shell/role_provider.dart';
@@ -24,6 +30,12 @@ Future<void> _pumpApp(WidgetTester tester, RoleProvider provider) async {
         ChangeNotifierProvider<RoleProvider>.value(value: provider),
         ChangeNotifierProvider<CatalogService>.value(value: catalog),
         ChangeNotifierProvider<TodayPlan>(create: (_) => TodayPlan()),
+        ChangeNotifierProvider<ActiveMenu>(create: (_) => ActiveMenu()),
+        ChangeNotifierProvider<PantryStock>(create: (_) => PantryStock()),
+        ChangeNotifierProvider<AppSettings>(create: (_) => AppSettings()),
+        ChangeNotifierProvider<MyDishes>(create: (_) => MyDishes()),
+        ChangeNotifierProvider<ShoppingList>(create: (_) => ShoppingList()),
+        Provider<LocalStore>(create: (_) => LocalStore()),
       ],
       child: MaterialApp.router(
         // Инжектим текст-тему без google_fonts, чтобы не дёргать сеть.

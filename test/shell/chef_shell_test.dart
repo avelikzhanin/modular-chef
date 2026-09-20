@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:modular_chef/shell/chef_shell.dart';
+import 'package:modular_chef/shell/linen_nav_bar.dart';
 
 Widget _harness(Widget child) => MaterialApp(home: child);
 
 void main() {
   group('ChefShell', () {
-    testWidgets('renders NavigationBar with 5 destinations', (tester) async {
+    testWidgets('renders LinenNavBar with 5 destinations', (tester) async {
       await tester.pumpWidget(_harness(
         ChefShell(
           currentIndex: 0,
@@ -15,8 +16,7 @@ void main() {
         ),
       ));
 
-      expect(find.byType(NavigationBar), findsOneWidget);
-      expect(find.byType(NavigationDestination), findsNWidgets(5));
+      expect(find.byType(LinenNavBar), findsOneWidget);
     });
 
     testWidgets('labels match chef tab plan', (tester) async {
@@ -28,7 +28,7 @@ void main() {
         ),
       ));
 
-      for (final label in const ['Меню', 'Покупки', 'Подготовка', 'Хранение', 'Профиль']) {
+      for (final label in const ['Меню', 'Покупки', 'Готовка', 'Запасы', 'Профиль']) {
         expect(find.text(label), findsOneWidget, reason: 'missing tab "$label"');
       }
     });

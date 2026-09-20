@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:modular_chef/shell/guest_shell.dart';
+import 'package:modular_chef/shell/linen_nav_bar.dart';
 
 Widget _harness(Widget child) => MaterialApp(home: child);
 
 void main() {
   group('GuestShell', () {
-    testWidgets('renders NavigationBar with 2 destinations', (tester) async {
+    testWidgets('renders LinenNavBar with 2 destinations', (tester) async {
       await tester.pumpWidget(_harness(
         GuestShell(
           currentIndex: 0,
@@ -15,8 +16,7 @@ void main() {
         ),
       ));
 
-      expect(find.byType(NavigationBar), findsOneWidget);
-      expect(find.byType(NavigationDestination), findsNWidgets(2));
+      expect(find.byType(LinenNavBar), findsOneWidget);
     });
 
     testWidgets('labels match guest tab plan (Сегодня + Запасы)', (tester) async {

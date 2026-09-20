@@ -32,6 +32,53 @@ void main() {
       );
     }
 
+    test('выбранные супы попадают в меню', () async {
+      const gen = StubMenuGenerator();
+      final menu = await gen.generate(
+        const GenerationRequest(
+          proteinIds: ['chicken_breast'],
+          sideIds: ['rice'],
+          soupIds: ['borscht'],
+          breakfastIds: ['eggs'],
+        ),
+        modules: catalog.allModules,
+        pairings: catalog.allPairings,
+      );
+      final ids = <String>{
+        for (final w in menu.weeks)
+          for (final d in w.days)
+            for (final s in MealSlot.values) ...?d.mealAt(s)?.moduleIds,
+      };
+      expect(ids, contains('borscht'),
+          reason: 'суп выбран — значит должен быть в меню и в покупках');
+    });
+
+    test('меню использует только те виды яиц, что держит Шеф', () async {
+      const gen = StubMenuGenerator();
+      final menu = await gen.generate(
+        const GenerationRequest(
+          proteinIds: ['chicken_breast'],
+          sideIds: ['rice'],
+          soupIds: [],
+          breakfastIds: ['eggs'],
+          eggStyleIds: ['egg_omelet'],
+          eggAddinIds: ['addin_cheese'],
+        ),
+        modules: catalog.allModules,
+        pairings: catalog.allPairings,
+      );
+      final breakfastIds = <String>{
+        for (final w in menu.weeks)
+          for (final d in w.days) ...d.breakfast.moduleIds,
+      };
+      expect(breakfastIds, contains('egg_omelet'));
+      expect(breakfastIds.where((id) => id.startsWith('egg_')),
+          everyElement('egg_omelet'));
+      expect(breakfastIds.where((id) => id.startsWith('addin_')),
+          everyElement('addin_cheese'),
+          reason: 'в покупки не должно попадать то, что Шеф не выбирал');
+    });
+
     test('produces 2 weeks × 7 days × 3 meals = 42 slots', () async {
       final menu = await generate();
 

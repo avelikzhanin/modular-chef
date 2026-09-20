@@ -61,4 +61,44 @@ void main() {
       expect(prompt, contains('"weekStyle": "mediterranean"'));
     });
   });
+
+  group('GenerationRequest.toJson', () {
+    test('уточнения Шефа по завтракам уходят на бэкенд', () {
+      const req = GenerationRequest(
+        proteinIds: ['chicken_breast'],
+        sideIds: [],
+        soupIds: [],
+        breakfastIds: ['eggs'],
+        weeks: 3,
+        eggStyleIds: ['egg_omelet'],
+        eggAddinIds: ['addin_cheese', 'addin_tomatoes'],
+        porridgeKindIds: ['porridge_oat'],
+        sandwichFillingIds: ['addin_ham'],
+      );
+
+      final json = req.toJson();
+      final picks = json['picks'] as Map<String, dynamic>;
+
+      // Раньше эти поля терялись по дороге, и сервер добирал добавки сам —
+      // в покупках оказывались бекон и фета, которых Шеф не выбирал.
+      expect(picks['eggStyles'], ['egg_omelet']);
+      expect(picks['eggAddins'], ['addin_cheese', 'addin_tomatoes']);
+      expect(picks['porridgeKinds'], ['porridge_oat']);
+      expect(picks['sandwichFillings'], ['addin_ham']);
+      expect(json['weeks'], 3, reason: 'горизонт меню тоже игнорировался');
+    });
+
+    test('по умолчанию уточнений нет — сервер выбирает сам', () {
+      const req = GenerationRequest(
+        proteinIds: ['chicken_breast'],
+        sideIds: [],
+        soupIds: [],
+        breakfastIds: ['eggs'],
+      );
+
+      final picks = req.toJson()['picks'] as Map<String, dynamic>;
+      expect(picks['eggStyles'], isEmpty);
+      expect(picks['eggAddins'], isEmpty);
+    });
+  });
 }
